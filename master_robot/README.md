@@ -2,28 +2,37 @@ socially-store-robot
 ===
 Requirement
 ---
-* Nvidia driver >= 410.48
-* Docker >= 19.03.13
-* Nvidia-docker >= 2.5.0
+* ROS Noetic
+* ROS Noetic Moveit!
+* CUDA 11.7.1
+* NVIDIA 515-driver toolkit
 
 Installation
 ---
 Pull docker image
 ```
-docker pull oocami35029287/marslite_simulation:cuda10
+docker pull andrew1997fan/hospital_social:yang.environment
 ```
 Pull this github
 ```
-git@github.com:oocami35029287/socially-store-robot.git
+git clone git@github.com:Andrew1997Fan/hospital_social.git
 ```
 
 Make files
 ---
 Before you start, you should compile all the required files.
-```bash
-source mars_ws/compile_py36.sh
-source yolo_ws/compile_py36.sh
+for mars_ws
 ```
+cd master_robot/mars_ws/
+catkin_make
+```
+for yolo_ws
+```
+cd master_robot/yolo_ws/
+catkin_make
+```
+for the catkin_ws, we ignore it 
+
 To run the corrider simulation
 ---
 If you want to navigate robot in the crowd, you should try this.
