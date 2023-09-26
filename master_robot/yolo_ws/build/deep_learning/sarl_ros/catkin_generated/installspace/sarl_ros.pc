@@ -1,0 +1,8 @@
+prefix=/home/developer/master_ws/master_robot/yolo_ws/install
+
+Name: sarl_ros
+Description: Description of sarl_ros
+Version: 0.0.1
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

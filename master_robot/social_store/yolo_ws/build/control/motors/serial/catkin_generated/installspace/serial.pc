@@ -1,0 +1,8 @@
+prefix=/home/developer/master_ws/master_robot/social_store/yolo_ws/install
+
+Name: serial
+Description: Description of serial
+Version: 1.2.1
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lserial -lrt -lpthread
+Requires: 

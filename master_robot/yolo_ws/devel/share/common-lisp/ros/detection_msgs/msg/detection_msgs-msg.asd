@@ -1,0 +1,38 @@
+
+(cl:in-package :asdf)
+
+(defsystem "detection_msgs-msg"
+  :depends-on (:roslisp-msg-protocol :roslisp-utils :geometry_msgs-msg
+               :sensor_msgs-msg
+               :std_msgs-msg
+)
+  :components ((:file "_package")
+    (:file "BBox2D" :depends-on ("_package_BBox2D"))
+    (:file "_package_BBox2D" :depends-on ("_package"))
+    (:file "BBox2D" :depends-on ("_package_BBox2D"))
+    (:file "_package_BBox2D" :depends-on ("_package"))
+    (:file "Det3D" :depends-on ("_package_Det3D"))
+    (:file "_package_Det3D" :depends-on ("_package"))
+    (:file "Det3D" :depends-on ("_package_Det3D"))
+    (:file "_package_Det3D" :depends-on ("_package"))
+    (:file "Det3DArray" :depends-on ("_package_Det3DArray"))
+    (:file "_package_Det3DArray" :depends-on ("_package"))
+    (:file "Det3DArray" :depends-on ("_package_Det3DArray"))
+    (:file "_package_Det3DArray" :depends-on ("_package"))
+    (:file "Detection2D" :depends-on ("_package_Detection2D"))
+    (:file "_package_Detection2D" :depends-on ("_package"))
+    (:file "Detection2D" :depends-on ("_package_Detection2D"))
+    (:file "_package_Detection2D" :depends-on ("_package"))
+    (:file "StringArray" :depends-on ("_package_StringArray"))
+    (:file "_package_StringArray" :depends-on ("_package"))
+    (:file "StringArray" :depends-on ("_package_StringArray"))
+    (:file "_package_StringArray" :depends-on ("_package"))
+    (:file "Track3D" :depends-on ("_package_Track3D"))
+    (:file "_package_Track3D" :depends-on ("_package"))
+    (:file "Track3D" :depends-on ("_package_Track3D"))
+    (:file "_package_Track3D" :depends-on ("_package"))
+    (:file "Track3DArray" :depends-on ("_package_Track3DArray"))
+    (:file "_package_Track3DArray" :depends-on ("_package"))
+    (:file "Track3DArray" :depends-on ("_package_Track3DArray"))
+    (:file "_package_Track3DArray" :depends-on ("_package"))
+  ))

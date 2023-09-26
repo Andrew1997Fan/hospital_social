@@ -1,0 +1,8 @@
+prefix=/home/developer/master_ws/master_robot/mars_ws/devel
+
+Name: mars_lite_moveit_config
+Description: Description of mars_lite_moveit_config
+Version: 0.3.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

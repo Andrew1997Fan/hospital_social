@@ -1,0 +1,8 @@
+prefix=/home/developer/master_ws/master_robot/social_store/yolo_ws/devel
+
+Name: serial
+Description: Description of serial
+Version: 1.2.1
+Cflags: -I/home/developer/master_ws/master_robot/social_store/yolo_ws/src/control/motors/serial/include
+Libs: -L${prefix}/lib -lserial -lrt -lpthread
+Requires: 

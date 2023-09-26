@@ -1,0 +1,33 @@
+(cl:defpackage detection_msgs-msg
+  (:use )
+  (:export
+   "<BBOX2D>"
+   "BBOX2D"
+   "<BBOX2D>"
+   "BBOX2D"
+   "<DET3D>"
+   "DET3D"
+   "<DET3D>"
+   "DET3D"
+   "<DET3DARRAY>"
+   "DET3DARRAY"
+   "<DET3DARRAY>"
+   "DET3DARRAY"
+   "<DETECTION2D>"
+   "DETECTION2D"
+   "<DETECTION2D>"
+   "DETECTION2D"
+   "<STRINGARRAY>"
+   "STRINGARRAY"
+   "<STRINGARRAY>"
+   "STRINGARRAY"
+   "<TRACK3D>"
+   "TRACK3D"
+   "<TRACK3D>"
+   "TRACK3D"
+   "<TRACK3DARRAY>"
+   "TRACK3DARRAY"
+   "<TRACK3DARRAY>"
+   "TRACK3DARRAY"
+  ))
+

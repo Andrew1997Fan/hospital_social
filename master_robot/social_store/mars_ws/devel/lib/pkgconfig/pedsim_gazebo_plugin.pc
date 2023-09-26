@@ -1,0 +1,8 @@
+prefix=/home/developer/master_ws/master_robot/social_store/mars_ws/devel
+
+Name: pedsim_gazebo_plugin
+Description: Description of pedsim_gazebo_plugin
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: gazebo_ros roscpp geometry_msgs pedsim_msgs

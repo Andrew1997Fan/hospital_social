@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/developer/master_ws/master_robot/mars_ws/src/control/motors/sr_common_drivers/sr_communications/include/sr_communications/ipc/semaphores.h
+sys/types.h
+-
+sys/stat.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+math.h
+-
+errno.h
+-
+unistd.h
+-
+sys/sem.h
+-
+sys/ipc.h
+-
+fcntl.h
+-
+
+/home/developer/master_ws/master_robot/mars_ws/src/control/motors/sr_common_drivers/sr_communications/src/ipc/test/test_manual_semaphores.c
+stdio.h
+-
+string.h
+-
+sr_communications/ipc/semaphores.h
+/home/developer/master_ws/master_robot/mars_ws/src/control/motors/sr_common_drivers/sr_communications/src/ipc/test/sr_communications/ipc/semaphores.h
+

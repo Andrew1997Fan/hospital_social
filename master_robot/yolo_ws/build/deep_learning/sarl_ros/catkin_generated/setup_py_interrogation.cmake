@@ -1,0 +1,7 @@
+set(sarl_ros_SETUP_PY_SETUP_MODULE "distutils.core")
+set(sarl_ros_SETUP_PY_VERSION "0.0.1")
+set(sarl_ros_SETUP_PY_SCRIPTS "")
+set(sarl_ros_SETUP_PY_PACKAGES "crowd_nav;crowd_sim")
+set(sarl_ros_SETUP_PY_PACKAGE_DIRS "src/crowd_nav;src/crowd_sim")
+set(sarl_ros_SETUP_PY_MODULES "")
+set(sarl_ros_SETUP_PY_MODULE_DIRS "")

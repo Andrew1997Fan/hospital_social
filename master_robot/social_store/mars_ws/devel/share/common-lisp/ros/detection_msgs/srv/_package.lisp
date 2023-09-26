@@ -1,0 +1,10 @@
+(cl:defpackage detection_msgs-srv
+  (:use )
+  (:export
+   "DETECTION2DTRIG"
+   "<DETECTION2DTRIG-REQUEST>"
+   "DETECTION2DTRIG-REQUEST"
+   "<DETECTION2DTRIG-RESPONSE>"
+   "DETECTION2DTRIG-RESPONSE"
+  ))
+

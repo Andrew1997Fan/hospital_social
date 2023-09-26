@@ -1,0 +1,8 @@
+prefix=/home/developer/master_ws/master_robot/social_store/mars_ws/devel
+
+Name: tm5_description
+Description: Description of tm5_description
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
