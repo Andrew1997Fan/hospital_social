@@ -189,8 +189,8 @@
     </collision>
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="5.0" />
-      <xacro:box_inertia m="5.0" x="${tm_cntrl_box_length}" y="${tm_cntrl_box_width}" z="${tm_cntrl_box_height}" />
+      <mass value="0.01" />
+      <xacro:box_inertia m="0.01" x="${tm_cntrl_box_length}" y="${tm_cntrl_box_width}" z="${tm_cntrl_box_height}" />
     </inertial>
   </link>
   <joint name="base_link_to_cntrl_box" type="fixed">
