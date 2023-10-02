@@ -67,6 +67,12 @@
           <uri>model://person_walking/meshes/walking.dae</uri>
         </mesh>
       </geometry>
+      <material>
+        <script>
+          <uri>file://media/materials/scripts/gazebo.material</uri>
+          <name>Gazebo/LightBlueLaser</name> <!-- 使用Gazebo默认的红色材质 -->
+        </script>
+      </material>
     </visual>
   </link>
 </model>

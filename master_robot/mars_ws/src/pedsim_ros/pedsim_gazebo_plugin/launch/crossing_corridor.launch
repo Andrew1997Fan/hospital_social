@@ -4,7 +4,7 @@
     <arg name="use_sim_time" default="true"/>
     
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-         <arg name="world_name" value="$(find pedsim_gazebo_plugin)/worlds/crossing_corridor.world"/>
+         <arg name="world_name" value="$(find aws_robomaker_hospital_world)/worlds/hospital.world"/>
          <arg name="use_sim_time" value="$(arg use_sim_time)"/>
     </include>
 

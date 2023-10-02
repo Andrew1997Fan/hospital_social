@@ -3,7 +3,7 @@ xhost +local:docker
 
 # Setup specific docker image and tag
 DOCKER_IMAGE="andrew1997fan/hospital_social"
-DOCKER_LATEST_TAG="yang.environment"
+DOCKER_LATEST_TAG="mars_in_hospital"
 CONTAINER_NAME="ANDREW_MARS"
 
 # Setup the style of color
