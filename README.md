@@ -14,7 +14,7 @@ docker pull andrew1997fan/hospital_social:mars_in_hospital
 ```
 Pull this github
 ```
-git@github.com:oocami35029287/socially-store-robot.git
+git@github.com:Andrew1997Fan/hospital_social.git
 ```
 Add hospital environment in master_robot/mars_ws/src/
 and follow https://github.com/aws-robotics/aws-robomaker-hospital-world instruction to build the package
