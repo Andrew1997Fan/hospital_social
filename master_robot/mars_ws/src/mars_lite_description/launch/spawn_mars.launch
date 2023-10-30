@@ -69,7 +69,7 @@
             <param name="laserscan_topics" value ="/front_scan /back_scan" /> <!-- LIST OF THE LASER SCAN TOPICS TO SUBSCRIBE -->
             <param name="angle_min" value="-3.14159274101"/>
             <param name="angle_max" value="3.14159274101"/>
-            <param name="angle_increment" value="0.05"/>
+            <param name="angle_increment" value="0.02"/>
             <param name="scan_time" value="0.025"/>
             <param name="range_min" value="0.23"/>
             <param name="range_max" value="60.0"/>

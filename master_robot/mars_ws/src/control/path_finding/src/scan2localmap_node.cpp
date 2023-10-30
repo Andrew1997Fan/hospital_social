@@ -26,20 +26,26 @@
 // Custom utils
 #include "localmap_utils.hpp"
 
+// Message filter
+#include <message_filters/subscriber.h>
+#include <message_filters/synchronizer.h>
+#include <message_filters/sync_policies/approximate_time.h>
+#include <message_filters/time_synchronizer.h>
 // using namespace std;
 
 typedef pcl::PointCloud<pcl::PointXYZ> PointCloudXYZ;
 typedef pcl::PointCloud<pcl::PointXYZ>::Ptr PointCloudXYZPtr;
 typedef pcl::PointCloud<pcl::PointXYZRGB> PointCloudXYZRGB;
 typedef pcl::PointCloud<pcl::PointXYZRGB>::Ptr PointCloudXYZRGBPtr;
-
+typedef message_filters::sync_policies::ApproximateTime<walker_msgs::Trk3DArray, sensor_msgs::LaserScan> MySyncPolicy;
+typedef message_filters::Synchronizer<MySyncPolicy> MySynchronizer;
 
 class Scan2LocalmapNode {
 public:
     Scan2LocalmapNode(ros::NodeHandle nh, ros::NodeHandle pnh);
     static void sigint_cb(int sig);
     void scan_cb(const sensor_msgs::LaserScan &laser_msg);
-    void trk3d_cb(const walker_msgs::Trk3DArray::ConstPtr &msg_ptr);
+    void trk3d_cb(const walker_msgs::Trk3DArray::ConstPtr &msg_ptr,const sensor_msgs::LaserScan::ConstPtr &scan);
 
     // ROS related
     ros::NodeHandle nh_, pnh_;
@@ -51,6 +57,10 @@ public:
     geometry_msgs::PolygonStamped::Ptr footprint_ptr_;      // Robot footprint
     laser_geometry::LaserProjection projector_;             // Projector of laserscan
 
+    message_filters::Subscriber<sensor_msgs::LaserScan> scan_sub_p_;
+    message_filters::Subscriber<walker_msgs::Trk3DArray> trk3d_sub_p_;
+    boost::shared_ptr<MySynchronizer> sync_;
+    
     // TF listener
     tf::TransformListener* tflistener_ptr_;
     tf::StampedTransform tf_laser2base_;    
@@ -78,8 +88,8 @@ Scan2LocalmapNode::Scan2LocalmapNode(ros::NodeHandle nh, ros::NodeHandle pnh): n
     std::string scan_src_frameid;
     ros::param::param<double>("~inflation_radius", inflation_radius, 0.2);
     ros::param::param<double>("~map_resolution", map_resolution, 0.1);
-    ros::param::param<double>("~localmap_range_x", localmap_range_x, 10.0);     // map_width --> x axis
-    ros::param::param<double>("~localmap_range_y", localmap_range_y, 10.0);     // map_height --> y_axis
+    ros::param::param<double>("~localmap_range_x", localmap_range_x, 3.0);     // map_width --> x axis
+    ros::param::param<double>("~localmap_range_y", localmap_range_y, 3.0);     // map_height --> y_axis
     ros::param::param<std::string>("~localmap_frameid", localmap_frameid_, "base_link");
     ros::param::param<std::string>("~scan_src_frameid", scan_src_frameid, "front_laser_frame");
     ros::param::param<int>("~agf_type", agf_type_, 0);
@@ -87,7 +97,11 @@ Scan2LocalmapNode::Scan2LocalmapNode(ros::NodeHandle nh, ros::NodeHandle pnh): n
     // ROS publishers & subscribers
     if(agf_type_ >= 0){
         std::cout<<"in trk3d"<<std::endl;
-        sub_scan_ = nh_.subscribe("trk3d_result", 1, &Scan2LocalmapNode::trk3d_cb, this);
+        // sub_scan_ = nh_.subscribe("trk3d_result", 1, &Scan2LocalmapNode::trk3d_cb, this);
+        trk3d_sub_p_.subscribe(nh_, "trk3d_result", 1);
+        scan_sub_p_.subscribe(nh_, "scan", 1);
+        sync_.reset(new MySynchronizer(MySyncPolicy(10), trk3d_sub_p_, scan_sub_p_));
+        sync_->registerCallback(boost::bind(&Scan2LocalmapNode::trk3d_cb, this, _1, _2));
     }
     else
         sub_scan_ = nh_.subscribe("scan", 1, &Scan2LocalmapNode::scan_cb, this);
@@ -144,10 +158,9 @@ Scan2LocalmapNode::Scan2LocalmapNode(ros::NodeHandle nh, ros::NodeHandle pnh): n
 }
 
 
-void Scan2LocalmapNode::trk3d_cb(const walker_msgs::Trk3DArray::ConstPtr &msg_ptr) {
+void Scan2LocalmapNode::trk3d_cb(const walker_msgs::Trk3DArray::ConstPtr &msg_ptr, const sensor_msgs::LaserScan::ConstPtr &scan_ptr) {
     // Get the transformation from tracking result frame to base frame
     tf::StampedTransform tf_trk2base;
-    std::cout<<"++in trk3d"<<std::endl;
     try{
         tflistener_ptr_->waitForTransform(localmap_frameid_, msg_ptr->header.frame_id,
                                     ros::Time(), ros::Duration(0.1));
@@ -160,7 +173,7 @@ void Scan2LocalmapNode::trk3d_cb(const walker_msgs::Trk3DArray::ConstPtr &msg_pt
     }
 
     // std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-    sensor_msgs::LaserScan laser_msg = msg_ptr->scan;
+    sensor_msgs::LaserScan laser_msg = *scan_ptr;
     std::cout<<"in scan"<<std::endl;
     ROS_INFO("Laserscan:",laser_msg.ranges);
     // Convert laserscan to pointcloud:  laserscan --> ROS PointCloud2 --> PCL PointCloudXYZ
@@ -177,7 +190,7 @@ void Scan2LocalmapNode::trk3d_cb(const walker_msgs::Trk3DArray::ConstPtr &msg_pt
 
     // Localmap init
     std::fill(localmap_ptr_->data.begin(), localmap_ptr_->data.end(), 0);
-
+	printf("check it\n");
     double resolution = localmap_ptr_->info.resolution;
     double map_origin_x = localmap_ptr_->info.origin.position.x;
     double map_origin_y = localmap_ptr_->info.origin.position.y;
@@ -328,7 +341,6 @@ void Scan2LocalmapNode::sigint_cb(int sig) {
 
 
 int main(int argc, char **argv) {
-    std::cout<<"fdsafdsfdsfds"<<std::endl;
     ros::init(argc, argv, "laserscan_mapping_node");
     ros::NodeHandle nh, pnh("~");
     Scan2LocalmapNode node(nh, pnh);    

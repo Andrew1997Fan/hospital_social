@@ -59,7 +59,10 @@ class MultiObjectTrackingNode(object):
         
 
         self.sub_det3d = rospy.Subscriber("det3d_result", Det3DArray,self.det_result_cb)
-        # self.sub_scan = message_filters.Subscriber("scan",LaserScan)
+        self.sub_scan = message_filters.Subscriber("scan",LaserScan)
+
+        self.sub_odom = rospy.Subscriber("odom_filtered", Odometry, self.odom_cb, queue_size=1)
+	 # self.sub_scan = message_filters.Subscriber("scan",LaserScan)
         # self.sub_det3d = message_filters.Subscriber("det3d_result", Det3DArray)
         # ts = message_filters.TimeSynchronizer([self.sub_det3d,self.sub_scan], queue_size=5)
         # ts.registerCallback(self.det_result_cb)
@@ -130,7 +133,7 @@ class MultiObjectTrackingNode(object):
 
         # saving results, loop over each tracklet           
         marker_array = MarkerArray()
-        trk3d_array = Trk3DArray()
+        #trk3d_array = Trk3DArray()
         time_now = rospy.Time.now()
         delta_t = (time_now - self.last_time).to_sec()
         if delta_t < 0.1:

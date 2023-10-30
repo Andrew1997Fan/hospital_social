@@ -131,6 +131,7 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/developer/master_ws/master_robot/mars_ws/build/gtest/cmake_install.cmake")
+  include("/home/developer/master_ws/master_robot/mars_ws/build/aws-robomaker-hospital-world/cmake_install.cmake")
   include("/home/developer/master_ws/master_robot/mars_ws/build/pedsim_ros/pedsim_ros/cmake_install.cmake")
   include("/home/developer/master_ws/master_robot/mars_ws/build/control/motors/serial/cmake_install.cmake")
   include("/home/developer/master_ws/master_robot/mars_ws/build/control/motors/sr_common_drivers/sr_common_drivers/cmake_install.cmake")

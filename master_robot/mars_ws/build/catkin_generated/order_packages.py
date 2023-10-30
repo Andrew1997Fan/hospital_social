@@ -2,4 +2,4 @@
 source_root_dir = '/home/developer/master_ws/master_robot/mars_ws/src'
 whitelisted_packages = ''.split(';') if '' != '' else []
 blacklisted_packages = ''.split(';') if '' != '' else []
-underlay_workspaces = '/opt/ros/noetic'.split(';') if '/opt/ros/noetic' != '' else []
+underlay_workspaces = '/home/developer/master_ws/master_robot/mars_ws/devel;/opt/ros/noetic'.split(';') if '/home/developer/master_ws/master_robot/mars_ws/devel;/opt/ros/noetic' != '' else []

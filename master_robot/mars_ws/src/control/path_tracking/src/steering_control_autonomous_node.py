@@ -40,6 +40,7 @@ class SteeringControlAutonomousNode(object):
         self.smooth_path_resolution = self.map_resolution / 2.0     # much smoother than original path
         self.cmd_freq               = rospy.get_param("~cmd_freq", 10.0)
         self.goal_tolerance         = rospy.get_param("~goal_tolerance", 0.2)
+        #self.robot_constraints_dict = rospy.get_param("~constraints", 0.01)
         self.robot_constraints_dict = rospy.get_param('constraints')
 
         # ROS publisher & subscriber
@@ -111,7 +112,7 @@ class SteeringControlAutonomousNode(object):
 
 
     def shutdown_cb(self):
-        self.pub_cmd.publish(Twist())
+        #self.pub_cmd.publish(Twist())
         rospy.loginfo("Shutdown " + rospy.get_name())
 
 

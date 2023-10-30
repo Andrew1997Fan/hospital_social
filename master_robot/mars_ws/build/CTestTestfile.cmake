@@ -5,6 +5,7 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
+subdirs("aws-robomaker-hospital-world")
 subdirs("pedsim_ros/pedsim_ros")
 subdirs("control/motors/serial")
 subdirs("control/motors/sr_common_drivers/sr_common_drivers")
