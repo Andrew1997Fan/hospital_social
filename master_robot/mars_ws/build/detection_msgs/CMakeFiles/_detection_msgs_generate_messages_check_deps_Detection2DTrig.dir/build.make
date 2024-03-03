@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/developer/master_ws/master_robot/mars_ws/build
 include detection_msgs/CMakeFiles/_detection_msgs_generate_messages_check_deps_Detection2DTrig.dir/progress.make
 
 detection_msgs/CMakeFiles/_detection_msgs_generate_messages_check_deps_Detection2DTrig:
-	cd /home/developer/master_ws/master_robot/mars_ws/build/detection_msgs && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py detection_msgs /home/developer/master_ws/master_robot/mars_ws/src/detection_msgs/srv/Detection2DTrig.srv detection_msgs/Detection2D:detection_msgs/BBox2D:geometry_msgs/Pose2D:sensor_msgs/Image:std_msgs/Header
+	cd /home/developer/master_ws/master_robot/mars_ws/build/detection_msgs && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py detection_msgs /home/developer/master_ws/master_robot/mars_ws/src/detection_msgs/srv/Detection2DTrig.srv detection_msgs/Detection2D:std_msgs/Header:sensor_msgs/Image:geometry_msgs/Pose2D:detection_msgs/BBox2D
 
 _detection_msgs_generate_messages_check_deps_Detection2DTrig: detection_msgs/CMakeFiles/_detection_msgs_generate_messages_check_deps_Detection2DTrig
 _detection_msgs_generate_messages_check_deps_Detection2DTrig: detection_msgs/CMakeFiles/_detection_msgs_generate_messages_check_deps_Detection2DTrig.dir/build.make

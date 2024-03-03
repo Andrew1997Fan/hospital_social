@@ -164,6 +164,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/developer/master_ws/master_robot/mars_ws/build/walker_msgs/cmake_install.cmake")
   include("/home/developer/master_ws/master_robot/mars_ws/build/control/path_finding/cmake_install.cmake")
   include("/home/developer/master_ws/master_robot/mars_ws/build/patrol/cmake_install.cmake")
+  include("/home/developer/master_ws/master_robot/mars_ws/build/gazebo_ros_2Dmap_plugin/cmake_install.cmake")
   include("/home/developer/master_ws/master_robot/mars_ws/build/tmr_ros1_simplified_edition/tm5_700_moveit_config/cmake_install.cmake")
 
 endif()

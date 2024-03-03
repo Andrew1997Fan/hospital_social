@@ -1,0 +1,8 @@
+prefix=/home/developer/master_ws/master_robot/mars_ws/install
+
+Name: gazebo_ros_2Dmap_plugin
+Description: Description of gazebo_ros_2Dmap_plugin
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

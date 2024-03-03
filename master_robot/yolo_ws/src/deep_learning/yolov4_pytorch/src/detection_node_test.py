@@ -45,11 +45,13 @@ def detect(cfgfile, weightfile, imgfile):
     m.load_weights(weightfile)
     print('Loading weights from %s... Done!' % (weightfile))
 
-    num_classes = 80
+    num_classes = 3
     if num_classes == 20:
         namesfile = os.path.dirname(__file__) + '/data/voc.names'
     elif num_classes == 80:
         namesfile = os.path.dirname(__file__) + '/data/coco.names'
+    elif num_classes == 3:
+        namesfile = os.path.dirname(__file__) + '/data/obj.names'
     else:
         namesfile = os.path.dirname(__file__) + '/data/names'
 
@@ -78,11 +80,13 @@ def detect_imges(cfgfile, weightfile, imgfile_list=[os.path.dirname(__file__) + 
     m.load_weights(weightfile)
     print('Loading weights from %s... Done!' % (weightfile))
 
-    num_classes = 80
+    num_classes = 3
     if num_classes == 20:
         namesfile = os.path.dirname(__file__) + '/data/voc.names'
     elif num_classes == 80:
         namesfile = os.path.dirname(__file__) + '/data/coco.names'
+    elif num_classes == 3:
+        namesfile = os.path.dirname(__file__) + '/data/obj.names'
     else:
         namesfile = os.path.dirname(__file__) + '/data/names'
 
@@ -120,11 +124,13 @@ class Yolov4Node(object):
         self.model.eval()
         print('Loading weights from %s... Done!' % (weightfile))
 
-        self.num_classes = 80
+        self.num_classes = 3
         if self.num_classes == 20:
             namesfile = os.path.dirname(__file__) + '/data/voc.names'
         elif self.num_classes == 80:
             namesfile = os.path.dirname(__file__) + '/data/coco.names'
+        elif num_classes == 3:
+            namesfile = os.path.dirname(__file__) + '/data/obj.names'
         else:
             namesfile = os.path.dirname(__file__) + '/data/names'
         self.class_names = load_class_names(namesfile)
