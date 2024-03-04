@@ -35,7 +35,7 @@ if '/opt/ros/kinetic/lib/python2.7/dist-packages' in sys.path:
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
 
-INTEREST_CLASSES = ["person"]
+INTEREST_CLASSES = ["person","crutch","wheelchair"]
 
 
 def detect(cfgfile, weightfile, imgfile):
@@ -129,7 +129,7 @@ class Yolov4Node(object):
             namesfile = os.path.dirname(__file__) + '/data/voc.names'
         elif self.num_classes == 80:
             namesfile = os.path.dirname(__file__) + '/data/coco.names'
-        elif num_classes == 3:
+        elif self.num_classes == 3:
             namesfile = os.path.dirname(__file__) + '/data/obj.names'
         else:
             namesfile = os.path.dirname(__file__) + '/data/names'
@@ -251,7 +251,7 @@ if __name__ == '__main__':
     # weightfile = argv.weightfile
     # imgfile = argv.imgfile
     
-    weightfile = os.path.join(os.path.dirname(__file__), '../weights/yolov4-tiny.weights')
+    weightfile = os.path.join(os.path.dirname(__file__), '../weights/yolov4-tiny_best.weights')
     cfgfile = os.path.join(os.path.dirname(__file__), '../cfg/yolov4-tiny.cfg')
     node = Yolov4Node(cfgfile, weightfile)
     rospy.spin()
