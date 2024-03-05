@@ -1143,6 +1143,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "robotiq/robotiq_gazebo/CMakeFiles/gazebo_mimic_joint_plugin.dir/DependInfo.cmake"
   "robotiq/robotiq_gazebo/CMakeFiles/gazebo_disable_link_plugin.dir/DependInfo.cmake"
   "navigation/turtlebot3_slam/CMakeFiles/flat_world_imu_node.dir/DependInfo.cmake"
+  "mars_lite_description/CMakeFiles/initial_pose.dir/DependInfo.cmake"
   "pedsim_ros/2ndparty/spencer_tracking_rviz_plugin/CMakeFiles/rviz_generate_messages_eus.dir/DependInfo.cmake"
   "pedsim_ros/2ndparty/spencer_tracking_rviz_plugin/CMakeFiles/spencer_tracking_rviz_plugin.dir/DependInfo.cmake"
   "pedsim_ros/2ndparty/spencer_tracking_rviz_plugin/CMakeFiles/rviz_generate_messages_nodejs.dir/DependInfo.cmake"

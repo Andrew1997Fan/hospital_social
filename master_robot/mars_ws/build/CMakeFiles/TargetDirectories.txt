@@ -582,6 +582,7 @@
 /home/developer/master_ws/master_robot/mars_ws/build/mars_lite_description/CMakeFiles/rebuild_cache.dir
 /home/developer/master_ws/master_robot/mars_ws/build/mars_lite_description/CMakeFiles/edit_cache.dir
 /home/developer/master_ws/master_robot/mars_ws/build/mars_lite_description/CMakeFiles/test.dir
+/home/developer/master_ws/master_robot/mars_ws/build/mars_lite_description/CMakeFiles/initial_pose.dir
 /home/developer/master_ws/master_robot/mars_ws/build/mars_lite_moveit_config/CMakeFiles/install/strip.dir
 /home/developer/master_ws/master_robot/mars_ws/build/mars_lite_moveit_config/CMakeFiles/install/local.dir
 /home/developer/master_ws/master_robot/mars_ws/build/mars_lite_moveit_config/CMakeFiles/install.dir

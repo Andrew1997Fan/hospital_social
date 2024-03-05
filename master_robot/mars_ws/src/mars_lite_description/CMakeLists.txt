@@ -9,6 +9,8 @@ project(mars_lite_description)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   urdf
+  roscpp
+  geometry_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -151,7 +153,8 @@ include_directories(
 #############
 ## Install ##
 #############
-
+add_executable(initial_pose src/initial_pose.cpp)
+target_link_libraries(initial_pose ${catkin_LIBRARIES} )
 # Mark other files for installation (e.g. launch and bag files, etc.)
 install(DIRECTORY meshes/ DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/meshes)
 install(DIRECTORY urdf/ DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf)

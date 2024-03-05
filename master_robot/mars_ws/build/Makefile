@@ -4120,6 +4120,19 @@ flat_world_imu_node/fast:
 .PHONY : flat_world_imu_node/fast
 
 #=============================================================================
+# Target rules for targets named initial_pose
+
+# Build rule for target.
+initial_pose: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 initial_pose
+.PHONY : initial_pose
+
+# fast build rule for target.
+initial_pose/fast:
+	$(MAKE) -f mars_lite_description/CMakeFiles/initial_pose.dir/build.make mars_lite_description/CMakeFiles/initial_pose.dir/build
+.PHONY : initial_pose/fast
+
+#=============================================================================
 # Target rules for targets named rviz_generate_messages_eus
 
 # Build rule for target.
@@ -5424,6 +5437,7 @@ help:
 	@echo "... gazebo_mimic_joint_plugin"
 	@echo "... gazebo_disable_link_plugin"
 	@echo "... flat_world_imu_node"
+	@echo "... initial_pose"
 	@echo "... rviz_generate_messages_eus"
 	@echo "... spencer_tracking_rviz_plugin"
 	@echo "... rviz_generate_messages_nodejs"

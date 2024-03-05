@@ -167,6 +167,48 @@ depend:
 	cd /home/developer/master_ws/master_robot/mars_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
+# Convenience name for target.
+mars_lite_description/CMakeFiles/initial_pose.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 mars_lite_description/CMakeFiles/initial_pose.dir/rule
+.PHONY : mars_lite_description/CMakeFiles/initial_pose.dir/rule
+
+# Convenience name for target.
+initial_pose: mars_lite_description/CMakeFiles/initial_pose.dir/rule
+
+.PHONY : initial_pose
+
+# fast build rule for target.
+initial_pose/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f mars_lite_description/CMakeFiles/initial_pose.dir/build.make mars_lite_description/CMakeFiles/initial_pose.dir/build
+.PHONY : initial_pose/fast
+
+src/initial_pose.o: src/initial_pose.cpp.o
+
+.PHONY : src/initial_pose.o
+
+# target to build an object file
+src/initial_pose.cpp.o:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f mars_lite_description/CMakeFiles/initial_pose.dir/build.make mars_lite_description/CMakeFiles/initial_pose.dir/src/initial_pose.cpp.o
+.PHONY : src/initial_pose.cpp.o
+
+src/initial_pose.i: src/initial_pose.cpp.i
+
+.PHONY : src/initial_pose.i
+
+# target to preprocess a source file
+src/initial_pose.cpp.i:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f mars_lite_description/CMakeFiles/initial_pose.dir/build.make mars_lite_description/CMakeFiles/initial_pose.dir/src/initial_pose.cpp.i
+.PHONY : src/initial_pose.cpp.i
+
+src/initial_pose.s: src/initial_pose.cpp.s
+
+.PHONY : src/initial_pose.s
+
+# target to generate assembly for a file
+src/initial_pose.cpp.s:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f mars_lite_description/CMakeFiles/initial_pose.dir/build.make mars_lite_description/CMakeFiles/initial_pose.dir/src/initial_pose.cpp.s
+.PHONY : src/initial_pose.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -180,6 +222,10 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... test"
+	@echo "... initial_pose"
+	@echo "... src/initial_pose.o"
+	@echo "... src/initial_pose.i"
+	@echo "... src/initial_pose.s"
 .PHONY : help
 
 
