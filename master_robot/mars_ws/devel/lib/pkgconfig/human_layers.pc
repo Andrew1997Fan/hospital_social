@@ -1,0 +1,8 @@
+prefix=/home/developer/master_ws/master_robot/mars_ws/devel
+
+Name: human_layers
+Description: Description of human_layers
+Version: 0.0.1
+Cflags: -I/home/developer/master_ws/master_robot/mars_ws/devel/include -I/home/developer/master_ws/master_robot/mars_ws/src/navigation/human_layers/include
+Libs: -L${prefix}/lib -lhuman_layers
+Requires: angles costmap_2d dynamic_reconfigure geometry_msgs human_msgs pluginlib roscpp rospy

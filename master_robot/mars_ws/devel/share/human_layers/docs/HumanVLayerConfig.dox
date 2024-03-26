@@ -1,0 +1,8 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~enabled" : \b [bool] Whether to apply this plugin or not  min: False, default: True, max: True
+- \b "~amplitude" : \b [double] Amplitude of adjustments at peak min: 0.0, default: 40.0, max: 254.0
+- \b "~radius" : \b [double] Radius of the Gaussian min: 0.0, default: 1.0, max: 10.0
+

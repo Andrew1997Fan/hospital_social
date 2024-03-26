@@ -88,8 +88,10 @@ Scan2LocalmapNode::Scan2LocalmapNode(ros::NodeHandle nh, ros::NodeHandle pnh): n
     std::string scan_src_frameid;
     ros::param::param<double>("~inflation_radius", inflation_radius, 0.2);
     ros::param::param<double>("~map_resolution", map_resolution, 0.1);
-    ros::param::param<double>("~localmap_range_x", localmap_range_x, 3.0);     // map_width --> x axis
-    ros::param::param<double>("~localmap_range_y", localmap_range_y, 3.0);     // map_height --> y_axis
+    ros::param::param<double>("~localmap_range_x", localmap_range_x, 5.0);     // map_width --> x axis
+    ros::param::param<double>("~localmap_range_y", localmap_range_y, 5.0);     // map_height --> y_axis
+    // ros::param::param<double>("~localmap_range_x", localmap_range_x, 3.0);     // map_width --> x axis
+    // ros::param::param<double>("~localmap_range_y", localmap_range_y, 3.0);     // map_height --> y_axis
     ros::param::param<std::string>("~localmap_frameid", localmap_frameid_, "base_link");
     ros::param::param<std::string>("~scan_src_frameid", scan_src_frameid, "front_laser_frame");
     ros::param::param<int>("~agf_type", agf_type_, 0);

@@ -1,0 +1,8 @@
+prefix=/home/developer/master_ws/master_robot/mars_ws/install
+
+Name: human_msgs
+Description: Description of human_msgs
+Version: 0.0.2
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: roscpp message_runtime geometry_msgs nav_msgs tf visualization_msgs

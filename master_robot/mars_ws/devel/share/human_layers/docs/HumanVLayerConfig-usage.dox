@@ -1,0 +1,9 @@
+\subsubsection usage Usage
+\verbatim
+<node name="human_layers" pkg="human_layers" type="human_layers">
+  <param name="enabled" type="bool" value="True" />
+  <param name="amplitude" type="double" value="40.0" />
+  <param name="radius" type="double" value="1.0" />
+</node>
+\endverbatim
+
