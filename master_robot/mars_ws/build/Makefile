@@ -4562,6 +4562,136 @@ gazebo_disable_link_plugin/fast:
 .PHONY : gazebo_disable_link_plugin/fast
 
 #=============================================================================
+# Target rules for targets named stageros
+
+# Build rule for target.
+stageros: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 stageros
+.PHONY : stageros
+
+# fast build rule for target.
+stageros/fast:
+	$(MAKE) -f navigation/stage_ros/CMakeFiles/stageros.dir/build.make navigation/stage_ros/CMakeFiles/stageros.dir/build
+.PHONY : stageros/fast
+
+#=============================================================================
+# Target rules for targets named run_tests_stage_ros_rostest_test_hztest.xml
+
+# Build rule for target.
+run_tests_stage_ros_rostest_test_hztest.xml: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_tests_stage_ros_rostest_test_hztest.xml
+.PHONY : run_tests_stage_ros_rostest_test_hztest.xml
+
+# fast build rule for target.
+run_tests_stage_ros_rostest_test_hztest.xml/fast:
+	$(MAKE) -f navigation/stage_ros/CMakeFiles/run_tests_stage_ros_rostest_test_hztest.xml.dir/build.make navigation/stage_ros/CMakeFiles/run_tests_stage_ros_rostest_test_hztest.xml.dir/build
+.PHONY : run_tests_stage_ros_rostest_test_hztest.xml/fast
+
+#=============================================================================
+# Target rules for targets named _run_tests_stage_ros
+
+# Build rule for target.
+_run_tests_stage_ros: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _run_tests_stage_ros
+.PHONY : _run_tests_stage_ros
+
+# fast build rule for target.
+_run_tests_stage_ros/fast:
+	$(MAKE) -f navigation/stage_ros/CMakeFiles/_run_tests_stage_ros.dir/build.make navigation/stage_ros/CMakeFiles/_run_tests_stage_ros.dir/build
+.PHONY : _run_tests_stage_ros/fast
+
+#=============================================================================
+# Target rules for targets named _run_tests_stage_ros_rostest_test_hztest.xml
+
+# Build rule for target.
+_run_tests_stage_ros_rostest_test_hztest.xml: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _run_tests_stage_ros_rostest_test_hztest.xml
+.PHONY : _run_tests_stage_ros_rostest_test_hztest.xml
+
+# fast build rule for target.
+_run_tests_stage_ros_rostest_test_hztest.xml/fast:
+	$(MAKE) -f navigation/stage_ros/CMakeFiles/_run_tests_stage_ros_rostest_test_hztest.xml.dir/build.make navigation/stage_ros/CMakeFiles/_run_tests_stage_ros_rostest_test_hztest.xml.dir/build
+.PHONY : _run_tests_stage_ros_rostest_test_hztest.xml/fast
+
+#=============================================================================
+# Target rules for targets named run_tests_stage_ros_rostest
+
+# Build rule for target.
+run_tests_stage_ros_rostest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_tests_stage_ros_rostest
+.PHONY : run_tests_stage_ros_rostest
+
+# fast build rule for target.
+run_tests_stage_ros_rostest/fast:
+	$(MAKE) -f navigation/stage_ros/CMakeFiles/run_tests_stage_ros_rostest.dir/build.make navigation/stage_ros/CMakeFiles/run_tests_stage_ros_rostest.dir/build
+.PHONY : run_tests_stage_ros_rostest/fast
+
+#=============================================================================
+# Target rules for targets named _run_tests_stage_ros_rostest
+
+# Build rule for target.
+_run_tests_stage_ros_rostest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _run_tests_stage_ros_rostest
+.PHONY : _run_tests_stage_ros_rostest
+
+# fast build rule for target.
+_run_tests_stage_ros_rostest/fast:
+	$(MAKE) -f navigation/stage_ros/CMakeFiles/_run_tests_stage_ros_rostest.dir/build.make navigation/stage_ros/CMakeFiles/_run_tests_stage_ros_rostest.dir/build
+.PHONY : _run_tests_stage_ros_rostest/fast
+
+#=============================================================================
+# Target rules for targets named clean_test_results_stage_ros
+
+# Build rule for target.
+clean_test_results_stage_ros: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 clean_test_results_stage_ros
+.PHONY : clean_test_results_stage_ros
+
+# fast build rule for target.
+clean_test_results_stage_ros/fast:
+	$(MAKE) -f navigation/stage_ros/CMakeFiles/clean_test_results_stage_ros.dir/build.make navigation/stage_ros/CMakeFiles/clean_test_results_stage_ros.dir/build
+.PHONY : clean_test_results_stage_ros/fast
+
+#=============================================================================
+# Target rules for targets named run_tests_stage_ros
+
+# Build rule for target.
+run_tests_stage_ros: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_tests_stage_ros
+.PHONY : run_tests_stage_ros
+
+# fast build rule for target.
+run_tests_stage_ros/fast:
+	$(MAKE) -f navigation/stage_ros/CMakeFiles/run_tests_stage_ros.dir/build.make navigation/stage_ros/CMakeFiles/run_tests_stage_ros.dir/build
+.PHONY : run_tests_stage_ros/fast
+
+#=============================================================================
+# Target rules for targets named run_tests_stage_ros_rostest_test_intensity_test.xml
+
+# Build rule for target.
+run_tests_stage_ros_rostest_test_intensity_test.xml: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_tests_stage_ros_rostest_test_intensity_test.xml
+.PHONY : run_tests_stage_ros_rostest_test_intensity_test.xml
+
+# fast build rule for target.
+run_tests_stage_ros_rostest_test_intensity_test.xml/fast:
+	$(MAKE) -f navigation/stage_ros/CMakeFiles/run_tests_stage_ros_rostest_test_intensity_test.xml.dir/build.make navigation/stage_ros/CMakeFiles/run_tests_stage_ros_rostest_test_intensity_test.xml.dir/build
+.PHONY : run_tests_stage_ros_rostest_test_intensity_test.xml/fast
+
+#=============================================================================
+# Target rules for targets named _run_tests_stage_ros_rostest_test_intensity_test.xml
+
+# Build rule for target.
+_run_tests_stage_ros_rostest_test_intensity_test.xml: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _run_tests_stage_ros_rostest_test_intensity_test.xml
+.PHONY : _run_tests_stage_ros_rostest_test_intensity_test.xml
+
+# fast build rule for target.
+_run_tests_stage_ros_rostest_test_intensity_test.xml/fast:
+	$(MAKE) -f navigation/stage_ros/CMakeFiles/_run_tests_stage_ros_rostest_test_intensity_test.xml.dir/build.make navigation/stage_ros/CMakeFiles/_run_tests_stage_ros_rostest_test_intensity_test.xml.dir/build
+.PHONY : _run_tests_stage_ros_rostest_test_intensity_test.xml/fast
+
+#=============================================================================
 # Target rules for targets named flat_world_imu_node
 
 # Build rule for target.
@@ -6147,6 +6277,16 @@ help:
 	@echo "... control_msgs_generate_messages_lisp"
 	@echo "... gazebo_mimic_joint_plugin"
 	@echo "... gazebo_disable_link_plugin"
+	@echo "... stageros"
+	@echo "... run_tests_stage_ros_rostest_test_hztest.xml"
+	@echo "... _run_tests_stage_ros"
+	@echo "... _run_tests_stage_ros_rostest_test_hztest.xml"
+	@echo "... run_tests_stage_ros_rostest"
+	@echo "... _run_tests_stage_ros_rostest"
+	@echo "... clean_test_results_stage_ros"
+	@echo "... run_tests_stage_ros"
+	@echo "... run_tests_stage_ros_rostest_test_intensity_test.xml"
+	@echo "... _run_tests_stage_ros_rostest_test_intensity_test.xml"
 	@echo "... flat_world_imu_node"
 	@echo "... initial_pose"
 	@echo "... rviz_generate_messages_eus"
