@@ -94,7 +94,7 @@ frameOrientation = tf.transformations.quaternion_from_euler(0,  0,  0) # 90.0 / 
 print("Sending test messages on " + observationTopic + " and " + trackTopic)
 rate = rospy.Rate(updateRateHz)
 while not rospy.is_shutdown():
-    br.sendTransform(frameOffset, frameOrientation, rospy.Time.now(), "test_tf_frame", "odom")
+    br.sendTransform(frameOffset, frameOrientation, rospy.Time.now(), "test_tf_frame", "map")
 
     trackedPersons = TrackedPersons()
     trackedPersons.header.frame_id = "/test_tf_frame"

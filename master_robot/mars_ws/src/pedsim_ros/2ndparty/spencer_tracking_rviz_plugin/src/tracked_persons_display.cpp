@@ -50,7 +50,7 @@ void TrackedPersonsDisplay::onInitialize()
 {
     PersonDisplayCommon::onInitialize();
 
-    m_realFixedFrame = "odom";
+    m_realFixedFrame = "map";
     QObject::connect(m_commonProperties->style, SIGNAL(changed()), this, SLOT(personVisualTypeChanged()) );
 
     m_occlusion_alpha_property = new rviz::FloatProperty( "Occlusion alpha", 0.3, "Alpha multiplier for occluded tracks", this, SLOT(stylesChanged()) );

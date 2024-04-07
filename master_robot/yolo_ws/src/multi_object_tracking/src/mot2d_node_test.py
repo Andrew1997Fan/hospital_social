@@ -55,6 +55,9 @@ class MultiObjectTrackingNode(object):
 
 
         self.pub_trk3d_vis = rospy.Publisher('trk3d_vis', MarkerArray, queue_size=1)
+        # publish to tracked_humans layer for movebase
+        self.pub_trk3d_vis = rospy.Publisher('tra', MarkerArray, queue_size=1)
+
         self.pub_trk3d_result = rospy.Publisher('trk3d_result', Trk3DArray, queue_size=1)
         
 
