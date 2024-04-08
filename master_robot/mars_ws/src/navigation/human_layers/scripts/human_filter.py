@@ -21,7 +21,7 @@ class HumanFilter(object):
         self.laser_transform = TransformStamped()
 
         rospy.Subscriber('base_scan', LaserScan, self.laserCB)
-        rospy.Subscriber('tracked_humans', TrackedHumans, self.humansCB)
+        rospy.Subscriber('tracked_humans', TrackedH umans, self.humansCB)
         self.laser_pub = rospy.Publisher('/base_scan_filtered', LaserScan, queue_size=10)
 
         #Intialize tf2 transform listener

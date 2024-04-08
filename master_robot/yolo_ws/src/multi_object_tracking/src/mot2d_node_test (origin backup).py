@@ -33,7 +33,6 @@ from walker_msgs.msg import Trk3D, Trk3DArray
 from sensor_msgs.msg import LaserScan
 
 INTEREST_CLASSES = ["person"]
-#INTEREST_CLASSES = ["person","wheelchair","crutch"]
 MARKER_LIFETIME = 0.1
 
 
@@ -56,11 +55,11 @@ class MultiObjectTrackingNode(object):
 
 
         self.pub_trk3d_vis = rospy.Publisher('trk3d_vis', MarkerArray, queue_size=1)
+        # publish to tracked_humans layer for movebase
+        self.pub_trk3d_vis = rospy.Publisher('tra', MarkerArray, queue_size=1)
+
         self.pub_trk3d_result = rospy.Publisher('trk3d_result', Trk3DArray, queue_size=1)
-
-        # publish to tracked_humans for movebase's human layers
-        self.pub_tracked_humans = rospy.Publisher('tracked_humans', MarkerArray, queue_size=1)
-
+        
 
         self.sub_det3d = rospy.Subscriber("det3d_result", Det3DArray,self.det_result_cb)
         self.sub_scan = message_filters.Subscriber("scan",LaserScan)
@@ -243,7 +242,7 @@ class MultiObjectTrackingNode(object):
             marker_array.markers.append(arrow_marker)
 
         self.pub_trk3d_vis.publish(marker_array)
-        self.pub_tracked_humans.publish(marker_array)
+
         #self.trk3d_array.scan = scan_msg
         self.trk3d_array.header.frame_id = 'odom' #msg.header.frame_id
         self.trk3d_array.header.stamp = rospy.Time().now()
