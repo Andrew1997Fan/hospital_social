@@ -9,6 +9,7 @@ from human_msgs.msg import TrackedSegmentType
 from human_msgs.msg import TrackedSegment
 from nav_msgs.msg import Odometry
 from pedsim_msgs.msg import AgentStates, AgentState  # Import AgentStates and AgentState messages from pedsim message
+from walker_msgs.msg import Trk3D, Trk3DArray
 from std_srvs.srv import Empty   # Import Empty service message
 
 class StageHumans(object):
@@ -17,7 +18,7 @@ class StageHumans(object):
         self.tracked_humans_pub = rospy.Publisher("/tracked_humans", TrackedHumans, queue_size=1)
         self.Segment_Type = TrackedSegmentType.TORSO
 
-        rospy.Subscriber("/pedsim_simulator/simulated_agents", AgentStates, self.agent_states_callback)
+        rospy.Subscriber("/trk3d_result", Trk3DArray, self.agent_states_callback)
         # rospy.Subscriber("/trk3d_vis", AgentStates, self.agent_states_callback)
     def agent_states_callback(self, agent_states):
         tracked_humans = TrackedHumans()

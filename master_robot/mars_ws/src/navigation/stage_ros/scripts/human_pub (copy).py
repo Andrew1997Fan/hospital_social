@@ -9,7 +9,6 @@ from human_msgs.msg import TrackedSegmentType
 from human_msgs.msg import TrackedSegment
 from nav_msgs.msg import Odometry
 from pedsim_msgs.msg import AgentStates, AgentState  # Import AgentStates and AgentState messages from pedsim message
-from walker_msgs.msg import Trk3D, Trk3DArray
 from std_srvs.srv import Empty   # Import Empty service message
 
 class StageHumans(object):
@@ -18,31 +17,26 @@ class StageHumans(object):
         self.tracked_humans_pub = rospy.Publisher("/tracked_humans", TrackedHumans, queue_size=1)
         self.Segment_Type = TrackedSegmentType.TORSO
 
-        rospy.Subscriber("/trk3d_result", Trk3DArray, self.agent_states_callback)
+        rospy.Subscriber("/pedsim_simulator/simulated_agents", AgentStates, self.agent_states_callback)
         # rospy.Subscriber("/trk3d_vis", AgentStates, self.agent_states_callback)
     def agent_states_callback(self, agent_states):
         tracked_humans = TrackedHumans()
 
-        for i, agent_state in enumerate(agent_states.trks_list):
+        for i, agent_state in enumerate(agent_states.agent_states):
             human_segment = TrackedSegment()
             human_segment.type = self.Segment_Type
 
             # Extract pose information from the AgentState message
-            # pose = Pose()
-            # pose.position.x = agent_state.pose.position.x
-            # pose.position.y = agent_state.pose.position.y
-            # pose.position.z = agent_state.pose.position.z
-            # pose.orientation = agent_state.pose.orientation
             pose = Pose()
-            pose.position.x = agent_state.x
-            pose.position.x = agent_state.y
-            pose.position.x = 0
-            # pose.orientation = agent_state.
+            pose.position.x = agent_state.pose.position.x
+            pose.position.y = agent_state.pose.position.y
+            pose.position.z = agent_state.pose.position.z
+            pose.orientation = agent_state.pose.orientation
 
             twist = Twist()
-            twist.linear.x = agent_state.vx
-            twist.linear.y = agent_state.vy
-            twist.linear.z = 0
+            twist.linear.x = agent_state.twist.linear.x
+            twist.linear.y = agent_state.twist.linear.y
+            twist.linear.z = agent_state.twist.linear.z
 
             human_segment.pose.pose = pose
             human_segment.twist.twist = twist

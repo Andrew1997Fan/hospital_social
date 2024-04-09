@@ -48,6 +48,9 @@
 #include <dynamic_reconfigure/server.h>
 #include <boost/thread.hpp>
 #include <math.h>
+// for group gaussian
+#include <Eigen/Dense>
+#include <cmath>
 
 #define PI 3.14159265359
 
@@ -166,6 +169,159 @@ protected:
       return result;
   }         
   /******** Asymmetrical Gaussian ********/
+
+  // /******** Static individual Asymmetrical Gaussian ********/
+  // double Static_individual_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A) {
+  //     // define parameter
+  //     double v = sqrt(vx * vx + vy * vy);
+  //     double theta = atan2(vy, vx);
+  //     double sigmaHead = fmax(1.2 * v, 1.0);
+  //     // printf("sigmaHead: %f, human v: %f\n", sigmaHead, v);
+  //     // double sigmaRear = 2.0 / 7.0;
+  //     double sigmaRear = var / 7.0;
+  //     double sigmaLarge = var / 5.0;
+  //     // double sigmaSmall = 2.0 / 7.0;
+  //     double sigmaSmall = var / 7.0;
+
+  //     // compute αmain, αside
+  //     double alphaMain = normalize(atan2(y - y0, x - x0) - theta + PI / 2);
+  //     double alphaSide1 = normalize(alphaMain - PI / 2); // right hand principle
+  //     // double alphaSide2 = normalize(alphaMain + PI / 2); // lefy hand principle
+ 
+  //     // determin sigmaMain, sigmaSide
+  //     double sigmaMain, sigmaSide;
+  //     if (alphaMain > 0) {
+  //         sigmaMain = sigmaHead;
+  //     } else {
+  //         sigmaMain = sigmaRear;
+  //     }
+
+  //     // if (alphaSide1 > 0 || alphaSide2 > 0) {
+  //     if (alphaSide1 > 0) {
+  //         sigmaSide = sigmaLarge;
+  //     } else {
+  //         sigmaSide = sigmaSmall;
+  //     }
+
+  //     // determin G,、Gb, Gc
+  //     double cosTheta = cos(theta);
+  //     double sinTheta = sin(theta);
+  //     double Ga = (cosTheta * cosTheta) / (2 * sigmaMain * sigmaMain) + (sinTheta * sinTheta) / (2 * sigmaSide * sigmaSide);
+  //     double Gb = sin(2 * theta) / (4 * sigmaMain * sigmaMain) - sin(2 * theta) / (4 * sigmaSide * sigmaSide);
+  //     double Gc = (sinTheta * sinTheta) / (2 * sigmaMain * sigmaMain) + (cosTheta * cosTheta) / (2 * sigmaSide * sigmaSide);
+
+  //     // compute social cost
+  //     double result = A*exp(-1.0 * (Ga * (x - x0) * (x - x0) + 2 * Gb * (x - x0) * (y - y0) + Gc * (y - y0) * (y - y0)));
+
+  //     return result;
+  // }         
+  // /******** Static individual Asymmetrical Gaussian ********/
+
+  // /******** Static Group Asymmetrical Gaussian ********/
+  // // acquire every human's pose and calculate mean value
+  // double sum(){
+  //   Eigen::Vector2d sum;
+
+  //   return sum;
+  // }
+
+
+  // double Static_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A, double N) {
+  //     // need humna number N to caculate sigma_star
+
+  //     // define parameter
+  //     Eigen::Vector2d q;
+  //     double q1 = x;
+  //     double q2 = y;
+  //     q << q1, q2;
+
+  //     Eigen::Vector2d p;
+  //     double p1 = x0;
+  //     double p2 = y0;
+  //     p << p1, p2;
+
+  //     // determin covariance / sigma_x* and sigma_y*
+  //     Eigen::Matrix2d sigma_star;
+  //     double sigma_x_star = (1/4*N)*sum[1];
+  //     double sigma_y_star = (1/N)*sum[2];
+  //     // static group is diagonal covariance
+  //     sigma_star << pow(sigma_x_star,2), 0,
+  //                   0, pow(sigma_y_star,2);
+
+  //     // compute social cost
+  //     //double result = A*exp(-1.0 * (Ga * (x - x0) * (x - x0) + 2 * Gb * (x - x0) * (y - y0) + Gc * (y - y0) * (y - y0)));
+  //     double result = exp((-1/2)*((q-p).transpose)*(sigma_star.inverse)*(q-p));
+
+  //     return result;
+  // }   
+  // /******** Static Group Asymmetrical Gaussian ********/
+
+  // /******** Dynamic Group Asymmetrical Gaussian ********/
+  // // define param si = φ , phi = Φ , 
+  // double si_x(){
+
+  // }
+  // double si_y(){
+
+  // }
+  // double x_max(){
+
+  // }
+  // double y_max(){
+
+  // }
+  // double 
+
+  // double Dynamic_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A, double N) {
+  //     // need humna number N to caculate sigma_star
+
+  //     // define parameter
+  //     Eigen::Vector2d q;
+  //     double q1 = x;
+  //     double q2 = y;
+  //     q << q1, q2;
+
+  //     Eigen::Vector2d p;
+  //     double p1 = x0;
+  //     double p2 = y0;
+  //     p << p1, p2;
+
+
+  //     // ***group para inupt*** 
+      
+
+
+  //     // determin covariance / sigma_x* and sigma_y*
+  //     Eigen::Matrix2d sigma_1; 
+  //     Eigen::Matrix2d sigma_2;
+
+  //     double sigma_x = si_x + max_x;
+  //     double sigma_y = ;
+  //     double sigma_y_prime = sigma_x + si_y;
+
+
+  //     sigma_1 << pow(sigma_x,2), 0,
+  //                   0, pow(sigma_y,2);
+
+  //     sigma_2 << pow(sigma_x,2), 0,
+  //                   0, pow(sigma_y_prime,2);
+
+
+  //     // compute social cost
+  
+  //     // define weight for forward or backward of the group , total weight = 1
+  //     double w_1 = 0.75;
+  //     double w_2 = (1 - W_1);
+  //     // forward gaussian phi_1 , backward guassian phi_2
+  //     double phi_1 = w_1*exp((-1/2)*((q-p).transpose)*(sigma_1.inverse)*(q-p));
+  //     double phi_2 = w_2*exp((-1/2)*((q-p).transpose)*(sigma_2.inverse)*(q-p));
+  //     // sum of guassian result
+  //     double result = phi_1 + phi_2;
+
+  //     return result;
+  // }  
+  // /******** Dynamic Group Asymmetrical Gaussian ********/
+
 
   ros::Subscriber humans_sub_, humans_states_sub_;
   human_msgs::TrackedHumans humans_;
