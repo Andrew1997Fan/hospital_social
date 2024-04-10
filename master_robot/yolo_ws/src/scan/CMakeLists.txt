@@ -24,6 +24,7 @@ pcl_conversions
 
 # Custom msg & srv
 walker_msgs
+human_msgs
 )
 
 ## System dependencies are found with CMake's conventions

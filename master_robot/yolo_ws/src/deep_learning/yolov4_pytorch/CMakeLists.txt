@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   rospy
   sensor_msgs
+
   std_msgs
   visualization_msgs
   cv_bridge

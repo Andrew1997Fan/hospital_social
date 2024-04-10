@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/developer/master_ws/master_robot/yolo_ws/build
 include msgs/detection_msgs/CMakeFiles/_detection_msgs_generate_messages_check_deps_Detection2D.dir/progress.make
 
 msgs/detection_msgs/CMakeFiles/_detection_msgs_generate_messages_check_deps_Detection2D:
-	cd /home/developer/master_ws/master_robot/yolo_ws/build/msgs/detection_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py detection_msgs /home/developer/master_ws/master_robot/yolo_ws/src/msgs/detection_msgs/msg/Detection2D.msg geometry_msgs/Pose2D:std_msgs/Header:detection_msgs/BBox2D:sensor_msgs/Image
+	cd /home/developer/master_ws/master_robot/yolo_ws/build/msgs/detection_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py detection_msgs /home/developer/master_ws/master_robot/yolo_ws/src/msgs/detection_msgs/msg/Detection2D.msg std_msgs/Header:sensor_msgs/Image:geometry_msgs/Pose2D:detection_msgs/BBox2D
 
 _detection_msgs_generate_messages_check_deps_Detection2D: msgs/detection_msgs/CMakeFiles/_detection_msgs_generate_messages_check_deps_Detection2D
 _detection_msgs_generate_messages_check_deps_Detection2D: msgs/detection_msgs/CMakeFiles/_detection_msgs_generate_messages_check_deps_Detection2D.dir/build.make

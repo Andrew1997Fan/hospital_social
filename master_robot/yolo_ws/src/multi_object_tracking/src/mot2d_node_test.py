@@ -25,12 +25,23 @@ from AB3DMOT_libs.model import AB3DMOT
 import message_filters 
 
 import rospy
+
+from geometry_msgs.msg import Pose, Twist
+from human_msgs.msg import TrackedHumans
+from human_msgs.msg import TrackedHuman
+from human_msgs.msg import TrackedSegmentType
+from human_msgs.msg import TrackedSegment
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Vector3
+
 from visualization_msgs.msg import Marker, MarkerArray
+
 from walker_msgs.msg import Det3D, Det3DArray
 from walker_msgs.msg import Trk3D, Trk3DArray
+
 from sensor_msgs.msg import LaserScan
+
+
 
 # INTEREST_CLASSES = ["person"]
 INTEREST_CLASSES = ["person","wheelchair","crutch"]
@@ -64,6 +75,9 @@ class MultiObjectTrackingNode(object):
 
         self.sub_det3d = rospy.Subscriber("det3d_result", Det3DArray,self.det_result_cb)
         self.sub_scan = message_filters.Subscriber("scan",LaserScan)
+        # add tracked human publisher
+        self.tracked_humans_pub = rospy.Publisher("/tracked_humans", TrackedHumans, queue_size=1)
+        self.Segment_Type = TrackedSegmentType.TORSO
 
         self.sub_odom = rospy.Subscriber("odom_filtered", Odometry, self.odom_cb, queue_size=1)
 	 # self.sub_scan = message_filters.Subscriber("scan",LaserScan)
@@ -140,6 +154,8 @@ class MultiObjectTrackingNode(object):
 
         # saving results, loop over each tracklet           
         marker_array = MarkerArray()
+        self.tracked_humans = TrackedHumans() # self-define msg
+
         #trk3d_array = Trk3DArray()
         time_now = rospy.Time.now()
         delta_t = (time_now - self.last_time).to_sec()
@@ -157,6 +173,8 @@ class MultiObjectTrackingNode(object):
             '''
                 x, y, r, vx, vy, id, confidence, class_id
             '''
+
+
             d_now = np.sqrt(d[0]**2 + d[1]**2)
             #print(d[0])
             #print(d[1])
@@ -250,6 +268,36 @@ class MultiObjectTrackingNode(object):
             marker_array.markers.append(arrow_marker)
 
             # Publish /tracked_humans
+            human_segment = TrackedSegment()
+            human_segment.type = self.Segment_Type
+
+            # Extract pose information from the AgentState message
+            pose = Pose()
+            pose.position.x = d[0]
+            pose.position.y = d[1]
+            pose.position.z = 0
+            pose.orientation.x = q[0]
+            pose.orientation.y = q[1]
+            pose.orientation.z = q[2]
+            pose.orientation.w = q[3]
+
+            twist = Twist()
+            twist.linear.x = vx
+            twist.linear.y = vy
+            twist.linear.z = 0
+
+            human_segment.pose.pose = pose
+            human_segment.twist.twist = twist
+
+            tracked_human = TrackedHuman()
+            tracked_human.track_id = idx + 1  
+            tracked_human.segments.append(human_segment)
+            self.tracked_humans.humans.append(tracked_human)
+        
+        if self.tracked_humans.humans:
+            self.tracked_humans.header.stamp = rospy.Time.now()
+            self.tracked_humans.header.frame_id = 'odom' #map
+            self.tracked_humans_pub.publish(self.tracked_humans)
             
 
         self.pub_trk3d_vis.publish(marker_array)
@@ -259,7 +307,7 @@ class MultiObjectTrackingNode(object):
         self.trk3d_array.header.stamp = rospy.Time().now()
         #trk3d_array.pointcloud = msg.pointcloud
         self.pub_trk3d_result.publish(self.trk3d_array)
-        # self.pub_tracked_humans.publish(self.trk3d_array)
+        self.tracked_humans_pub.publish(self.tracked_humans)
 
 
         # self.last_time = time.time()

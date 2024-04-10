@@ -131,8 +131,14 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/developer/master_ws/master_robot/yolo_ws/build/gtest/cmake_install.cmake")
+  include("/home/developer/master_ws/master_robot/yolo_ws/build/msgs/human_msgs/cmake_install.cmake")
+  include("/home/developer/master_ws/master_robot/yolo_ws/build/msgs/detection_msgs/cmake_install.cmake")
   include("/home/developer/master_ws/master_robot/yolo_ws/build/msgs/walker_msgs/cmake_install.cmake")
+  include("/home/developer/master_ws/master_robot/yolo_ws/build/msgs/active_walker/cmake_install.cmake")
+  include("/home/developer/master_ws/master_robot/yolo_ws/build/multi_object_tracking/cmake_install.cmake")
+  include("/home/developer/master_ws/master_robot/yolo_ws/build/deep_learning/sarl_ros/cmake_install.cmake")
   include("/home/developer/master_ws/master_robot/yolo_ws/build/scan/cmake_install.cmake")
+  include("/home/developer/master_ws/master_robot/yolo_ws/build/deep_learning/yolov4_pytorch/cmake_install.cmake")
 
 endif()
 

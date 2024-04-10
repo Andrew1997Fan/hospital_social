@@ -30,6 +30,7 @@ from sensor_msgs.msg import Image as ROSImage
 from walker_msgs.msg import Detection2D, BBox2D
 from walker_msgs.srv import Detection2DTrigger, Detection2DTriggerResponse
 
+
 if '/opt/ros/kinetic/lib/python2.7/dist-packages' in sys.path:
     sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 import cv2
