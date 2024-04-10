@@ -32,8 +32,8 @@ from walker_msgs.msg import Det3D, Det3DArray
 from walker_msgs.msg import Trk3D, Trk3DArray
 from sensor_msgs.msg import LaserScan
 
-INTEREST_CLASSES = ["person"]
-#INTEREST_CLASSES = ["person","wheelchair","crutch"]
+# INTEREST_CLASSES = ["person"]
+INTEREST_CLASSES = ["person","wheelchair","crutch"]
 MARKER_LIFETIME = 0.1
 
 
@@ -100,9 +100,12 @@ class MultiObjectTrackingNode(object):
             if dets_list is None:
                 dets_list = np.array([det.x, det.y, det.radius], dtype=np.float32)
                 info_list = np.array([det.confidence, det.class_id], dtype=np.float32)
+                # debug
+                # rospy.loginfo("Value of /det.class_id: %s", det.class_id)
             else:
                 dets_list = np.vstack([dets_list, [det.x, det.y, det.radius]])
                 info_list = np.vstack([info_list, [det.confidence, det.class_id]])
+                # rospy.loginfo("Value of /det.class_id: %s", det.class_id)
 
         
         # if len(dets_list.shape) == 1: dets_list = np.expand_dims(dets_list, axis=0)
@@ -181,6 +184,10 @@ class MultiObjectTrackingNode(object):
             trk3d_msg.confidence = d[6]
             trk3d_msg.class_id = int(d[7])
             trk3d_msg.dangerous = dangerous
+
+            # for debug
+            # rospy.loginfo(trk3d_msg)
+
             self.trk3d_array.trks_list.append(trk3d_msg)
             # print("------------------------------------")
             # print("x,y = ",trk3d_msg.x, trk3d_msg.y)

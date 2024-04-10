@@ -1,2 +1,2 @@
-deep_learning/sarl_ros:deep_learning/yolov4_pytorch:msgs/active_walker:msgs/detection_msgs:msgs/walker_msgs:multi_object_tracking:scan
--DCATKIN_DEVEL_PREFIX=/home/developer/master_ws/master_robot/yolo_ws/devel -DCMAKE_INSTALL_PREFIX=/home/developer/master_ws/master_robot/yolo_ws/install -G Unix Makefiles
+msgs/walker_msgs:scan
+-DCATKIN_DEVEL_PREFIX=/home/developer/master_ws/master_robot/yolo_ws/devel -DCMAKE_INSTALL_PREFIX=/home/developer/master_ws/master_robot/yolo_ws/install -DCATKIN_WHITELIST_PACKAGES=scan;walker_msgs -G Unix Makefiles

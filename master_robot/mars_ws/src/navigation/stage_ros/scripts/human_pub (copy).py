@@ -20,7 +20,7 @@ class StageHumans(object):
         rospy.Subscriber("/pedsim_simulator/simulated_agents", AgentStates, self.agent_states_callback)
         # rospy.Subscriber("/trk3d_vis", AgentStates, self.agent_states_callback)
     def agent_states_callback(self, agent_states):
-        tracked_humans = TrackedHumans()
+        tracked_humans = TrackedHumans() # self-define msg
 
         for i, agent_state in enumerate(agent_states.agent_states):
             human_segment = TrackedSegment()

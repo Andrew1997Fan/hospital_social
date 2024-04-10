@@ -35,8 +35,8 @@ class StageHumans(object):
             # pose.orientation = agent_state.pose.orientation
             pose = Pose()
             pose.position.x = agent_state.x
-            pose.position.x = agent_state.y
-            pose.position.x = 0
+            pose.position.y = agent_state.y
+            pose.position.z = 0
             # pose.orientation = agent_state.
 
             twist = Twist()

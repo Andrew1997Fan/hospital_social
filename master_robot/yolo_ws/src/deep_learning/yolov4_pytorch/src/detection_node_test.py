@@ -35,7 +35,8 @@ if '/opt/ros/kinetic/lib/python2.7/dist-packages' in sys.path:
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
 
-INTEREST_CLASSES = ["person","crutch","wheelchair"]
+INTEREST_CLASSES = ["person","wheelchair","crutch"]
+# INTEREST_CLASSES = ["person"] # origin
 
 
 def detect(cfgfile, weightfile, imgfile):
@@ -189,7 +190,7 @@ class Yolov4Node(object):
     def image_cb(self, msg):
         try:
             cv_image = self.cvbridge.imgmsg_to_cv2(msg, "rgb8")
-            rospy.loginfo("Get image")
+            # rospy.loginfo("Get image")
         except CvBridgeError as e:
             print(e)
             return
@@ -217,13 +218,19 @@ class Yolov4Node(object):
             bbox_msg.size_x = math.floor(box[2] * msg.width)
             bbox_msg.size_y = math.floor(box[3] * msg.height)
             bbox_msg.id = box[6]
+            print(box[6])
             bbox_msg.score = box[5]
             bbox_msg.class_name = self.class_names[bbox_msg.id]
             detection_msg.boxes.append(bbox_msg)
 
+
         result_img = plot_boxes_cv2(cv_image, boxes, savename=None, class_names=self.class_names, interest_classes=INTEREST_CLASSES)
         detection_msg.result_image = self.cvbridge.cv2_to_imgmsg(result_img, "bgr8")
+
+        # print(detection_msg)
+
         self.pub_bbox.publish(detection_msg)
+
 
         result_img = cv2.cvtColor(result_img, cv2.COLOR_RGB2BGR)
         cv2.imshow('Yolo demo', result_img)
@@ -231,7 +238,7 @@ class Yolov4Node(object):
 
 
     def shutdown_cb(self):
-        rospy.loginfo("Shutdown " + rospy.get_name())
+        # rospy.loginfo("Shutdown " + rospy.get_name())
         if hasattr(self, 'model'): del self.model
         if hasattr(self, 'cv_bridge'): del self.cv_bridge
         # exit()
