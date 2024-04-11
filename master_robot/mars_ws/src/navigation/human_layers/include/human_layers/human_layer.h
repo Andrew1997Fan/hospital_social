@@ -165,7 +165,7 @@ protected:
 
       // compute social cost
       double result = A*exp(-1.0 * (Ga * (x - x0) * (x - x0) + 2 * Gb * (x - x0) * (y - y0) + Gc * (y - y0) * (y - y0)));
-
+      
       return result;
   }         
   /******** Asymmetrical Gaussian ********/
