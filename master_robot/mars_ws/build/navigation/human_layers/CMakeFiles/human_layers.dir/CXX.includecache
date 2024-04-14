@@ -24,24 +24,6 @@ dynamic_reconfigure/config_init_mutex.h
 boost/any.hpp
 -
 
-/home/developer/master_ws/master_robot/mars_ws/devel/include/human_layers/HumanVLayerConfig.h
-dynamic_reconfigure/config_tools.h
--
-limits
--
-ros/node_handle.h
--
-dynamic_reconfigure/ConfigDescription.h
--
-dynamic_reconfigure/ParamDescription.h
--
-dynamic_reconfigure/Group.h
--
-dynamic_reconfigure/config_init_mutex.h
--
-boost/any.hpp
--
-
 /home/developer/master_ws/master_robot/mars_ws/devel/include/human_msgs/StateArray.h
 string
 -
@@ -162,16 +144,6 @@ Eigen/Dense
 cmath
 -
 
-/home/developer/master_ws/master_robot/mars_ws/src/navigation/human_layers/include/human_layers/human_visibility_layer.h
-ros/ros.h
--
-human_layers/human_layer.h
--
-dynamic_reconfigure/server.h
--
-human_layers/HumanVLayerConfig.h
--
-
 /home/developer/master_ws/master_robot/mars_ws/src/navigation/human_layers/include/human_layers/static_human_layer.h
 ros/ros.h
 -
@@ -180,24 +152,6 @@ human_layers/human_layer.h
 dynamic_reconfigure/server.h
 -
 human_layers/HumanLayerConfig.h
--
-
-/home/developer/master_ws/master_robot/mars_ws/src/navigation/human_layers/src/human_layer.cpp
-human_layers/human_layer.h
--
-angles/angles.h
--
-pluginlib/class_list_macros.h
--
-
-/home/developer/master_ws/master_robot/mars_ws/src/navigation/human_layers/src/human_visibility_layer.cpp
-human_layers/human_visibility_layer.h
--
-angles/angles.h
--
-pluginlib/class_list_macros.h
--
-tf2_eigen/tf2_eigen.h
 -
 
 /home/developer/master_ws/master_robot/mars_ws/src/navigation/human_layers/src/static_human_layer.cpp

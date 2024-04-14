@@ -84,64 +84,19 @@ void StaticHumanLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i
   double offset = 4.0;
   double radius_new = radius_ + offset;
 
-  // debug
+  //   //debug
   // printf("checked if = humans counting :%ld\n",transformed_humans_.size());
 
-  /* add a new condition decide whether detection is individual or group*/
-  int det_size = transformed_humans_.size()+1;
-  double det_list[det_size][2]; 
-  /*initialize detection list by every update*/
-  for(int i = 0; i < det_size -1 ; i++){
-    for(int j = 0; j < 2 ; j++){
-      det_list[i][j]= 0.0;
-    }
-  }
-  
-  /*push human position info into list*/
-  for(uint i=0;i<transformed_humans_.size();i++){
-      auto det_human = transformed_humans_[i];
-      det_list[i][0] = det_human.pose.position.x;
-      det_list[i][1] = det_human.pose.position.y;
-      printf("In frame %dth human(x,y) = (%f,%f) \n",i,det_list[i][0],det_list[i][1]);
-  }
-
-  /*if between two guys distance <0.45 -> social group ,otherwise individual
-    because human in frame count from left to right don't need to switch order*/
-  // checked!!!
-
-  // for(uint i = 0; i < transformed_humans_.size(); i++){
-  //   double delta_x, delta_y, delta_cost;
-
-  //   delta_x = det_list[i+1][0]- det_list[i][0];
-  //   delta_y = det_list[i+1][1]- det_list[i][1];
-  //   delta_cost = sqrt(delta_x*delta_x + delta_y*delta_y); // nearby humans absolute distance
-  //   //later if succeed, add velocity condition
-  //   if(delta_cost < 0.5){
-  //     //debug
-  //     printf("***so closed!! need space!!!***\n");
-  //   }
-  // }
-
-
-  /* origin gaussion cost map*/
   for(uint i=0;i<transformed_humans_.size();i++){
     auto human = transformed_humans_[i];
-    //checked point
-    // printf("*******checked if go into classification first!!!!******\n");
 
     unsigned int width = std::max(1, static_cast<int>((2*radius_new) / res)),
                  height = std::max(1, static_cast<int>((2*radius_new) / res));
-      
+
     double cx = human.pose.position.x, cy = human.pose.position.y;
     double vx = human.velocity.linear.x, vy = human.velocity.linear.y;
     double ox = cx - radius_new, oy = cy - radius_new;
-
-    /*debug from yolo_detection.node*/
-    // printf("human[%d]pose.x:%f\n",i,human.pose.position.x);
-    // printf("human[%d]pose.y:%f\n",i,human.pose.position.y);
-    // printf("human[%d]velocity.x:%f\n",i,human.velocity.linear.x);
-    // printf("human[%d]velocity.y:%f\n",i,human.velocity.linear.y);
-
+    printf();
     int mx, my;
     costmap->worldToMapNoBounds(ox, oy, mx, my);
 
@@ -171,23 +126,6 @@ void StaticHumanLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i
 
     double var = radius_;
 
-    /*if between two guys distance <0.45 -> social group ,otherwise individual
-      because human in frame count from left to right don't need to switch order*/
-
-    double delta_x, delta_y, delta_cost;
-
-    delta_x = det_list[i+1][0]- det_list[i][0];
-    delta_y = det_list[i+1][1]- det_list[i][1];
-    delta_cost = sqrt(delta_x*delta_x + delta_y*delta_y); // nearby humans absolute distance
-      // //later if succeed, add velocity condition
-      // if(delta_cost < 0.5){
-      //   //debug
-      //   printf("***so closed!! need space!!!***\n");
-      // }
-
-
-
-
     for (int i = start_x; i < end_x; i++)
     {
       for (int j = start_y; j < end_y; j++)
@@ -199,40 +137,21 @@ void StaticHumanLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i
         double x = bx + i * res, y = by + j * res;
         double v = sqrt(vx * vx + vy * vy);
         double val;
-
-        /******** delta_cost decide which gaussion confition static_(individual, group) or dynamic_group ********/
-        // first try only decide with position
-
-        /* origin gaussion */
-        // if(v > 0.05)
-        //   val = Asymmetrical_Gaussian(x, y, cx, cy, vx, vy, var, amplitude_);
-        // else
-        //   val = Gaussian2D(x, y, cx, cy, amplitude_, var, var);
-
-        /* for differant scenario social space*/
-        // if(v > 0.05){
-        //   val = Asymmetrical_Gaussian(x, y, cx, cy, vx, vy, var, amplitude_);
-        // }
-        //debug
-        if((delta_cost < 0.9) && (v > 0.05)){
-          printf("******** Dynamic_Asymmetrical_Gaussion **********\n");
-
+        
+        if(v > 0.05)
           val = Asymmetrical_Gaussian(x, y, cx, cy, vx, vy, var, amplitude_);
-        }
-        // else if(delta_cost < 0.9){
-        //   /*test*/
-        //   printf("******** Dynamic_Asymmetrical_Gaussion **********\n");
-        //   // val = Static_individual_Asymmetrical_Gaussian(); 
-        // }
-        // else if(){
-        //   val = Static_Group_Asymmetrical_Gaussian();
-        // }
-        // else if(){
-        //   val = Dynamic_Group_Asymmetrical_Gaussian();
-        // }
-        else{
+        else
           val = Gaussian2D(x, y, cx, cy, amplitude_, var, var);
-        }
+        //*** for differant scenario social space***
+        // else if(){
+          // val = Static_individual_Asymmetrical_Gaussian(); 
+        // }
+        // else if(){
+          // val = Static_Group_Asymmetrical_Gaussian();
+        // }
+        // else if(){
+          // val = Dynamic_Group_Asymmetrical_Gaussian();
+        // }
         //
 
         // printf("personal space result : %f\n", val);
