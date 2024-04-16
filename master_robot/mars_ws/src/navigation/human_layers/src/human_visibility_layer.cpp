@@ -132,7 +132,7 @@ void HumanVisibilityLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int m
         double val;
 
         // printf("visibility amplitude %f \n", amplitude_);
-        val = Gaussian2D(x, y, cx, cy, amplitude_, var, var);
+        val = Static_Individual_Gaussian2D(x, y, cx, cy, amplitude_, var, var);
         // printf("visibility layer %f \n", val);
 
         double rad = sqrt(-2*var*log(val/amplitude_));

@@ -49,8 +49,9 @@
 #include <boost/thread.hpp>
 #include <math.h>
 // for group gaussian
-#include <Eigen/Dense>
 #include <cmath>
+#include <vector>
+using namespace std;
 
 #define PI 3.14159265359
 
@@ -92,13 +93,13 @@ protected:
     return A*exp(-pow(dx,2.0)/(2.0*varx));
   }
 
-  double Gaussian2D(double x, double y, double x0, double y0, double A, double varx, double vary)
+  double Static_Individual_Gaussian2D(double x, double y, double x0, double y0, double A, double varx, double vary)
   {
     double dx = x - x0, dy = y - y0;
     double d = sqrt(dx * dx + dy * dy);
     double theta = atan2(dy, dx);
     double X = d*cos(theta), Y = d*sin(theta);
-    double scale = 4;
+    double scale = 10;//3
     return (A/2)/std::max(d,1.0) * Guassian1D(X,0.0,1.0,varx/scale) * Guassian1D(Y,0.0,1.0,vary/scale);
   }
 
@@ -124,17 +125,18 @@ protected:
       return angle;
   }
 
-  double Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A) {
+  /******** Static individual Asymmetrical Gaussian ********/
+  double Dynamic_Individual_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A) {
       // define parameter
       double v = sqrt(vx * vx + vy * vy);
       double theta = atan2(vy, vx);
-      double sigmaHead = fmax(1.2 * v, 1.0);
+      double sigmaHead = fmax(0.8* v, 0.6);//fmax(1.2*v,1.0)
       // printf("sigmaHead: %f, human v: %f\n", sigmaHead, v);
       // double sigmaRear = 2.0 / 7.0;
-      double sigmaRear = var / 7.0;
-      double sigmaLarge = var / 5.0;
+      double sigmaRear = var / 12.0;//7.0
+      double sigmaLarge = var / 10.0;//5.0
       // double sigmaSmall = 2.0 / 7.0;
-      double sigmaSmall = var / 7.0;
+      double sigmaSmall = var / 12.0;//7.0
 
       // compute αmain, αside
       double alphaMain = normalize(atan2(y - y0, x - x0) - theta + PI / 2);
@@ -165,97 +167,78 @@ protected:
 
       // compute social cost
       double result = A*exp(-1.0 * (Ga * (x - x0) * (x - x0) + 2 * Gb * (x - x0) * (y - y0) + Gc * (y - y0) * (y - y0)));
-      
-      
+
       return result;
   }         
-  /******** Asymmetrical Gaussian ********/
-
-  // /******** Static individual Asymmetrical Gaussian ********/
-  // double Static_individual_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A) {
-  //     // define parameter
-  //     double v = sqrt(vx * vx + vy * vy);
-  //     double theta = atan2(vy, vx);
-  //     double sigmaHead = fmax(1.2 * v, 1.0);
-  //     // printf("sigmaHead: %f, human v: %f\n", sigmaHead, v);
-  //     // double sigmaRear = 2.0 / 7.0;
-  //     double sigmaRear = var / 7.0;
-  //     double sigmaLarge = var / 5.0;
-  //     // double sigmaSmall = 2.0 / 7.0;
-  //     double sigmaSmall = var / 7.0;
-
-  //     // compute αmain, αside
-  //     double alphaMain = normalize(atan2(y - y0, x - x0) - theta + PI / 2);
-  //     double alphaSide1 = normalize(alphaMain - PI / 2); // right hand principle
-  //     // double alphaSide2 = normalize(alphaMain + PI / 2); // lefy hand principle
- 
-  //     // determin sigmaMain, sigmaSide
-  //     double sigmaMain, sigmaSide;
-  //     if (alphaMain > 0) {
-  //         sigmaMain = sigmaHead;
-  //     } else {
-  //         sigmaMain = sigmaRear;
-  //     }
-
-  //     // if (alphaSide1 > 0 || alphaSide2 > 0) {
-  //     if (alphaSide1 > 0) {
-  //         sigmaSide = sigmaLarge;
-  //     } else {
-  //         sigmaSide = sigmaSmall;
-  //     }
-
-  //     // determin G,、Gb, Gc
-  //     double cosTheta = cos(theta);
-  //     double sinTheta = sin(theta);
-  //     double Ga = (cosTheta * cosTheta) / (2 * sigmaMain * sigmaMain) + (sinTheta * sinTheta) / (2 * sigmaSide * sigmaSide);
-  //     double Gb = sin(2 * theta) / (4 * sigmaMain * sigmaMain) - sin(2 * theta) / (4 * sigmaSide * sigmaSide);
-  //     double Gc = (sinTheta * sinTheta) / (2 * sigmaMain * sigmaMain) + (cosTheta * cosTheta) / (2 * sigmaSide * sigmaSide);
-
-  //     // compute social cost
-  //     double result = A*exp(-1.0 * (Ga * (x - x0) * (x - x0) + 2 * Gb * (x - x0) * (y - y0) + Gc * (y - y0) * (y - y0)));
-
-  //     return result;
-  // }         
-  // /******** Static individual Asymmetrical Gaussian ********/
-
-  // /******** Static Group Asymmetrical Gaussian ********/
-  // // acquire every human's pose and calculate mean value
-  // double sum(){
-  //   Eigen::Vector2d sum;
-
-  //   return sum;
-  // }
+  /******** Static individual Asymmetrical Gaussian ********/
 
 
-  // double Static_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A, double N) {
-  //     // need humna number N to caculate sigma_star
 
-  //     // define parameter
-  //     Eigen::Vector2d q;
-  //     double q1 = x;
-  //     double q2 = y;
-  //     q << q1, q2;
+  /******** Static Group Asymmetrical Gaussian ********/
 
-  //     Eigen::Vector2d p;
-  //     double p1 = x0;
-  //     double p2 = y0;
-  //     p << p1, p2;
+  // double Static_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A,vector<vector<double>> delta_list_, double N) {
+  //   // need human number N to caculate sigma_star (V)
+    
+  //   double sum_x = 0.0;
+  //   double sum_y = 0.0;
+  //   for(int i = 0; i< counts+1; i++){
+  //     sum_x += delta_list_[0][i];
+  //     sum_y += delta_list_[1][i];
+  //   }
 
-  //     // determin covariance / sigma_x* and sigma_y*
-  //     Eigen::Matrix2d sigma_star;
-  //     double sigma_x_star = (1/4*N)*sum[1];
-  //     double sigma_y_star = (1/N)*sum[2];
-  //     // static group is diagonal covariance
-  //     sigma_star << pow(sigma_x_star,2), 0,
-  //                   0, pow(sigma_y_star,2);
+  //   // acquire every human's pose and calculate mean value
+  //   std::vector<double> sum; //[s1,s2]
+  //   double s1 = (1/(4*counts))*(sum_x);
+  //   double s2 = (1/counts)*(sum_y);
+  //   sum.push_back(s1);
+  //   sum.push_back(s2);
+    
+  //   // define parameter
+  //   // Eigen::Vector2d q;
+  //   std::vector<double> q; //[q1,q2]
+  //   double q1 = x;
+  //   double q2 = y;
+  //   q.push_back(q1);
+  //   q.push_back(q2);
+  //   // q << q1, q2;
 
-  //     // compute social cost
-  //     //double result = A*exp(-1.0 * (Ga * (x - x0) * (x - x0) + 2 * Gb * (x - x0) * (y - y0) + Gc * (y - y0) * (y - y0)));
-  //     double result = exp((-1/2)*((q-p).transpose)*(sigma_star.inverse)*(q-p));
+  //   // Eigen::Vector2d p;
+  //   std::vector<double> p; //[p1,p2]
+  //   double p1 = x0;
+  //   double p2 = y0;
+  //   // p << p1, p2;
+  //   p.push_back(p1);
+  //   p.push_back(p2);
 
-  //     return result;
+  //   // determin covariance / sigma_x* and sigma_y*
+  //   // Eigen::Matrix2d sigma_star;
+  //   //[[x^2,0],
+  //   // [0,y^2]]
+  //   std::vector<std::vector<double>> sigma_star;
+  //   double sigma_x_star = (1/4*N)*sum[0];
+  //   double sigma_y_star = (1/N)*sum[1];
+  //   // static group is diagonal covariance
+  //   std::vector<double> row1;
+  //   row1.push_back(power(sigma_x_star,2));
+  //   row1.push_back(0);
+  //   sigma_star.push_back(row1);
+
+
+  //   std::vector<double> row2;
+  //   row2.push_back(0);
+  //   row2.push_back(power(sigma_y_star,2));
+  //   sigma_star.push_back(row2);
+
+  //   // sigma_star << pow(sigma_x_star,2), 0,//[[x^2,0],[0,y^2]]
+  //   //               0, pow(sigma_y_star,2);
+
+  //   // compute social cost
+  //   //double result = A*exp(-1.0 * (Ga * (x - x0) * (x - x0) + 2 * Gb * (x - x0) * (y - y0) + Gc * (y - y0) * (y - y0)));
+  //   double result = exp((-1.0/2.0)*((q-p).transpose())*(sigma_star.inverse())*(q-p));
+
+  //   return result;
   // }   
-  // /******** Static Group Asymmetrical Gaussian ********/
+  /******** Static Group Asymmetrical Gaussian ********/
 
   // /******** Dynamic Group Asymmetrical Gaussian ********/
   // // define param si = φ , phi = Φ , 
