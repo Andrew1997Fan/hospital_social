@@ -51,6 +51,7 @@
 // for group gaussian
 #include <cmath>
 #include <vector>
+#include <Eigen/Dense>
 using namespace std;
 
 #define PI 3.14159265359
@@ -167,144 +168,171 @@ protected:
 
       // compute social cost
       double result = A*exp(-1.0 * (Ga * (x - x0) * (x - x0) + 2 * Gb * (x - x0) * (y - y0) + Gc * (y - y0) * (y - y0)));
-
       return result;
   }         
   /******** Static individual Asymmetrical Gaussian ********/
 
-
+  void cast_to_map_1p( costmap_2d::Costmap2D* costmap, int index_,int min_i, int min_j, int max_i, int max_j);
+  void cast_to_map_gp( costmap_2d::Costmap2D* costmap, vector<vector<double>> tmp_list_,int index_,int min_i, int min_j, int max_i, int max_j);
 
   /******** Static Group Asymmetrical Gaussian ********/
 
-  // double Static_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A,vector<vector<double>> delta_list_, double N) {
-  //   // need human number N to caculate sigma_star (V)
+  double Static_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, vector<vector<double>> det_list_,double A, double N) {
+    // tmp_list record group position
+    // N represent q_size = tmp_list.size()
+    // gaussion no need speed(in master thesis) but might need!!!!!
+    printf("***test*****\n");
+    // calculate total differance in frame
+    double dif_x_total= 0.0, dif_y_total=0.0;
+    int count = 0;
+    for(int i = 0; i < N-1; i++){
+      dif_x_total += 1/10*abs(det_list_[i+1][0]-det_list_[i][0]);
+      dif_y_total += 1/10*abs(det_list_[i+1][1]-det_list_[i][1]);
+      count++;
+    }
+    if(count == N-1){
+      dif_x_total += 1/10*abs(det_list_[0][0]-det_list_[N-1][0]);
+      dif_x_total += 1/10*abs(det_list_[0][1]-det_list_[N-1][1]);
+    }
+
+    // acquire every human's pose and calculate mean value
+    vector<double> sum; //[s1,s2]
+    double s1 = (1.0/(4*N))*(dif_x_total);
+    double s2 = (1.0/N)*(dif_y_total);
+    sum.push_back(s1);
+    sum.push_back(s2);
     
-  //   double sum_x = 0.0;
-  //   double sum_y = 0.0;
-  //   for(int i = 0; i< counts+1; i++){
-  //     sum_x += delta_list_[0][i];
-  //     sum_y += delta_list_[1][i];
-  //   }
+    // define parameter
+    Eigen::Vector2d q_eigen;
+    vector<double> q; //[q1,q2]
+    double q1 = x;
+    double q2 = y;
+    q.push_back(q1);
+    q.push_back(q2);
+    q_eigen << q[0],q[1];
+    // q << q1, q2;
 
-  //   // acquire every human's pose and calculate mean value
-  //   std::vector<double> sum; //[s1,s2]
-  //   double s1 = (1/(4*counts))*(sum_x);
-  //   double s2 = (1/counts)*(sum_y);
-  //   sum.push_back(s1);
-  //   sum.push_back(s2);
-    
-  //   // define parameter
-  //   // Eigen::Vector2d q;
-  //   std::vector<double> q; //[q1,q2]
-  //   double q1 = x;
-  //   double q2 = y;
-  //   q.push_back(q1);
-  //   q.push_back(q2);
-  //   // q << q1, q2;
-
-  //   // Eigen::Vector2d p;
-  //   std::vector<double> p; //[p1,p2]
-  //   double p1 = x0;
-  //   double p2 = y0;
-  //   // p << p1, p2;
-  //   p.push_back(p1);
-  //   p.push_back(p2);
-
-  //   // determin covariance / sigma_x* and sigma_y*
-  //   // Eigen::Matrix2d sigma_star;
-  //   //[[x^2,0],
-  //   // [0,y^2]]
-  //   std::vector<std::vector<double>> sigma_star;
-  //   double sigma_x_star = (1/4*N)*sum[0];
-  //   double sigma_y_star = (1/N)*sum[1];
-  //   // static group is diagonal covariance
-  //   std::vector<double> row1;
-  //   row1.push_back(power(sigma_x_star,2));
-  //   row1.push_back(0);
-  //   sigma_star.push_back(row1);
+    Eigen::Vector2d p_eigen;
+    vector<double> p; //[p1,p2]
+    double p1 = x0;
+    double p2 = y0;
+    // p << p1, p2;
+    p.push_back(p1);
+    p.push_back(p2);
+    p_eigen << p[0],p[1];
 
 
-  //   std::vector<double> row2;
-  //   row2.push_back(0);
-  //   row2.push_back(power(sigma_y_star,2));
-  //   sigma_star.push_back(row2);
 
-  //   // sigma_star << pow(sigma_x_star,2), 0,//[[x^2,0],[0,y^2]]
-  //   //               0, pow(sigma_y_star,2);
+    Eigen::Matrix2d sigma_star_eigen;
 
-  //   // compute social cost
-  //   //double result = A*exp(-1.0 * (Ga * (x - x0) * (x - x0) + 2 * Gb * (x - x0) * (y - y0) + Gc * (y - y0) * (y - y0)));
-  //   double result = exp((-1.0/2.0)*((q-p).transpose())*(sigma_star.inverse())*(q-p));
 
-  //   return result;
-  // }   
+    sigma_star_eigen << sum[0]*sum[0], 0,
+                          0, sum[1]*sum[1];
+
+    double result = A*exp((-1.0/2.0)*((q_eigen-p_eigen).transpose())*(sigma_star_eigen.inverse())*(q_eigen-p_eigen));
+ 
+    return result;
+  }  
   /******** Static Group Asymmetrical Gaussian ********/
 
-  // /******** Dynamic Group Asymmetrical Gaussian ********/
-  // // define param si = φ , phi = Φ , 
-  // double si_x(){
+  /******** Dynamic Group Asymmetrical Gaussian ********/
+  double Dynamic_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, vector<vector<double>> det_list_,double A, double N) {
+      // need humna number N to caculate sigma_star
+      double dif_x_total= 0.0, dif_y_total=0.0;
+      int count = 0;
+      for(int i = 0; i < N-1; i++){
+        dif_x_total += 1/10*abs(det_list_[i+1][0]-det_list_[i][0]);
+        dif_y_total += 1/10*abs(det_list_[i+1][1]-det_list_[i][1]);
+        count++;
+      }
+      if(count == N-1){
+        dif_x_total += 1/10*abs(det_list_[0][0]-det_list_[N-1][0]);
+        dif_x_total += 1/10*abs(det_list_[0][1]-det_list_[N-1][1]);
+      }
 
-  // }
-  // double si_y(){
+      //center of space
+      double mean_x= 0.0, mean_y=0.0;
+      for(int i = 0; i < N; i++){
+        mean_x += det_list_[i][0];
+        mean_y += det_list_[i][1];
+        if(i == N-1){
+          mean_x = mean_x/i;
+          mean_y = mean_y/i;
+        }
+      }
 
-  // }
-  // double x_max(){
+      double l_x;
+      l_x = 1/2*(det_list_[0][0] + det_list_[N-1][0]);
+      double si_x;
+      si_x = abs(mean_x - l_x);
 
-  // }
-  // double y_max(){
+      double y_b = det_list_[0][1];
+      double y_f = det_list_[0][1];
+      for(int i = 0; i < N-1 ; i++){
+        if(det_list_[i][1] < y_f){
+          y_f = det_list_[i][1];
+        }
+        if(det_list_[i][1] > y_b){
+          y_b = det_list_[i][1];;
+        }
+      }
 
-  // }
-  // double 
-
-  // double Dynamic_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A, double N) {
-  //     // need humna number N to caculate sigma_star
-
-  //     // define parameter
-  //     Eigen::Vector2d q;
-  //     double q1 = x;
-  //     double q2 = y;
-  //     q << q1, q2;
-
-  //     Eigen::Vector2d p;
-  //     double p1 = x0;
-  //     double p2 = y0;
-  //     p << p1, p2;
+      double l_y;
+      l_y = 1/2*(det_list_[0][1] + det_list_[N-1][1]);
+      double si_y;
+      si_y = abs(mean_y - l_y);
 
 
-  //     // ***group para inupt*** 
+
+      Eigen::Vector2d q_eigen;
+      vector<double> q; //[q1,q2]
+      double q1 = x;
+      double q2 = y;
+      q.push_back(q1);
+      q.push_back(q2);
+      q_eigen << q[0],q[1];
       
 
-
-  //     // determin covariance / sigma_x* and sigma_y*
-  //     Eigen::Matrix2d sigma_1; 
-  //     Eigen::Matrix2d sigma_2;
-
-  //     double sigma_x = si_x + max_x;
-  //     double sigma_y = ;
-  //     double sigma_y_prime = sigma_x + si_y;
-
-
-  //     sigma_1 << pow(sigma_x,2), 0,
-  //                   0, pow(sigma_y,2);
-
-  //     sigma_2 << pow(sigma_x,2), 0,
-  //                   0, pow(sigma_y_prime,2);
+      Eigen::Vector2d p_eigen;
+      vector<double> p; //[p1,p2]
+      double p1 = x0;
+      double p2 = y0;
+      // p << p1, p2;
+      p.push_back(p1);
+      p.push_back(p2);
+      p_eigen << p[0],p[1];
 
 
-  //     // compute social cost
+      // determin covariance / sigma_x* and sigma_y*
+      Eigen::Matrix2d sigma_1; 
+      Eigen::Matrix2d sigma_2;
+
+      double sigma_x = si_x + max(det_list_[N-1][0]-mean_x,mean_x-det_list_[0][0]);
+      double sigma_y = mean_x - y_b;
+      double sigma_y_prime = sigma_x + si_y + max(y_b - mean_y,mean_y - y_f);
+
+
+      sigma_1 << sigma_x*sigma_x, 0,
+                    0, sigma_y*sigma_y;
+
+      sigma_2 << sigma_x*sigma_x, 0,
+                    0, sigma_y_prime*sigma_y_prime;
+
+
+      // compute social cost
   
-  //     // define weight for forward or backward of the group , total weight = 1
-  //     double w_1 = 0.75;
-  //     double w_2 = (1 - W_1);
-  //     // forward gaussian phi_1 , backward guassian phi_2
-  //     double phi_1 = w_1*exp((-1/2)*((q-p).transpose)*(sigma_1.inverse)*(q-p));
-  //     double phi_2 = w_2*exp((-1/2)*((q-p).transpose)*(sigma_2.inverse)*(q-p));
-  //     // sum of guassian result
-  //     double result = phi_1 + phi_2;
+      // define weight for forward or backward of the group , total weight = 1
+      double w_1 = 0.75;
+      double w_2 = (1 - w_1);
+      // forward gaussian phi_1 , backward guassian phi_2
+      double phi_1 = w_1*exp((-1.0/2.0)*((q_eigen-p_eigen).transpose())*(sigma_1.inverse())*(q_eigen-p_eigen));
+      double phi_2 = w_2*exp((-1.0/2.0)*((q_eigen-p_eigen).transpose())*(sigma_2.inverse())*(q_eigen-p_eigen));
+      // sum of guassian result
+      double result = phi_1 + phi_2;
 
-  //     return result;
-  // }  
-  // /******** Dynamic Group Asymmetrical Gaussian ********/
+      return result;
+  }  
+  /******** Dynamic Group Asymmetrical Gaussian ********/
 
 
   ros::Subscriber humans_sub_, humans_states_sub_;

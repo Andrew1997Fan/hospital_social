@@ -36,6 +36,7 @@
  *********************************************************************/
  
 #include <human_layers/human_layer.h>
+#include <human_layers/static_human_layer.h>
 #include <angles/angles.h>
 #include <pluginlib/class_list_macros.h>
 
@@ -184,7 +185,6 @@ void HumanLayer::updateBounds(double origin_x, double origin_y, double origin_z,
       }
     }
   }
-
   updateBoundsFromHumans(min_x, min_y, max_x, max_y);
   if (first_time_)
   {
@@ -207,4 +207,169 @@ void HumanLayer::updateBounds(double origin_x, double origin_y, double origin_z,
     last_max_y_ = d;
   }
 }
+
+
+
+void HumanLayer::cast_to_map_1p( costmap_2d::Costmap2D* costmap, int index_,int min_i, int min_j, int max_i, int max_j){
+  /*-------------------start cost_map generate----------------*/
+  //append drawing gaussion function
+
+  double res = costmap->getResolution();
+  double offset = 4.0;//4.0
+  double radius_new = radius_ + offset;
+
+
+  auto human = transformed_humans_[index_];
+  // auto human = transformed_humans_[i];
+  unsigned int width = std::max(1, static_cast<int>((2*radius_new) / res)),
+                height = std::max(1, static_cast<int>((2*radius_new) / res));
+    
+  double cx = human.pose.position.x, cy = human.pose.position.y;
+  double vx = human.velocity.linear.x, vy = human.velocity.linear.y;
+  double ox = cx - radius_new, oy = cy - radius_new;
+
+
+  int mx, my;
+  costmap->worldToMapNoBounds(ox, oy, mx, my);
+
+  int start_x = 0, start_y = 0, end_x = width, end_y = height;
+  if (mx < 0)
+    start_x = -mx;
+  else if (mx + width > costmap->getSizeInCellsX())
+    end_x = std::max(0, static_cast<int>(costmap->getSizeInCellsX()) - mx);
+
+  if (static_cast<int>(start_x + mx) < min_i)
+    start_x = min_i - mx;
+  if (static_cast<int>(end_x + mx) > max_i)
+    end_x = max_i - mx;
+
+  if (my < 0)
+    start_y = -my;
+  else if (my + height > costmap->getSizeInCellsY())
+    end_y = std::max(0, static_cast<int>(costmap->getSizeInCellsY()) - my);
+
+  if (static_cast<int>(start_y + my) < min_j)
+    start_y = min_j - my;
+  if (static_cast<int>(end_y + my) > max_j)
+    end_y = max_j - my;
+
+  double bx = ox + res / 2,
+          by = oy + res / 2;
+
+  double var = radius_;
+  for (int i = start_x; i < end_x; i++)
+  {
+    for (int j = start_y; j < end_y; j++)
+    {
+      unsigned char old_cost = costmap->getCost(i + mx, j + my);
+      if (old_cost == costmap_2d::NO_INFORMATION)
+        continue;
+
+      double x = bx + i * res, y = by + j * res;
+      double v = sqrt(vx * vx + vy * vy);
+      double val;
+      
+      if(v > 0.05 ){ // ok 
+        // printf("******** Dynamic_Individual **********\n");
+        val = Dynamic_Individual_Asymmetrical_Gaussian(x, y, cx, cy, vx, vy, var, amplitude_);
+      }
+      /*no moving human*/
+      else{
+        // printf("******** Static_Individual **********\n");
+        val = Static_Individual_Gaussian2D(x, y, cx, cy, amplitude_, var, var);
+      }
+
+
+      unsigned char cvalue = (unsigned char) val;
+      costmap->setCost(i + mx, j + my, std::max(cvalue, old_cost));
+    }
+  }
+}
+
+
+void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<vector<double>> tmp_list_,int index_,int min_i, int min_j, int max_i, int max_j){
+  double res = costmap->getResolution();
+  double offset = 4.0;//4.0
+  double radius_new = radius_ + offset;
+  auto human = transformed_humans_[index_];
+
+  unsigned int width = std::max(1, static_cast<int>((2*radius_new) / res)),
+                height = std::max(1, static_cast<int>((2*radius_new) / res));
+      
+
+  double cx, cy;
+  // center of the space need to be a mean value
+  for(uint j = 0; j < tmp_list_.size(); j++){
+    cx += tmp_list_[j][0];
+    cy += tmp_list_[j][1];
+    if(j == tmp_list_.size()){
+      cx = cx/j;
+      cy = cy/j;
+    }
+  }
+
+  // double cx = human.pose.position.x, cy = human.pose.position.y;
+  double vx = human.velocity.linear.x, vy = human.velocity.linear.y; //assume group move in same speed so choose one of them represent
+  double ox = cx - radius_new, oy = cy - radius_new;
+
+  int mx, my;
+  costmap->worldToMapNoBounds(ox, oy, mx, my);
+
+  int start_x = 0, start_y = 0, end_x = width, end_y = height;
+  if (mx < 0)
+    start_x = -mx;
+  else if (mx + width > costmap->getSizeInCellsX())
+    end_x = std::max(0, static_cast<int>(costmap->getSizeInCellsX()) - mx);
+
+  if (static_cast<int>(start_x + mx) < min_i)
+    start_x = min_i - mx;
+  if (static_cast<int>(end_x + mx) > max_i)
+    end_x = max_i - mx;
+
+  if (my < 0)
+    start_y = -my;
+  else if (my + height > costmap->getSizeInCellsY())
+    end_y = std::max(0, static_cast<int>(costmap->getSizeInCellsY()) - my);
+
+  if (static_cast<int>(start_y + my) < min_j)
+    start_y = min_j - my;
+  if (static_cast<int>(end_y + my) > max_j)
+    end_y = max_j - my;
+
+  double bx = ox + res / 2,
+        by = oy + res / 2;
+
+  int q_size = tmp_list_.size();
+
+  double var = radius_;
+  for (int k = start_x; k < end_x; k++)
+  {
+    for (int p = start_y; p < end_y; p++)
+    {
+      unsigned char old_cost = costmap->getCost(k + mx, p + my);
+      if (old_cost == costmap_2d::NO_INFORMATION)
+        continue;
+
+      double x = bx + k * res, y = by + p * res;
+      double v = sqrt(vx * vx + vy * vy);
+      double val;
+      
+      if(v > 0.05 ){ // ok 
+        printf("*************Dynamic Group!!!!!!!!!!!!!!!!\n");
+        // val = Dynamic_Group_Asymmetrical_Gaussian(x, y, cx, cy, vx, vy, var, tmp_list_, amplitude_,q_size);
+      }
+      else{
+        printf("*************Static Group!!!!!!!!!!!!!!!!\n");
+        val = Static_Group_Asymmetrical_Gaussian(x, y, cx, cy, vx, vy, var, tmp_list_, amplitude_,q_size);
+      }
+      unsigned char cvalue = (unsigned char) val;
+      costmap->setCost(k + mx, p + my, std::max(cvalue, old_cost));
+    }
+  }
+
+}
+
+// void cast_to_map_gp_dynamic( costmap_2d::Costmap2D* costmap, double cx,double cy){
+
+// }
 };  // namespace human_layers

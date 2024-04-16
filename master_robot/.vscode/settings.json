@@ -22,6 +22,8 @@
         "string": "cpp",
         "vector": "cpp",
         "numeric": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "variant": "cpp",
+        "chrono": "cpp"
     }
 }
