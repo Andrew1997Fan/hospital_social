@@ -43,7 +43,7 @@
 #include <vector>
 #include <cmath>
 #include <queue>
-#define group_dis_cost 0.8
+#define group_dis_cost 1.0
 
 using namespace std;
 
@@ -89,6 +89,7 @@ double cost_calculate(int a, int b, int c, int d){
 
 void StaticHumanLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i, int min_j, int max_i, int max_j)
 {
+  
   boost::recursive_mutex::scoped_lock lock(lock_);
   if (!enabled_) return;
 
@@ -101,105 +102,170 @@ void StaticHumanLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i
   // double offset = 4.0;//4.0
   // double radius_new = radius_ + offset;
 
-  // debug
-  // printf("checked if = humans counting :%ld\n",transformed_humans_.size());
-
   /* add a new condition decide whether detection is individual or group*/
   uint det_size = transformed_humans_.size();
 
   vector<vector<double>> det_list(det_size, vector<double>(2));
-  // double det_list[det_size][2]; 
-  /*initialize detection list by every update*/
   for(uint i = 0; i < transformed_humans_.size() ; i++){ //det_size
     for(int j = 0; j < 2 ; j++){
       det_list[i][j]= 0.0;
     }
   }
-  // printf("show transformed_humans_.size() : %ld",transformed_humans_.size());
 
-  /*push human position info into list*/
+  // printf("show transformed_humans_.size() : %ld",transformed_humans_.size());
   for(uint i=0;i<transformed_humans_.size();i++){
       auto det_human = transformed_humans_[i];
       det_list[i][0] = det_human.pose.position.x;
       det_list[i][1] = det_human.pose.position.y;
-      // printf("In frame %dth human(x,y) = (%f,%f) \n",i,det_list[i][0],det_list[i][1]);
+      printf("In frame %dth human(x,y) = (%f,%f) \n",i,det_list[i][0],det_list[i][1]);
   }
 
-  int N = transformed_humans_.size(); 
-  
-  vector<vector<double>> tmp_list;
-  vector<double> tmp(2); 
-  queue<double> waiting_list_q;
 
-  int index = 0;
 
-  // change only one person in frame
+  vector<vector<HumanPoseVel>> groups;
 
-  if(N == 1){ // individual_gaussion
-    cast_to_map_1p(costmap ,index,min_i,min_j,max_i,max_j);
-  }
-
-  /*more than one human*/
-  else{ 
-      waiting_list_q.push(index);
-      index++;
-      for(int i = 1; i < N; i++){
-          if(cost_calculate(det_list[i-1][0],det_list[i-1][1],det_list[i][0],det_list[i][1]) < group_dis_cost){//group
-              waiting_list_q.push(index);
-              if(i == N-1){
-                  while(!waiting_list_q.empty()){
-                      tmp[0] = det_list[waiting_list_q.front()][0];
-                      tmp[1] = det_list[waiting_list_q.front()][1];
-                      tmp_list.push_back(tmp);
-                      waiting_list_q.pop();
-                  }                  
-                  printf("******** test group gaussion!!!  1  ************\n");
-                  cast_to_map_gp(costmap ,tmp_list,index,min_i,min_j,max_i,max_j);
-              }
-              else{
-                  waiting_list_q.push(index);
+  // classify groups
+  for (uint i = 0; i < transformed_humans_.size(); ++i) {
+      bool found_group = false;
+      for (auto& group : groups) {
+          for (const auto& member : group) {
+              double distance = sqrt(pow(transformed_humans_[i].pose.position.x - member.pose.position.x, 2) +
+                                          pow(transformed_humans_[i].pose.position.y - member.pose.position.y, 2));
+              if (distance < group_dis_cost) {
+                  // 如果距离小于1，将行人加入这个群组
+                  group.push_back(transformed_humans_[i]);
+                  found_group = true;
+                  break;
               }
           }
-          else{
-              if(waiting_list_q.size() != 1){//group
-                  while(!waiting_list_q.empty()){
-                      tmp[0] = det_list[waiting_list_q.front()][0];
-                      tmp[1] = det_list[waiting_list_q.front()][1];
-                      tmp_list.push_back(tmp);
-                      waiting_list_q.pop();
-                  }
-                  printf("******** test group gaussion!!!  2  ************\n");
-                  cast_to_map_gp(costmap ,tmp_list,index,min_i,min_j,max_i,max_j);
-
-
-              }
-              else{
-                  while(!waiting_list_q.empty()){
-                      tmp[0] = det_list[waiting_list_q.front()][0];
-                      tmp[1] = det_list[waiting_list_q.front()][1];
-                      tmp_list.push_back(tmp);
-                      waiting_list_q.pop();
-                    }
-                  printf("******** test individual gaussion!!!  1  ************\n");
-                  cast_to_map_1p(costmap ,index,min_i,min_j,max_i,max_j);
-                  }
-                  
-              }  
-              waiting_list_q.push(index);
-              if(i == N-1){
-                  while(!waiting_list_q.empty()){
-                      tmp[0] = det_list[waiting_list_q.front()][0];
-                      tmp[1] = det_list[waiting_list_q.front()][1];
-                      tmp_list.push_back(tmp);
-                      waiting_list_q.pop();
-                  }
-                  printf("******** test individual gaussion!!!   2  ************\n");
-                  cast_to_map_1p(costmap ,index,min_i,min_j,max_i,max_j);
-              }
-          }
-          index++;
+          if (found_group) break;
+      }
+      if (!found_group) {
+          vector<HumanPoseVel> new_group;
+          new_group.push_back(transformed_humans_[i]);
+          // 如果没有找到合适的群组，则创建一个新的群组
+          groups.push_back(new_group);
       }
   }
+
+  // scan groups and call relative space
+  for(auto& group : groups){
+    if(group.size() > 1 ){      // groups
+        for([[maybe_unused]] const auto& member : group){
+          cast_to_map_gp(costmap ,group,min_i,min_j,max_i,max_j);
+        }
+    }
+    else{ // individual
+      for([[maybe_unused]] const auto& member : group){
+        cast_to_map_1p(costmap ,group,min_i,min_j,max_i,max_j);
+      }
+    }
+  }
+
+
+
+
+
+  /*origin code start*/
+
+  // int N = transformed_humans_.size(); 
+
+  // vector<vector<double>> tmp_list;
+  // vector<double> tmp(2); 
+  // queue<double> waiting_list_q;
+
+  // int index = 0;
+  // int ptr_tmp = 0;
+  // // change only one person in frame
+
+  // if(N == 1){ // individual_gaussion
+  //   cast_to_map_1p(costmap ,index,min_i,min_j,max_i,max_j);
+  // }
+
+  // /*more than one human*/
+  // else{ 
+      
+  //     waiting_list_q.push(index); //first people
+  //     for(int i = 1; i < N; i++){
+  //         index++;
+
+  //         if(cost_calculate(det_list[i-1][0],det_list[i-1][1],det_list[i][0],det_list[i][1]) < group_dis_cost){//group
+  //             // waiting_list_q.push(index); //second group people
+
+  //             if(i == N-1){ // all people in group
+  //                 while(!waiting_list_q.empty()){
+  //                     tmp[0] = det_list[waiting_list_q.front()][0];
+  //                     tmp[1] = det_list[waiting_list_q.front()][1];
+  //                     // test if it is the unstable frame 
+  //                     // if(tmp[0]){
+                      
+  //                     // }
+  //                     tmp_list.push_back(tmp);
+
+  //                     // test if tmp_list  correct right queue
+  //                     // printf("check tmp_list_current_group queue size and element : %d\n",ptr_tmp);
+  //                     printf("tmp_list_current_group: x , y = %f,%f\n",tmp_list[ptr_tmp][0],tmp_list[ptr_tmp][1]);
+  //                     ptr_tmp++;
+  //                     waiting_list_q.pop();
+  //                 }                  
+  //                 printf("******** test group gaussion!!!  1  ************\n");
+  //                 // for(uint z = 0; z < tmp_list.size(); z++){
+  //                 //   for(int m = 0; m <2 ; m++){
+  //                 //     printf("printf_current_group_tmp_list[%d][%d]:%f \n",z,m,tmp_list[z][m]);
+  //                 //   }
+  //                 // }
+  //                 cast_to_map_gp(costmap ,tmp_list,index,min_i,min_j,max_i,max_j);
+  //             }
+  //             else{
+  //                 waiting_list_q.push(index);
+  //             }
+  //         }
+  //         else{
+  //           if(waiting_list_q.size() != 1){//group
+  //               while(!waiting_list_q.empty()){
+  //                   tmp[0] = det_list[waiting_list_q.front()][0];
+  //                   tmp[1] = det_list[waiting_list_q.front()][1];
+  //                   tmp_list.push_back(tmp);
+  //                   // printf("check tmp_list_last_group queue size and element : %d\n",ptr_tmp);
+
+  //                   // printf("tmp_list_last_group: x , y = %f,%f\n",tmp_list[0],tmp_list[1]);
+  //                   waiting_list_q.pop();
+  //               }
+
+  //               printf("******** test group gaussion!!!  2  ************\n");
+
+  //               cast_to_map_gp(costmap ,tmp_list,index,min_i,min_j,max_i,max_j);
+
+  //           }
+  //           else{
+  //               while(!waiting_list_q.empty()){
+  //                   tmp[0] = det_list[waiting_list_q.front()][0];
+  //                   tmp[1] = det_list[waiting_list_q.front()][1];
+  //                   tmp_list.push_back(tmp);
+  //                   waiting_list_q.pop();
+  //                 }
+  //               printf("******** test individual gaussion!!!  1  ************\n");
+  //               cast_to_map_1p(costmap ,index,min_i,min_j,max_i,max_j);
+  //           }
+  //           waiting_list_q.push(index);
+
+  //           if(i == N-1){// last one 
+  //             while(!waiting_list_q.empty()){
+  //                 tmp[0] = det_list[waiting_list_q.front()][0];
+  //                 tmp[1] = det_list[waiting_list_q.front()][1];
+  //                 tmp_list.push_back(tmp);
+  //                 waiting_list_q.pop();
+  //             }
+  //             printf("******** test individual gaussion!!!   2  ************\n");
+  //             cast_to_map_1p(costmap ,index,min_i,min_j,max_i,max_j);
+  //           }
+
+  //         }  
+
+  //     }
+  // }
+  /*origin code start*/
+}
 
 
 void StaticHumanLayer::configure(HumanLayerConfig &config, uint32_t level)

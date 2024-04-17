@@ -208,9 +208,153 @@ void HumanLayer::updateBounds(double origin_x, double origin_y, double origin_z,
   }
 }
 
+double HumanLayer::Guassian1D(double x, double x0, double A, double varx){
+    double dx = x-x0;
+    return A*exp(-pow(dx,2.0)/(2.0*varx));
+  }
+
+double HumanLayer::Static_Individual_Gaussian2D(double x, double y, double x0, double y0, double A, double varx, double vary)
+  {
+    double dx = x - x0, dy = y - y0;
+    double d = sqrt(dx * dx + dy * dy);
+    double theta = atan2(dy, dx);
+    double X = d*cos(theta), Y = d*sin(theta);
+    double scale = 10;//3
+    return (A/2)/std::max(d,1.0) * Guassian1D(X,0.0,1.0,varx/scale) * Guassian1D(Y,0.0,1.0,vary/scale);
+  }
+
+double HumanLayer::getRadius(double cutoff, double A, double var)
+  {
+    return sqrt(-2 * var * log(cutoff / A));
+  }
+
+double HumanLayer::normalize(double angle) {
+    while (angle > PI) angle -= 2 * PI;
+    while (angle < -PI) angle += 2 * PI;
+    return angle;
+}
+
+double HumanLayer::Dynamic_Individual_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A) {
+    // define parameter
+    double v = sqrt(vx * vx + vy * vy);
+    double theta = atan2(vy, vx);
+    double sigmaHead = fmax(0.8* v, 0.6);//fmax(1.2*v,1.0)
+    // printf("sigmaHead: %f, human v: %f\n", sigmaHead, v);
+    // double sigmaRear = 2.0 / 7.0;
+    double sigmaRear = var / 12.0;//7.0
+    double sigmaLarge = var / 10.0;//5.0
+    // double sigmaSmall = 2.0 / 7.0;
+    double sigmaSmall = var / 12.0;//7.0
+
+    // compute αmain, αside
+    double alphaMain = normalize(atan2(y - y0, x - x0) - theta + PI / 2);
+    double alphaSide1 = normalize(alphaMain - PI / 2); // right hand principle
+    // double alphaSide2 = normalize(alphaMain + PI / 2); // lefy hand principle
+
+    // determin sigmaMain, sigmaSide
+    double sigmaMain, sigmaSide;
+    if (alphaMain > 0) {
+        sigmaMain = sigmaHead;
+    } else {
+        sigmaMain = sigmaRear;
+    }
+
+    // if (alphaSide1 > 0 || alphaSide2 > 0) {
+    if (alphaSide1 > 0) {
+        sigmaSide = sigmaLarge;
+    } else {
+        sigmaSide = sigmaSmall;
+    }
+
+    // determin G,、Gb, Gc
+    double cosTheta = cos(theta);
+    double sinTheta = sin(theta);
+    double Ga = (cosTheta * cosTheta) / (2 * sigmaMain * sigmaMain) + (sinTheta * sinTheta) / (2 * sigmaSide * sigmaSide);
+    double Gb = sin(2 * theta) / (4 * sigmaMain * sigmaMain) - sin(2 * theta) / (4 * sigmaSide * sigmaSide);
+    double Gc = (sinTheta * sinTheta) / (2 * sigmaMain * sigmaMain) + (cosTheta * cosTheta) / (2 * sigmaSide * sigmaSide);
+
+    // compute social cost
+    double result = A*exp(-1.0 * (Ga * (x - x0) * (x - x0) + 2 * Gb * (x - x0) * (y - y0) + Gc * (y - y0) * (y - y0)));
+    return result;
+}      
+//test
+double HumanLayer::Fake_Dynamic_Individual_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A) {
+    // define parameter
+    A = 1.0;
+    double v = sqrt(vx * vx + vy * vy);
+    double theta = atan2(vy, vx);
+    double sigmaHead = fmax(0.8* v, 0.6);//fmax(1.2*v,1.0)
+    // printf("sigmaHead: %f, human v: %f\n", sigmaHead, v);
+    // double sigmaRear = 2.0 / 7.0;
+    double sigmaRear = var / 12.0;//7.0
+    double sigmaLarge = var / 10.0;//5.0
+    // double sigmaSmall = 2.0 / 7.0;
+    double sigmaSmall = var / 12.0;//7.0
+
+    // compute αmain, αside
+    double alphaMain = normalize(atan2(y - y0, x - x0) - theta + PI / 2);
+    double alphaSide1 = normalize(alphaMain - PI / 2); // right hand principle
+    // double alphaSide2 = normalize(alphaMain + PI / 2); // lefy hand principle
+
+    // determin sigmaMain, sigmaSide
+    double sigmaMain, sigmaSide;
+    if (alphaMain > 0) {
+        sigmaMain = sigmaHead;
+    } else {
+        sigmaMain = sigmaRear;
+    }
+
+    // if (alphaSide1 > 0 || alphaSide2 > 0) {
+    if (alphaSide1 > 0) {
+        sigmaSide = sigmaLarge;
+    } else {
+        sigmaSide = sigmaSmall;
+    }
+
+    // determin G,、Gb, Gc
+    double cosTheta = cos(theta);
+    double sinTheta = sin(theta);
+    double Ga = (cosTheta * cosTheta) / (2 * sigmaMain * sigmaMain) + (sinTheta * sinTheta) / (2 * sigmaSide * sigmaSide);
+    double Gb = sin(2 * theta) / (4 * sigmaMain * sigmaMain) - sin(2 * theta) / (4 * sigmaSide * sigmaSide);
+    double Gc = (sinTheta * sinTheta) / (2 * sigmaMain * sigmaMain) + (cosTheta * cosTheta) / (2 * sigmaSide * sigmaSide);
+
+    // compute social cost
+    double result = A*exp(-1.0 * (Ga * (x - x0) * (x - x0) + 2 * Gb * (x - x0) * (y - y0) + Gc * (y - y0) * (y - y0)));
+    return result;
+}      
+
+double HumanLayer::Static_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, const Eigen::Matrix2d& sigma_star_eigen_) {
+    double amp_s = 8.5;
+    // define parameter
+    Eigen::Vector2d q_eigen;
+    q_eigen << x,y;
+    Eigen::Vector2d p_eigen;
+    p_eigen << x0,y0;
+    double result = amp_s*exp((-1.0/2.0)*((q_eigen-p_eigen).transpose())*(sigma_star_eigen_.inverse())*(q_eigen-p_eigen));
+ 
+    return result;
+  }  
 
 
-void HumanLayer::cast_to_map_1p( costmap_2d::Costmap2D* costmap, int index_,int min_i, int min_j, int max_i, int max_j){
+double HumanLayer::Dynamic_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, const Eigen::Matrix2d& sigma_1_,const Eigen::Matrix2d& sigma_2_) {
+      double amp_d = 10.0;
+      Eigen::Vector2d q_eigen;
+      q_eigen << x,y;
+
+      Eigen::Vector2d p_eigen;
+      p_eigen << x0,y0;
+      // define weight for forward or backward of the group , total weight = 1
+      double w_1 = 0.75;
+      double w_2 = (1 - w_1);
+      // forward gaussian phi_1 , backward guassian phi_2
+      double phi_1 = w_1*exp((-1.0/2.0)*((q_eigen-p_eigen).transpose())*(sigma_1_.inverse())*(q_eigen-p_eigen));
+      double phi_2 = w_2*exp((-1.0/2.0)*((q_eigen-p_eigen).transpose())*(sigma_2_.inverse())*(q_eigen-p_eigen));
+      double result = amp_d*(phi_1 + phi_2);
+
+      return result;
+  }  
+
+void HumanLayer::cast_to_map_1p( costmap_2d::Costmap2D* costmap, vector<HumanPoseVel> group_,int min_i, int min_j, int max_i, int max_j){
   /*-------------------start cost_map generate----------------*/
   //append drawing gaussion function
 
@@ -218,12 +362,13 @@ void HumanLayer::cast_to_map_1p( costmap_2d::Costmap2D* costmap, int index_,int 
   double offset = 4.0;//4.0
   double radius_new = radius_ + offset;
 
-
-  auto human = transformed_humans_[index_];
-  // auto human = transformed_humans_[i];
+  auto human = group_[0];
+  // auto human = transformed_humans_[index_];
   unsigned int width = std::max(1, static_cast<int>((2*radius_new) / res)),
                 height = std::max(1, static_cast<int>((2*radius_new) / res));
     
+  //   double cx = human.pose.position.x, cy = human.pose.position.y;
+  // double vx = human.velocity.linear.x, vy = human.velocity.linear.y;
   double cx = human.pose.position.x, cy = human.pose.position.y;
   double vx = human.velocity.linear.x, vy = human.velocity.linear.y;
   double ox = cx - radius_new, oy = cy - radius_new;
@@ -279,37 +424,129 @@ void HumanLayer::cast_to_map_1p( costmap_2d::Costmap2D* costmap, int index_,int 
         val = Static_Individual_Gaussian2D(x, y, cx, cy, amplitude_, var, var);
       }
 
-
       unsigned char cvalue = (unsigned char) val;
+      if(val > 1){
+        printf("%f \n",val);
+      }
+      
+
+      // printf("cost_x_i : %d, cost_y_i : %d\n",i + mx, j + my);
+
       costmap->setCost(i + mx, j + my, std::max(cvalue, old_cost));
     }
   }
+  printf("*****************update to individual_cost_map****************\n");
+
+
 }
 
 
-void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<vector<double>> tmp_list_,int index_,int min_i, int min_j, int max_i, int max_j){
+void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPoseVel> group_,int min_i, int min_j, int max_i, int max_j){
   double res = costmap->getResolution();
   double offset = 4.0;//4.0
   double radius_new = radius_ + offset;
-  auto human = transformed_humans_[index_];
 
+  double cx = 0.0, cy=0.0;
+  double count = 0.0;
+  for(const auto& member : group_){
+    cx += member.pose.position.x;
+    cy += member.pose.position.y;
+    count++ ;
+  }
+  if (count > 0) {
+    cx /= count;
+    cy /= count;
+  } else {
+    std::cerr << "Error: No member in the group." << std::endl;
+  }
+  printf("cx = %f\n",cx);
+  printf("cy = %f\n",cy);
   unsigned int width = std::max(1, static_cast<int>((2*radius_new) / res)),
                 height = std::max(1, static_cast<int>((2*radius_new) / res));
       
 
-  double cx, cy;
-  // center of the space need to be a mean value
-  for(uint j = 0; j < tmp_list_.size(); j++){
-    cx += tmp_list_[j][0];
-    cy += tmp_list_[j][1];
-    if(j == tmp_list_.size()){
-      cx = cx/j;
-      cy = cy/j;
+  /* group guassian */
+    /*----------------static group ----------------*/
+    int amp = 3, B = 2;
+    double dif_x_total= 0.0, dif_y_total=0.0;
+    int counting = 0;
+    const int group_size = group_.size();
+    // 计算从头到尾的绝对距离
+    for (int i = 0; i < group_size - 1; i++) {
+        dif_x_total += abs(group_[i + 1].pose.position.x - group_[i].pose.position.x);
+        dif_y_total += abs(group_[i + 1].pose.position.y - group_[i].pose.position.y);
+        counting++;
     }
-  }
+    // 计算首尾之间的绝对距离
+    if (group_size > 1) {
+        dif_x_total += abs(group_[0].pose.position.x - group_[group_size - 1].pose.position.x);
+        dif_y_total += abs(group_[0].pose.position.y - group_[group_size - 1].pose.position.y);
+        counting++;
+    }
+    int N = group_.size();
 
-  // double cx = human.pose.position.x, cy = human.pose.position.y;
-  double vx = human.velocity.linear.x, vy = human.velocity.linear.y; //assume group move in same speed so choose one of them represent
+    vector<double> sum; //[s1,s2]
+    double s1 = B*amp*(1.0/(4*N))*(dif_x_total);
+    printf("s1 = %f\n",s1);
+    double s2 = B*(1.0/N)*(dif_y_total);
+    sum.push_back(s1);
+    sum.push_back(s2);
+    Eigen::Matrix2d sigma_star_eigen;
+    sigma_star_eigen << sum[0]*sum[0], 0,
+                          0, sum[1]*sum[1];
+
+     /*----------------static group ----------------*/
+    /*----------------dynamic group ----------------*/
+
+    double mean_x = 0.0, mean_y = 0.0;
+    for (const auto& member : group_) {
+        mean_x += member.pose.position.x;
+        mean_y += member.pose.position.y;
+    }
+    mean_x /= group_.size();
+    mean_y /= group_.size();
+
+    // 计算中间点
+    double l_x = 0.5 * (group_.front().pose.position.x + group_.back().pose.position.x);
+    double l_y = 0.5 * (group_.front().pose.position.y + group_.back().pose.position.y);
+
+    // 计算大小
+    double si_x = abs(mean_x - l_x);
+    double si_y = abs(mean_y - l_y);
+
+    // 计算范围
+    double y_b = group_.front().pose.position.y;
+    double y_f = group_.front().pose.position.y;
+    for (const auto& member : group_) {
+        if (member.pose.position.y < y_f) {
+            y_f = member.pose.position.y;
+        }
+        if (member.pose.position.y > y_b) {
+            y_b = member.pose.position.y;
+        }
+    }
+    Eigen::Matrix2d sigma_1; 
+    Eigen::Matrix2d sigma_2;
+
+    // double sigma_x = si_x + max(det_list_[N-1][0]-mean_x,mean_x-det_list_[0][0]);
+    double sigma_x = amp*B*(si_x + max(group_.back().pose.position.x-mean_x, mean_x-group_.front().pose.position.x));
+
+    double sigma_y = amp*(mean_x - y_b);
+    double sigma_y_prime = amp*(sigma_x + si_y + max(y_b - mean_y,mean_y - y_f));
+    printf("sigma_x : %f \n",sigma_x );
+    printf("sigma_y : %f \n",sigma_y );
+    printf("sigma_y_prime : %f \n",sigma_y_prime );
+
+    sigma_1 << sigma_x*sigma_x, 0,
+                  0, sigma_y*sigma_y;
+
+    sigma_2 << sigma_x*sigma_x, 0,
+                  0, sigma_y_prime*sigma_y_prime;
+    /*----------------dynamic group ----------------*/
+
+  /* group gaussian */
+
+  double vx = group_[0].velocity.linear.x, vy = group_[0].velocity.linear.y; //assume group move in same speed so choose one of them represent
   double ox = cx - radius_new, oy = cy - radius_new;
 
   int mx, my;
@@ -335,41 +572,43 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<vector<do
     start_y = min_j - my;
   if (static_cast<int>(end_y + my) > max_j)
     end_y = max_j - my;
-
+  // double var = radius_;
   double bx = ox + res / 2,
         by = oy + res / 2;
 
-  int q_size = tmp_list_.size();
-
-  double var = radius_;
-  for (int k = start_x; k < end_x; k++)
+  for (int i = start_x; i < end_x; i++)
   {
-    for (int p = start_y; p < end_y; p++)
+    for (int j = start_y; j < end_y; j++)
     {
-      unsigned char old_cost = costmap->getCost(k + mx, p + my);
+      // printf("loop[%d]:k=%d,p=%d\n",k*p,k,p);
+      unsigned char old_cost = costmap->getCost(i + mx, j + my);
       if (old_cost == costmap_2d::NO_INFORMATION)
         continue;
 
-      double x = bx + k * res, y = by + p * res;
+      double x = bx + i * res, y = by + j * res;
       double v = sqrt(vx * vx + vy * vy);
       double val;
-      
       if(v > 0.05 ){ // ok 
-        printf("*************Dynamic Group!!!!!!!!!!!!!!!!\n");
-        // val = Dynamic_Group_Asymmetrical_Gaussian(x, y, cx, cy, vx, vy, var, tmp_list_, amplitude_,q_size);
+        val = Dynamic_Group_Asymmetrical_Gaussian(x, y, cx, cy, sigma_1,sigma_2);
+        
       }
       else{
-        printf("*************Static Group!!!!!!!!!!!!!!!!\n");
-        val = Static_Group_Asymmetrical_Gaussian(x, y, cx, cy, vx, vy, var, tmp_list_, amplitude_,q_size);
+        val = Static_Group_Asymmetrical_Gaussian(x, y, cx, cy, sigma_star_eigen);
+
       }
-      unsigned char cvalue = (unsigned char) val;
-      costmap->setCost(k + mx, p + my, std::max(cvalue, old_cost));
+
+      if(val > 1.0){
+        printf("%f \n",val);
+      }
+      unsigned char cvalue = val;//(unsigned char) val*100;
+      // printf("cost_x_g : %d, cost_y_g : %d\n",i + mx, j + my);
+
+      costmap->setCost(i + mx, j + my, std::max(cvalue, old_cost));
+
     }
   }
-
+  printf("*****************update to group_cost_map****************\n");
 }
 
-// void cast_to_map_gp_dynamic( costmap_2d::Costmap2D* costmap, double cx,double cy){
 
-// }
 };  // namespace human_layers
