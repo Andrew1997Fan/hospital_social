@@ -414,7 +414,7 @@ void HumanLayer::cast_to_map_1p( costmap_2d::Costmap2D* costmap, vector<HumanPos
       double v = sqrt(vx * vx + vy * vy);
       double val;
       
-      if(v > 0.05 ){ // ok 
+      if(v > 0.25 ){ // ok 
         // printf("******** Dynamic_Individual **********\n");
         val = Dynamic_Individual_Asymmetrical_Gaussian(x, y, cx, cy, vx, vy, var, amplitude_);
       }
@@ -586,7 +586,7 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPose
       double x = bx + i * res, y = by + j * res;
       double v = sqrt(vx * vx + vy * vy);
       double val;
-      if(v > 0.05 ){ // ok 
+      if(v > 0.25 ){ // ok 
         val = Dynamic_Group_Asymmetrical_Gaussian(x, y, cx, cy, sigma_1,sigma_2);
           if(val > 1.0){
         printf("dynamic_val = %f \n",val);

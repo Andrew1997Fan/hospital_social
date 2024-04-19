@@ -8,7 +8,7 @@
   <waypoint id="east" x="5" y="5" r="2" b="1"/>
   <waypoint id="west" x="25" y="5" r="2" b="2"/>-->
   <waypoint id="left" x="-1" y="-5" r="2" b="2"/>
-  <waypoint id="right" x="-1" y="-5" r="2" b="2"/>
+  <waypoint id="right" x="1" y="-5" r="2" b="2"/>
   <waypoint id="left_1" x="-1" y="0" r="2" b="2"/>
   <waypoint id="left_2" x="-1" y="-5" r="2" b="2"/>
   <waypoint id="right_1" x="1" y="0" r="2" b="2"/>
@@ -25,13 +25,13 @@
 
   <!--AgentClusters-->
 
-  <agent x="-1" y="10" n="1" dx="0" dy="1" type="0">
+  <agent x="-1" y="10" n="1" dx="0.1" dy="0.1" type="0">
     <!--<addwaypoint id="left_1"/>
     <addwaypoint id="left_2"/>-->
     <addwaypoint id="left"/>-->
   </agent>
     
-  <agent x="1" y="5" n="1" dx="0" dy="1" type="0">
+  <agent x="1" y="5" n="1" dx="0.1" dy="0.1" type="0">
     <!--<addwaypoint id="right_1"/>
     <addwaypoint id="right_2"/>-->
     <addwaypoint id="right"/>-->

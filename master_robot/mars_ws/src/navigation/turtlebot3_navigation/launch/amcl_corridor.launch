@@ -9,13 +9,12 @@
   <node pkg="amcl" type="amcl" name="amcl">
 
     <param name="min_particles"             value="500"/>
-    <param name="max_particles"             value="3000"/>
+    <param name="max_particles"             value="5000"/>
     <param name="kld_err"                   value="0.02"/>
-    <!--  <param name="update_min_d"              value="0.20"/> -->
-    <!-- <param name="update_min_a"              value="0.05"/> -->
+
     <!-- set update to negative to update faster -->
-    <param name="update_min_d"              value="-0.20"/>
-    <param name="update_min_a"              value="-0.05"/>
+    <param name="update_min_d"              value="0.20"/>
+    <param name="update_min_a"              value="0.05"/>
     <param name="resample_interval"         value="1"/>
     <param name="transform_tolerance"       value="0.5"/>
     <param name="recovery_alpha_slow"       value="0.00"/>
@@ -26,8 +25,8 @@
     <param name="gui_publish_rate"          value="50.0"/>
 
     <remap from="scan"                      to="$(arg scan_topic)"/>
-    <param name="laser_max_range"           value="5"/>
-    <param name="laser_max_beams"           value="180"/>
+    <param name="laser_max_range"           value="-1"/>
+    <param name="laser_max_beams"           value="250"/>
     <param name="laser_z_hit"               value="0.5"/>
     <param name="laser_z_short"             value="0.05"/>
     <param name="laser_z_max"               value="0.05"/>
@@ -38,9 +37,9 @@
     <param name="laser_model_type"          value="likelihood_field"/>
 
     <param name="odom_model_type"           value="diff"/> 
-    <param name="odom_alpha1"               value="9.9"/> <!--  value="8.2" -->
-    <param name="odom_alpha2"               value="9.9"/><!--  value="1.5" -->
-    <param name="odom_alpha3"               value="3"/> <!--  value="0.1" -->
+    <param name="odom_alpha1"               value="10.0"/> <!--  value="8.2" -->
+    <param name="odom_alpha2"               value="2.0"/><!--  value="1.5" -->
+    <param name="odom_alpha3"               value="0.2"/> <!--  value="0.1" -->
     <param name="odom_alpha4"               value="0.1"/>
     <param name="odom_frame_id"             value="odom"/>
     <param name="base_frame_id"             value="base_footprint"/>
