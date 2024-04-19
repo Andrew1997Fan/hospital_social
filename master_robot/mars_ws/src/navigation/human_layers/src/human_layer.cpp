@@ -337,7 +337,7 @@ double HumanLayer::Static_Group_Asymmetrical_Gaussian(double x, double y, double
 
 
 double HumanLayer::Dynamic_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, const Eigen::Matrix2d& sigma_1_,const Eigen::Matrix2d& sigma_2_) {
-      double amp_d = 10.0;
+      double amp_d = 8.5;
       Eigen::Vector2d q_eigen;
       q_eigen << x,y;
 
@@ -425,9 +425,9 @@ void HumanLayer::cast_to_map_1p( costmap_2d::Costmap2D* costmap, vector<HumanPos
       }
 
       unsigned char cvalue = (unsigned char) val;
-      if(val > 1){
-        printf("%f \n",val);
-      }
+      // if(val > 1){
+      //   printf("%f \n",val);
+      // }
       
 
       // printf("cost_x_i : %d, cost_y_i : %d\n",i + mx, j + my);
@@ -459,8 +459,7 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPose
   } else {
     std::cerr << "Error: No member in the group." << std::endl;
   }
-  printf("cx = %f\n",cx);
-  printf("cy = %f\n",cy);
+
   unsigned int width = std::max(1, static_cast<int>((2*radius_new) / res)),
                 height = std::max(1, static_cast<int>((2*radius_new) / res));
       
@@ -487,8 +486,7 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPose
 
     vector<double> sum; //[s1,s2]
     double s1 = B*amp*(1.0/(4*N))*(dif_x_total);
-    printf("s1 = %f\n",s1);
-    double s2 = B*(1.0/N)*(dif_y_total);
+    double s2 = 0.5*B*(1.0/N)*(dif_y_total);
     sum.push_back(s1);
     sum.push_back(s2);
     Eigen::Matrix2d sigma_star_eigen;
@@ -529,7 +527,7 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPose
     Eigen::Matrix2d sigma_2;
 
     // double sigma_x = si_x + max(det_list_[N-1][0]-mean_x,mean_x-det_list_[0][0]);
-    double sigma_x = amp*B*(si_x + max(group_.back().pose.position.x-mean_x, mean_x-group_.front().pose.position.x));
+    double sigma_x = 0.5*amp*B*(si_x + max(group_.back().pose.position.x-mean_x, mean_x-group_.front().pose.position.x));
 
     double sigma_y = amp*(mean_x - y_b);
     double sigma_y_prime = amp*(sigma_x + si_y + max(y_b - mean_y,mean_y - y_f));
@@ -590,6 +588,9 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPose
       double val;
       if(v > 0.05 ){ // ok 
         val = Dynamic_Group_Asymmetrical_Gaussian(x, y, cx, cy, sigma_1,sigma_2);
+          if(val > 1.0){
+        printf("dynamic_val = %f \n",val);
+      }
         
       }
       else{
@@ -597,9 +598,7 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPose
 
       }
 
-      if(val > 1.0){
-        printf("%f \n",val);
-      }
+
       unsigned char cvalue = val;//(unsigned char) val*100;
       // printf("cost_x_g : %d, cost_y_g : %d\n",i + mx, j + my);
 
