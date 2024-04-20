@@ -9,6 +9,8 @@ let StateArray = require('./StateArray.js');
 let HumanMarker = require('./HumanMarker.js');
 let HumanArray = require('./HumanArray.js');
 let HumanMarkerStamped = require('./HumanMarkerStamped.js');
+let Trk3D = require('./Trk3D.js');
+let Trk3DArray = require('./Trk3DArray.js');
 let HumanTimeToGoal = require('./HumanTimeToGoal.js');
 let TrajectoryArray = require('./TrajectoryArray.js');
 let TrajectoryPointMsg = require('./TrajectoryPointMsg.js');
@@ -35,6 +37,8 @@ module.exports = {
   HumanMarker: HumanMarker,
   HumanArray: HumanArray,
   HumanMarkerStamped: HumanMarkerStamped,
+  Trk3D: Trk3D,
+  Trk3DArray: Trk3DArray,
   HumanTimeToGoal: HumanTimeToGoal,
   TrajectoryArray: TrajectoryArray,
   TrajectoryPointMsg: TrajectoryPointMsg,

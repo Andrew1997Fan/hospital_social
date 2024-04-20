@@ -4,7 +4,9 @@
 (defsystem "human_msgs-msg"
   :depends-on (:roslisp-msg-protocol :roslisp-utils :geometry_msgs-msg
                :nav_msgs-msg
+               :sensor_msgs-msg
                :std_msgs-msg
+               :walker_msgs-msg
 )
   :components ((:file "_package")
     (:file "HumanArray" :depends-on ("_package_HumanArray"))
@@ -53,6 +55,10 @@
     (:file "_package_TrajectoryPoint" :depends-on ("_package"))
     (:file "TrajectoryPointMsg" :depends-on ("_package_TrajectoryPointMsg"))
     (:file "_package_TrajectoryPointMsg" :depends-on ("_package"))
+    (:file "Trk3D" :depends-on ("_package_Trk3D"))
+    (:file "_package_Trk3D" :depends-on ("_package"))
+    (:file "Trk3DArray" :depends-on ("_package_Trk3DArray"))
+    (:file "_package_Trk3DArray" :depends-on ("_package"))
     (:file "TwistArray" :depends-on ("_package_TwistArray"))
     (:file "_package_TwistArray" :depends-on ("_package"))
   ))

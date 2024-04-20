@@ -1,0 +1,8 @@
+prefix=/home/developer/master_ws/master_robot/mars_ws/install
+
+Name: collide_detection
+Description: Description of collide_detection
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: message_runtime

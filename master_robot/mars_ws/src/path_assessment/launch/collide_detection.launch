@@ -1,0 +1,5 @@
+<launch>
+  <!-- 启动 ROS 节点 -->
+  <node name="collide_detection_node" pkg="collide_detection" type="collide_detection_node" output="screen">
+  </node>
+</launch>

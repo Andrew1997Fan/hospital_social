@@ -1,8 +1,8 @@
 DWAPlannerROS:
 
 # Robot Configuration Parameters
-  max_vel_x: 0.2 #origin 0.22 
-  min_vel_x: -0.2 #origin 0.22
+  max_vel_x: 0.5 #origin 0.22 
+  min_vel_x: -0.3 #origin 0.22
 
   max_vel_y: 0.0
   min_vel_y: 0.0
@@ -33,7 +33,7 @@ DWAPlannerROS:
 # Trajectory Scoring Parameters
   path_distance_bias: 35.0 #32.0
   goal_distance_bias: 26.0 #20.0
-  occdist_scale: 0.8 #origin 0.02 -> 0.4 (enlarged for avoiding obstacles)
+  occdist_scale: 0.5 #origin 0.02 -> 0.4 (enlarged for avoiding obstacles)
   forward_point_distance: 0.2 #0.325
   stop_time_buffer: 1 #0.2
   scaling_speed: 0.25

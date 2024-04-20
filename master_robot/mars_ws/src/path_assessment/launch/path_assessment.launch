@@ -1,0 +1,24 @@
+<launch>
+  <arg name="localmap_frameid" default="map" />
+  <arg name="upper_h_threshold" default="100" />
+  <arg name="lower_h_threshold" default="15" />
+  <arg name="upper_o_threshold" default="100" />
+  <arg name="lower_o_threshold" default="35" />
+  <arg name="waiting_stop" default="2.5" />
+  <arg name="inflation_radius" default="0.1" />
+  <!-- 启动 ROS 节点 -->
+  <node name="occupancy_map_node" pkg="path_assessment" type="occupancy_map_node" output="screen">
+    <param name="inflation_radius" type="double" value="$(arg inflation_radius)" />
+  </node>
+  <node name="path_assessment_node" pkg="path_assessment" type="path_assessment_node" output="screen">
+    <param name="localmap_frameid" type="str" value="$(arg localmap_frameid)" />
+    <param name="upper_h_threshold" type="int" value="$(arg upper_h_threshold)" />
+    <param name="lower_h_threshold" type="int" value="$(arg lower_h_threshold)" />
+    <param name="upper_o_threshold" type="int" value="$(arg upper_o_threshold)" />
+    <param name="lower_o_threshold" type="int" value="$(arg lower_o_threshold)" />
+    <param name="waiting_stop" type="double" value="$(arg waiting_stop)" />
+  </node>
+  <!-- <node name="show_node" pkg="path_assessment" type="show_node.py" output="screen"/> -->
+  <node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" args="--perspective-file $(find path_assessment)/cfg/path_assessment.perspective" output="screen"/>
+</launch>
+

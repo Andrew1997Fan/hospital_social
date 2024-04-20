@@ -219,7 +219,7 @@ double HumanLayer::Static_Individual_Gaussian2D(double x, double y, double x0, d
     double d = sqrt(dx * dx + dy * dy);
     double theta = atan2(dy, dx);
     double X = d*cos(theta), Y = d*sin(theta);
-    double scale = 10;//3
+    double scale = 12;//3
     return (A/2)/std::max(d,1.0) * Guassian1D(X,0.0,1.0,varx/scale) * Guassian1D(Y,0.0,1.0,vary/scale);
   }
 
@@ -337,7 +337,7 @@ double HumanLayer::Static_Group_Asymmetrical_Gaussian(double x, double y, double
 
 
 double HumanLayer::Dynamic_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, const Eigen::Matrix2d& sigma_1_,const Eigen::Matrix2d& sigma_2_) {
-      double amp_d = 8.5;
+      double amp_d = 60;
       Eigen::Vector2d q_eigen;
       q_eigen << x,y;
 
@@ -414,7 +414,7 @@ void HumanLayer::cast_to_map_1p( costmap_2d::Costmap2D* costmap, vector<HumanPos
       double v = sqrt(vx * vx + vy * vy);
       double val;
       
-      if(v > 0.25 ){ // ok 
+      if(v > 0.15 ){ // ok 
         // printf("******** Dynamic_Individual **********\n");
         val = Dynamic_Individual_Asymmetrical_Gaussian(x, y, cx, cy, vx, vy, var, amplitude_);
       }
@@ -435,7 +435,7 @@ void HumanLayer::cast_to_map_1p( costmap_2d::Costmap2D* costmap, vector<HumanPos
       costmap->setCost(i + mx, j + my, std::max(cvalue, old_cost));
     }
   }
-  printf("*****************update to individual_cost_map****************\n");
+  // printf("*****************update to individual_cost_map****************\n");
 
 
 }
@@ -527,13 +527,13 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPose
     Eigen::Matrix2d sigma_2;
 
     // double sigma_x = si_x + max(det_list_[N-1][0]-mean_x,mean_x-det_list_[0][0]);
-    double sigma_x = 0.5*amp*B*(si_x + max(group_.back().pose.position.x-mean_x, mean_x-group_.front().pose.position.x));
+    double sigma_x = 0.8*(si_x + max(group_.back().pose.position.x-mean_x, mean_x-group_.front().pose.position.x));
 
-    double sigma_y = amp*(mean_x - y_b);
-    double sigma_y_prime = amp*(sigma_x + si_y + max(y_b - mean_y,mean_y - y_f));
-    printf("sigma_x : %f \n",sigma_x );
-    printf("sigma_y : %f \n",sigma_y );
-    printf("sigma_y_prime : %f \n",sigma_y_prime );
+    double sigma_y = 0.4*(mean_x - y_b);
+    double sigma_y_prime = 0.4*(sigma_x + si_y + max(y_b - mean_y,mean_y - y_f));
+    // printf("sigma_x : %f \n",sigma_x );
+    // printf("sigma_y : %f \n",sigma_y );
+    // printf("sigma_y_prime : %f \n",sigma_y_prime );
 
     sigma_1 << sigma_x*sigma_x, 0,
                   0, sigma_y*sigma_y;
@@ -586,16 +586,18 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPose
       double x = bx + i * res, y = by + j * res;
       double v = sqrt(vx * vx + vy * vy);
       double val;
-      if(v > 0.25 ){ // ok 
+      if(v > 0.10 ){ // ok 
         val = Dynamic_Group_Asymmetrical_Gaussian(x, y, cx, cy, sigma_1,sigma_2);
-          if(val > 1.0){
+          if(val > 2.0){
         printf("dynamic_val = %f \n",val);
+        printf("****group*****\n");
+
       }
         
       }
       else{
         val = Static_Group_Asymmetrical_Gaussian(x, y, cx, cy, sigma_star_eigen);
-
+        // printf("****static*****\n");
       }
 
 
@@ -606,7 +608,7 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPose
 
     }
   }
-  printf("*****************update to group_cost_map****************\n");
+  // printf("*****************update to group_cost_map****************\n");
 }
 
 
