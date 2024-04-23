@@ -104,8 +104,6 @@ protected:
   void cast_to_map_gp( costmap_2d::Costmap2D* costmap, vector<HumanPoseVel> group_,int min_i, int min_j, int max_i, int max_j);
 
   double Static_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, const Eigen::Matrix2d& sigma_star_eigen_);
-
-  double Fake_Dynamic_Individual_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A);
   
   double Dynamic_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, const Eigen::Matrix2d& sigma_1_,const Eigen::Matrix2d& sigma_2_);
 

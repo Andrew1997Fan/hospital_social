@@ -219,7 +219,7 @@ double HumanLayer::Static_Individual_Gaussian2D(double x, double y, double x0, d
     double d = sqrt(dx * dx + dy * dy);
     double theta = atan2(dy, dx);
     double X = d*cos(theta), Y = d*sin(theta);
-    double scale = 12;//3
+    double scale = 20;//3
     return (A/2)/std::max(d,1.0) * Guassian1D(X,0.0,1.0,varx/scale) * Guassian1D(Y,0.0,1.0,vary/scale);
   }
 
@@ -236,51 +236,6 @@ double HumanLayer::normalize(double angle) {
 
 double HumanLayer::Dynamic_Individual_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A) {
     // define parameter
-    double v = sqrt(vx * vx + vy * vy);
-    double theta = atan2(vy, vx);
-    double sigmaHead = fmax(0.8* v, 0.6);//fmax(1.2*v,1.0)
-    // printf("sigmaHead: %f, human v: %f\n", sigmaHead, v);
-    // double sigmaRear = 2.0 / 7.0;
-    double sigmaRear = var / 12.0;//7.0
-    double sigmaLarge = var / 10.0;//5.0
-    // double sigmaSmall = 2.0 / 7.0;
-    double sigmaSmall = var / 12.0;//7.0
-
-    // compute αmain, αside
-    double alphaMain = normalize(atan2(y - y0, x - x0) - theta + PI / 2);
-    double alphaSide1 = normalize(alphaMain - PI / 2); // right hand principle
-    // double alphaSide2 = normalize(alphaMain + PI / 2); // lefy hand principle
-
-    // determin sigmaMain, sigmaSide
-    double sigmaMain, sigmaSide;
-    if (alphaMain > 0) {
-        sigmaMain = sigmaHead;
-    } else {
-        sigmaMain = sigmaRear;
-    }
-
-    // if (alphaSide1 > 0 || alphaSide2 > 0) {
-    if (alphaSide1 > 0) {
-        sigmaSide = sigmaLarge;
-    } else {
-        sigmaSide = sigmaSmall;
-    }
-
-    // determin G,、Gb, Gc
-    double cosTheta = cos(theta);
-    double sinTheta = sin(theta);
-    double Ga = (cosTheta * cosTheta) / (2 * sigmaMain * sigmaMain) + (sinTheta * sinTheta) / (2 * sigmaSide * sigmaSide);
-    double Gb = sin(2 * theta) / (4 * sigmaMain * sigmaMain) - sin(2 * theta) / (4 * sigmaSide * sigmaSide);
-    double Gc = (sinTheta * sinTheta) / (2 * sigmaMain * sigmaMain) + (cosTheta * cosTheta) / (2 * sigmaSide * sigmaSide);
-
-    // compute social cost
-    double result = A*exp(-1.0 * (Ga * (x - x0) * (x - x0) + 2 * Gb * (x - x0) * (y - y0) + Gc * (y - y0) * (y - y0)));
-    return result;
-}      
-//test
-double HumanLayer::Fake_Dynamic_Individual_Asymmetrical_Gaussian(double x, double y, double x0, double y0, double vx, double vy, double var, double A) {
-    // define parameter
-    A = 1.0;
     double v = sqrt(vx * vx + vy * vy);
     double theta = atan2(vy, vx);
     double sigmaHead = fmax(0.8* v, 0.6);//fmax(1.2*v,1.0)

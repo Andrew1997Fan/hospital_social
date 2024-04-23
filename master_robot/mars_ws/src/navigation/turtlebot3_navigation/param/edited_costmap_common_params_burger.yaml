@@ -1,10 +1,10 @@
 obstacle_range: 3.0
 raytrace_range: 3.5
 
-#footprint: [[-0.255, -0.390], [-0.255, 0.390], [0.255, 0.390], [0.255, -0.390]]
+footprint: [[-0.230, -0.320], [-0.230, 0.320], [0.235, 0.320], [0.230, -0.320]]
 # extand footprint for debug DWA localplanner encounter corner dead 
 # footprint: [[-0.350, -0.450], [-0.350, 0.450], [0.350, 0.450], [0.350, -0.450]] # works
-footprint: [[-0.450, -0.450], [-0.450, 0.450], [0.450, 0.450], [0.450, -0.450]] # works
+# footprint: [[-0.450, -0.450], [-0.450, 0.450], [0.450, 0.450], [0.450, -0.450]] # works
 #robot_radius: 0.105
 map_type: costmap
 always_send_full_costmap: true
@@ -32,7 +32,7 @@ inflation_layer:
   enabled:              true
   cost_scaling_factor:  3.0  # exponential rate at which the obstacle cost drops off (default: 10)
   # inflation_radius:     0.3  # max. distance from an obstacle at which costs are incurred for planning paths.
-  inflation_radius:     0.4
+  inflation_radius:     0.2
 
 static_layer:
   enabled:              true

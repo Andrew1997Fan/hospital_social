@@ -11,8 +11,8 @@ DWAPlannerROS:
   max_vel_trans:  0.5
   min_vel_trans:  -0.3
 
-  max_vel_theta: 1.37 #origin 2.75 
-  min_vel_theta: -1.37 #origin 1.37
+  max_vel_theta: 1.0 #origin 2.75 
+  min_vel_theta: 0.4 #origin 1.37
 
   acc_lim_x: 2.5
   acc_lim_y: 0.0
@@ -24,16 +24,16 @@ DWAPlannerROS:
   latch_xy_goal_tolerance: false # if arrived goal robot self spinning
 
 # Forward Simulation Parameters
-  sim_time: 2.1 # 1.5
+  sim_time: 3.0 # 1.5
   vx_samples: 4 # 8
-  vy_samples: 1 # 0
+  vy_samples: 0 # 0
   vth_samples: 20 # 20
-  controller_frequency: 10.0
+  controller_frequency: 8.0
 
 # Trajectory Scoring Parameters
   path_distance_bias: 35.0 #32.0
   goal_distance_bias: 26.0 #20.0
-  occdist_scale: 0.5 #origin 0.02 -> 0.4 (enlarged for avoiding obstacles)
+  occdist_scale: 10 #origin 0.02 -> 0.4 (enlarged for avoiding obstacles)
   forward_point_distance: 0.2 #0.325
   stop_time_buffer: 1 #0.2
   scaling_speed: 0.25
