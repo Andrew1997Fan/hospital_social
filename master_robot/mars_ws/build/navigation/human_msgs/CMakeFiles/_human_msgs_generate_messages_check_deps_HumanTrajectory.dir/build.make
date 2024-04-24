@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/developer/master_ws/master_robot/mars_ws/build
 include navigation/human_msgs/CMakeFiles/_human_msgs_generate_messages_check_deps_HumanTrajectory.dir/progress.make
 
 navigation/human_msgs/CMakeFiles/_human_msgs_generate_messages_check_deps_HumanTrajectory:
-	cd /home/developer/master_ws/master_robot/mars_ws/build/navigation/human_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py human_msgs /home/developer/master_ws/master_robot/mars_ws/src/navigation/human_msgs/msg/HumanTrajectory.msg std_msgs/Header:human_msgs/Trajectory:geometry_msgs/Quaternion:geometry_msgs/Twist:geometry_msgs/Vector3:geometry_msgs/Transform:human_msgs/TrajectoryPoint
+	cd /home/developer/master_ws/master_robot/mars_ws/build/navigation/human_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py human_msgs /home/developer/master_ws/master_robot/mars_ws/src/navigation/human_msgs/msg/HumanTrajectory.msg geometry_msgs/Quaternion:std_msgs/Header:geometry_msgs/Vector3:geometry_msgs/Twist:geometry_msgs/Transform:human_msgs/TrajectoryPoint:human_msgs/Trajectory
 
 _human_msgs_generate_messages_check_deps_HumanTrajectory: navigation/human_msgs/CMakeFiles/_human_msgs_generate_messages_check_deps_HumanTrajectory
 _human_msgs_generate_messages_check_deps_HumanTrajectory: navigation/human_msgs/CMakeFiles/_human_msgs_generate_messages_check_deps_HumanTrajectory.dir/build.make

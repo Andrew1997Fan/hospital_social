@@ -4,6 +4,7 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /Global Options1
         - /Status1
         - /Grid1/Offset1
         - /Tracking-Visuals1/TrackedPersons1
@@ -43,7 +44,7 @@ Panels:
     Property Tree Widget:
       Expanded: ~
       Splitter Ratio: 0.5
-    Tree Height: 176
+    Tree Height: 373
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -203,7 +204,6 @@ Visualization Manager:
       Unreliable: false
       Value: false
       Visibility:
-        "": true
         Axes: true
         Det3d: true
         Footprint: true
@@ -211,6 +211,7 @@ Visualization Manager:
         Grid: true
         LaserScan: true
         LocalMap: true
+        Map: true
         MarkerArray: true
         Odometry: true
         Pedsim-Visuals:
@@ -528,10 +529,7 @@ Visualization Manager:
       Marker Topic: /pedsim_visualizer/waypoints
       Name: MarkerArray
       Namespaces:
-        ped_wpt_corridor1_1: true
-        ped_wpt_corridor1_2: true
-        ped_wpt_corridor1_3: true
-        ped_wpt_corridor1_4: true
+        {}
       Queue Size: 100
       Value: true
     - Alpha: 1
@@ -696,7 +694,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 38.26310729980469
+      Distance: 23.51512336730957
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -704,17 +702,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.5892836451530457
-        Y: -6.443354606628418
-        Z: 0
+        X: -1.5469151735305786
+        Y: -2.0911753177642822
+        Z: 3.4657205105759203e-06
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.304796814918518
+      Pitch: 0.7897964119911194
       Target Frame: base_link
-      Yaw: 4.557382583618164
+      Yaw: 1.532382607460022
     Saved: ~
 Window Geometry:
   Camera:

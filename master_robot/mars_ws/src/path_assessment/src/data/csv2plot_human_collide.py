@@ -2,41 +2,43 @@ import numpy as np
 import matplotlib.pyplot as plt
 import csv
 
-file_path = 'human_collide_index_social_astar_static_individual_test2.csv'
+file_path = 'human_collide_index_astar_static_individual_test3.csv'
+
+# need to change every time based on video time
+sample_rate = 320
 
 # 读取CSV文件并提取数据
 data = []
 with open(file_path, 'r') as file:
     reader = csv.reader(file)
+    count = 0
     for row in reader:
         for item in row:
             if item:
-                data.append(float(item))
+                # data.append(float(item))
+                if count % sample_rate == 0:
+                    data.append(float(item))  # 將每個數據減去 0.55
+                count += 1
 
 # 绘制数据，根据条件设置线段颜色
-plt.plot(data, color='blue')  # 默认颜色为蓝色
+plt.plot(data, color='blue', label='Data')  # 添加標籤
 for i in range(len(data)-1):
-    if data[i] < 0.45 or data[i+1] < 0.45:
-        plt.plot([i, i+1], [data[i], data[i+1]], color='red')
+    if data[i] < 0.65 or data[i+1] < 0.65:
+        plt.plot([i, i+1], [data[i], data[i+1]], color='red')  # 添加標籤
 
-plt.axhline(y=0.45, color='red', linestyle='--')
+plt.axhline(y=0.65, color='red', linestyle='--', label='Threshold')  # 添加標籤
 
-plt.xlabel('X Label')
-plt.ylabel('Y Label')
-plt.title('Human Collide Index')
+plt.xlabel('Time(sec)')
+plt.ylabel('Distance(m)')  # 修改 y 軸標籤
+plt.title('Human and Robot Distance')
 plt.grid(True)
-
 
 # 加上圖例
 plt.legend()
 
 # 設定y軸範圍
-plt.ylim(0, 1.2)
-# 調整 x 軸的範圍
-# plt.xlim(left=0)
+plt.ylim(0, 2.0)  # 修改 y 軸範圍 because need to minus Robot and Human real world body size
 
-save_file = 'human_collide_index_social_astar_static_individual_test2_modified.png'
+save_file = 'human_collide_index_astar_static_individual_test3_65.png'
 plt.savefig(save_file)
 print(f"Saved plot as {save_file}")
-
-# plt.show()

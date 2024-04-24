@@ -279,7 +279,7 @@ double HumanLayer::Dynamic_Individual_Asymmetrical_Gaussian(double x, double y, 
 }      
 
 double HumanLayer::Static_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, const Eigen::Matrix2d& sigma_star_eigen_) {
-    double amp_s = 8.5;
+    double amp_s = 10.0;
     // define parameter
     Eigen::Vector2d q_eigen;
     q_eigen << x,y;
@@ -369,7 +369,7 @@ void HumanLayer::cast_to_map_1p( costmap_2d::Costmap2D* costmap, vector<HumanPos
       double v = sqrt(vx * vx + vy * vy);
       double val;
       
-      if(v > 0.15 ){ // ok 
+      if(v > 0.75 ){ // ok 
         // printf("******** Dynamic_Individual **********\n");
         val = Dynamic_Individual_Asymmetrical_Gaussian(x, y, cx, cy, vx, vy, var, amplitude_);
       }

@@ -164,8 +164,8 @@
       </collision>
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0" />
-        <mass value="2.0" />
-        <xacro:cylinder_inertia m="10" r="${wheel_radius}" h="0.03" />
+        <mass value="20.0" />
+        <xacro:cylinder_inertia m="20" r="${wheel_radius}" h="0.03" />
       </inertial>
     </link>
     <joint name="${prefix}_wheel_joint" type="continuous">
