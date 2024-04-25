@@ -42,7 +42,8 @@
 		<waypoint id="ped_wpt_corridor2_2" x="4" y="-4" r="1.0"/>
 		<waypoint id="ped_wpt_corridor2_3" x="4" y="0" r="1.0"/>
     <waypoint id="end_point_2" x="4" y="5" r="1.0"/>   
-
+    <!--static individual in corridor-->
+		<!--
     <agent x="5.0" y="-20" n="1" dx="0.1" dy="0.1" type="0">
         <addwaypoint id="ped_wpt_corridor1_1"/>
         <addwaypoint id="ped_wpt_corridor1_2"/>
@@ -60,7 +61,24 @@
         <addwaypoint id="ped_wpt_corridor1_4"/>
         <addwaypoint id="end_point_1"/>
     </agent>
-
+		-->
+    <!--static group in open space-->
+    <agent x="2.5" y="10.0" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="ped_wpt_corridor1_4"/>
+        <addwaypoint id="end_point_1"/>
+    </agent>	
+    <agent x="2.5" y="11.5" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="ped_wpt_corridor1_4"/>
+        <addwaypoint id="end_point_1"/>
+    </agent>
+    <agent x="-2.0" y="10.5" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="ped_wpt_corridor1_4"/>
+        <addwaypoint id="end_point_1"/>
+    </agent>
+    <agent x="-2.0" y="12.0" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="ped_wpt_corridor1_4"/>
+        <addwaypoint id="end_point_1"/>
+    </agent>
 
 
     <!-- <queue id="checkpoint1_1" x="1" y="7" direction="90"/>

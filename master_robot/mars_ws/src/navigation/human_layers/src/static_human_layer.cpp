@@ -43,7 +43,7 @@
 #include <vector>
 #include <cmath>
 #include <queue>
-#define group_dis_cost 2.0
+#define group_dis_cost 1.5
 
 using namespace std;
 

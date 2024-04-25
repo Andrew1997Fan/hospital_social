@@ -541,7 +541,7 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPose
       double x = bx + i * res, y = by + j * res;
       double v = sqrt(vx * vx + vy * vy);
       double val;
-      if(v > 0.10 ){ // ok 
+      if(v > 0.75 ){ // ok 
         val = Dynamic_Group_Asymmetrical_Gaussian(x, y, cx, cy, sigma_1,sigma_2);
           if(val > 2.0){
         printf("dynamic_val = %f \n",val);

@@ -123,7 +123,7 @@ void modelStateCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
     int robot_idx = robot_y * global_map_ptr->info.width + robot_x; 
     int robot_h_cost = global_map_ptr->data[robot_idx];
     // printf("robot current cost in map = %d \n",robot_h_cost); //checked
-    writeToCSV_robot("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/social_astar_static_individual_test4.csv", robot_pose.position.x, robot_pose.position.y);
+    writeToCSV_robot("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/social_astar_static_group_test1.csv", robot_pose.position.x, robot_pose.position.y);
     
 
 
@@ -132,7 +132,9 @@ void modelStateCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
     /* static human in corridor */
     // 3 human[x,y] : [5.5,-20.0][5.5,-5.0][4.0,-12.0]
     // 三个静态人体的坐标
-    vector<vector<float>> static_human_poses = {{5.0, -20.0}, {5.0, -2.0}, {5.0, -6.0}};
+    // vector<vector<float>> static_human_poses = {{5.0, -20.0}, {5.0, -2.0}, {5.0, -6.0}};
+    // 2个静态group的center坐标
+    vector<vector<float>> static_human_poses = {{2.5,10.75}, {-2.0, 11.25}};
     vector<geometry_msgs::Pose> poses_;
     // 将静态人体坐标添加到poses中
     for (const auto& static_pose : static_human_poses) {
@@ -160,16 +162,16 @@ void modelStateCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
 
     float threshold = 1.5;
     float distance = sortedPoses[0].position.x + sortedPoses[0].position.y; //abs(delta_x)+abs(delta_y)
-    if(distance-0.55 >= threshold){
+    if(distance-0.65 >= threshold){
         distances_below_threshold.push_back(1.5);
     }
-    else if(distance-0.55 < threshold){
+    else if(distance-0.65 < threshold){
         distances_below_threshold.push_back(distance);
     }
 
 
     // writeToCSV_human("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/robot_positions_1.csv",distances_below_threshold, distances_between_threshold_and_upper_bound);
-    writeToCSV_human("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/social_human_collide_index_astar_static_individual_test4.csv",distances_below_threshold);
+    writeToCSV_human("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/social_human_collide_index_astar_static_group_test1.csv",distances_below_threshold);
 
 }
 
