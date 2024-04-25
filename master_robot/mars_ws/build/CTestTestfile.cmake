@@ -5,5 +5,5 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
-subdirs("pedsim_ros/pedsim_msgs")
-subdirs("path_assessment")
+subdirs("navigation/human_msgs")
+subdirs("navigation/human_layers")

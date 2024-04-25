@@ -1,2 +1,2 @@
-path_assessment:pedsim_ros/pedsim_msgs
--DCATKIN_DEVEL_PREFIX=/home/developer/master_ws/master_robot/mars_ws/devel -DCMAKE_INSTALL_PREFIX=/home/developer/master_ws/master_robot/mars_ws/install -DCATKIN_WHITELIST_PACKAGES=path_assessment;pedsim_msgs -G Unix Makefiles
+navigation/human_layers:navigation/human_msgs
+-DCATKIN_DEVEL_PREFIX=/home/developer/master_ws/master_robot/mars_ws/devel -DCMAKE_INSTALL_PREFIX=/home/developer/master_ws/master_robot/mars_ws/install -DCATKIN_WHITELIST_PACKAGES=human_layers;human_msgs -G Unix Makefiles

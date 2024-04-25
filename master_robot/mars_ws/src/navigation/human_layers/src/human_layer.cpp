@@ -220,7 +220,7 @@ double HumanLayer::Static_Individual_Gaussian2D(double x, double y, double x0, d
     double theta = atan2(dy, dx);
     double X = d*cos(theta), Y = d*sin(theta);
     double scale = 20;//3
-    return (A/2)/std::max(d,1.0) * Guassian1D(X,0.0,1.0,varx/scale) * Guassian1D(Y,0.0,1.0,vary/scale);
+    return (10*A/2)/std::max(d,1.0) * Guassian1D(X,0.0,1.0,varx/scale) * Guassian1D(Y,0.0,1.0,vary/scale);
   }
 
 double HumanLayer::getRadius(double cutoff, double A, double var)
@@ -279,7 +279,7 @@ double HumanLayer::Dynamic_Individual_Asymmetrical_Gaussian(double x, double y, 
 }      
 
 double HumanLayer::Static_Group_Asymmetrical_Gaussian(double x, double y, double x0, double y0, const Eigen::Matrix2d& sigma_star_eigen_) {
-    double amp_s = 10.0;
+    double amp_s = 900.0;
     // define parameter
     Eigen::Vector2d q_eigen;
     q_eigen << x,y;
@@ -440,8 +440,8 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPose
     int N = group_.size();
 
     vector<double> sum; //[s1,s2]
-    double s1 = B*amp*(1.0/(4*N))*(dif_x_total);
-    double s2 = 0.5*B*(1.0/N)*(dif_y_total);
+    double s1 = 3*amp*(1.0/(4*N))*(dif_x_total);
+    double s2 = 0.2*B*(1.0/N)*(dif_y_total);
     sum.push_back(s1);
     sum.push_back(s2);
     Eigen::Matrix2d sigma_star_eigen;

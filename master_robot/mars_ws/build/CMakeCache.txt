@@ -66,7 +66,7 @@ CATKIN_SKIP_TESTING:BOOL=OFF
 CATKIN_SYMLINK_INSTALL:BOOL=OFF
 
 //List of ';' separated packages to build
-CATKIN_WHITELIST_PACKAGES:STRING=path_assessment;pedsim_msgs
+CATKIN_WHITELIST_PACKAGES:STRING=human_layers;human_msgs
 
 //Path to a file.
 CCD_INCLUDE_DIRS:PATH=/usr/include
@@ -1060,7 +1060,7 @@ kdl_parser_DIR:PATH=/opt/ros/noetic/share/kdl_parser/cmake
 laser_geometry_DIR:PATH=/opt/ros/noetic/share/laser_geometry/cmake
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/noetic/lib/libtf2.so
+lib:FILEPATH=/opt/ros/noetic/lib/libvoxel_grid.so
 
 //The directory containing a CMake configuration file for map_msgs.
 map_msgs_DIR:PATH=/opt/ros/noetic/share/map_msgs/cmake

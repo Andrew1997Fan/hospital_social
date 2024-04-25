@@ -63,7 +63,7 @@
     </agent>
 		-->
     <!--static group in open space-->
-    <agent x="2.5" y="10.0" n="1" dx="0.1" dy="0.1" type="0">
+    <agent x="2.5" y="10.5" n="1" dx="0.1" dy="0.1" type="0">
         <addwaypoint id="ped_wpt_corridor1_4"/>
         <addwaypoint id="end_point_1"/>
     </agent>	
@@ -71,7 +71,7 @@
         <addwaypoint id="ped_wpt_corridor1_4"/>
         <addwaypoint id="end_point_1"/>
     </agent>
-    <agent x="-2.0" y="10.5" n="1" dx="0.1" dy="0.1" type="0">
+    <agent x="-2.0" y="11.0" n="1" dx="0.1" dy="0.1" type="0">
         <addwaypoint id="ped_wpt_corridor1_4"/>
         <addwaypoint id="end_point_1"/>
     </agent>

@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import csv
 
-file_path = 'human_collide_index_astar_static_group_test1.csv'
+file_path = 'social_human_collide_index_astar_static_group_test1.csv'
 
 # need to change every time based on video time
 sample_rate = 320
@@ -40,6 +40,6 @@ plt.legend()
 # 設定y軸範圍
 plt.ylim(0, 2.0)  # 修改 y 軸範圍 because need to minus Robot and Human real world body size
 
-save_file = 'human_collide_index_astar_static_group_test1.png'
+save_file = 'social_human_collide_index_astar_static_group_test1.png'
 plt.savefig(save_file)
 print(f"Saved plot as {save_file}")

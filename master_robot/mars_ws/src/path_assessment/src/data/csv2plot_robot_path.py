@@ -6,7 +6,7 @@ from scipy.interpolate import CubicSpline
 from matplotlib.patches import Ellipse
 
 # 讀取CSV文件
-file_path = 'astar_static_group_test1.csv'  # 請將data.csv替換為你的CSV文件路徑
+file_path = 'social_astar_static_group_test1.csv'  # 請將data.csv替換為你的CSV文件路徑
 with open(file_path, 'r') as file:
     lines = file.readlines()
 
@@ -77,7 +77,7 @@ plt.legend()
 # 設置 x 軸刻度值
 # plt.xticks(np.arange(2.5, 8.5, 1))
 
-save_file = 'astar_static_group_test1.png'
+save_file = 'social_astar_static_group_test1.png'
 plt.savefig(save_file)
 print(f"Saved plot as {save_file}")
 
