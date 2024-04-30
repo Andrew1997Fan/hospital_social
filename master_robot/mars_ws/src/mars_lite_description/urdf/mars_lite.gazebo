@@ -11,25 +11,25 @@
 
 
     <gazebo reference="base_link">
-        <mu1 value="100000000.0"/>
-        <mu2 value="100000000.0"/>
-        <kp  value="100000000.0" />
+        <mu1 value="1000000000.0"/>
+        <mu2 value="1000000000.0"/>
+        <kp  value="1000000000.0" />
         <kd  value="1.0" />
         <fdir1 value="1 0 0" />
     </gazebo>
 
     <!-- Uncomment for simulating the 'chatter' moving behavior -->
     <gazebo reference="left_wheel">
-        <mu1 value="100000000.0"/>
-        <mu2 value="100000000.0"/>
-        <kp  value="100000000.0" />
+        <mu1 value="1000000000.0"/>
+        <mu2 value="1000000000.0"/>
+        <kp  value="1000000000.0" />
         <kd  value="1.0" />
         <fdir1 value="1 0 0"/>
     </gazebo>
     <gazebo reference="right_wheel">
-        <mu1 value="100000000.0"/>
-        <mu2 value="100000000.0"/>
-        <kp  value="100000000.0" />
+        <mu1 value="1000000000.0"/>
+        <mu2 value="1000000000.0"/>
+        <kp  value="1000000000.0" />
         <kd  value="1.0" />
         <fdir1 value="1 0 0"/>
     </gazebo>

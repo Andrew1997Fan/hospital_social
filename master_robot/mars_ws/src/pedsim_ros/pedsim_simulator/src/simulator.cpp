@@ -336,8 +336,10 @@ void Simulator::publishRobotPosition() {
   robot_location.header = createMsgHeader();
   robot_location.child_frame_id = robot_base_frame_id_;
 
-  robot_location.pose.pose.position.x = robot_->getx();
-  robot_location.pose.pose.position.y = robot_->gety();
+  // robot_location.pose.pose.position.x = robot_->getx();
+  // robot_location.pose.pose.position.y = robot_->gety();
+  robot_location.pose.pose.position.x = -100;
+  robot_location.pose.pose.position.y = -100;
   if (std::hypot(robot_->getvx(), robot_->getvy()) < 0.05) {
     robot_location.pose.pose.orientation = last_robot_orientation_;
   } else {
@@ -346,9 +348,10 @@ void Simulator::publishRobotPosition() {
     last_robot_orientation_ = robot_location.pose.pose.orientation;
   }
 
-  robot_location.twist.twist.linear.x = robot_->getvx();
-  robot_location.twist.twist.linear.y = robot_->getvy();
-
+  // robot_location.twist.twist.linear.x = robot_->getvx();
+  // robot_location.twist.twist.linear.y = robot_->getvy();
+  robot_location.twist.twist.linear.x = 0;
+  robot_location.twist.twist.linear.y = 0;
   pub_robot_position_.publish(robot_location);
 }
 

@@ -56,18 +56,6 @@ CMAKE_BINARY_DIR = /home/developer/master_ws/master_robot/mars_ws/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
@@ -79,28 +67,6 @@ install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -135,6 +101,40 @@ test/fast: test
 
 .PHONY : test/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # The main all target
 all: cmake_check_build_system
 	cd /home/developer/master_ws/master_robot/mars_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/developer/master_ws/master_robot/mars_ws/build/CMakeFiles /home/developer/master_ws/master_robot/mars_ws/build/pedsim_ros/3rdparty/libpedsim/CMakeFiles/progress.marks
@@ -168,6 +168,81 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_py: pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+
+.PHONY : std_msgs_generate_messages_py
+
+# fast build rule for target.
+std_msgs_generate_messages_py/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_py.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_py.dir/build
+.PHONY : std_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_nodejs: pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : std_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+std_msgs_generate_messages_nodejs/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
+.PHONY : std_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_cpp: pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+
+.PHONY : roscpp_generate_messages_cpp
+
+# fast build rule for target.
+roscpp_generate_messages_cpp/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_cpp.dir/build
+.PHONY : roscpp_generate_messages_cpp/fast
+
+# Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_eus.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_eus: pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+
+.PHONY : roscpp_generate_messages_eus
+
+# fast build rule for target.
+roscpp_generate_messages_eus/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_eus.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_eus.dir/build
+.PHONY : roscpp_generate_messages_eus/fast
+
+# Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_nodejs: pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_nodejs/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
+.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
 pedsim_ros/3rdparty/libpedsim/CMakeFiles/pedsim.dir/rule:
 	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/pedsim.dir/rule
 .PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/pedsim.dir/rule
@@ -181,6 +256,156 @@ pedsim: pedsim_ros/3rdparty/libpedsim/CMakeFiles/pedsim.dir/rule
 pedsim/fast:
 	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/pedsim.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/pedsim.dir/build
 .PHONY : pedsim/fast
+
+# Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_lisp: pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : std_msgs_generate_messages_lisp
+
+# fast build rule for target.
+std_msgs_generate_messages_lisp/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+.PHONY : std_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_py.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_py.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_py.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_py: pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_py.dir/rule
+
+.PHONY : roscpp_generate_messages_py
+
+# fast build rule for target.
+roscpp_generate_messages_py/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_py.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_py.dir/build
+.PHONY : roscpp_generate_messages_py/fast
+
+# Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_eus.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_eus: pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+
+.PHONY : std_msgs_generate_messages_eus
+
+# fast build rule for target.
+std_msgs_generate_messages_eus/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_eus.dir/build
+.PHONY : std_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_nodejs: pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+
+.PHONY : roscpp_generate_messages_nodejs
+
+# fast build rule for target.
+roscpp_generate_messages_nodejs/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
+.PHONY : roscpp_generate_messages_nodejs/fast
+
+# Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_cpp: pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_cpp
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_cpp/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_cpp: pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : std_msgs_generate_messages_cpp
+
+# fast build rule for target.
+std_msgs_generate_messages_cpp/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
+.PHONY : std_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_eus: pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_eus
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_eus/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
+.PHONY : rosgraph_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_lisp: pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_lisp
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_lisp/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_lisp: pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+
+.PHONY : roscpp_generate_messages_lisp
+
+# fast build rule for target.
+roscpp_generate_messages_lisp/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/roscpp_generate_messages_lisp.dir/build
+.PHONY : roscpp_generate_messages_lisp/fast
+
+# Convenience name for target.
+pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+.PHONY : pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_py: pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_py
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_py/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make pedsim_ros/3rdparty/libpedsim/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
+.PHONY : rosgraph_msgs_generate_messages_py/fast
 
 src/ped_agent.o: src/ped_agent.cpp.o
 
@@ -377,14 +602,29 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... install"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... test"
+	@echo "... std_msgs_generate_messages_py"
+	@echo "... std_msgs_generate_messages_nodejs"
+	@echo "... roscpp_generate_messages_cpp"
+	@echo "... roscpp_generate_messages_eus"
+	@echo "... rosgraph_msgs_generate_messages_nodejs"
+	@echo "... list_install_components"
 	@echo "... pedsim"
+	@echo "... std_msgs_generate_messages_lisp"
+	@echo "... roscpp_generate_messages_py"
+	@echo "... install"
+	@echo "... std_msgs_generate_messages_eus"
+	@echo "... roscpp_generate_messages_nodejs"
+	@echo "... rosgraph_msgs_generate_messages_cpp"
+	@echo "... install/strip"
+	@echo "... std_msgs_generate_messages_cpp"
+	@echo "... rosgraph_msgs_generate_messages_eus"
+	@echo "... rosgraph_msgs_generate_messages_lisp"
+	@echo "... roscpp_generate_messages_lisp"
+	@echo "... rosgraph_msgs_generate_messages_py"
 	@echo "... src/ped_agent.o"
 	@echo "... src/ped_agent.i"
 	@echo "... src/ped_agent.s"

@@ -168,21 +168,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_occlusion_sensor.dir/rule:
-	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_occlusion_sensor.dir/rule
-.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_occlusion_sensor.dir/rule
-
-# Convenience name for target.
-pedsim_occlusion_sensor: pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_occlusion_sensor.dir/rule
-
-.PHONY : pedsim_occlusion_sensor
-
-# fast build rule for target.
-pedsim_occlusion_sensor/fast:
-	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_occlusion_sensor.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_occlusion_sensor.dir/build
-.PHONY : pedsim_occlusion_sensor/fast
-
-# Convenience name for target.
 pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_obstacle_sensor.dir/rule:
 	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_obstacle_sensor.dir/rule
 .PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_obstacle_sensor.dir/rule
@@ -211,6 +196,246 @@ pedsim_people_sensor: pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_people_sensor.
 pedsim_people_sensor/fast:
 	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_people_sensor.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_people_sensor.dir/build
 .PHONY : pedsim_people_sensor/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_py.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_py.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+tf2_msgs_generate_messages_py: pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_py.dir/rule
+
+.PHONY : tf2_msgs_generate_messages_py
+
+# fast build rule for target.
+tf2_msgs_generate_messages_py/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_py.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_py.dir/build
+.PHONY : tf2_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+tf2_msgs_generate_messages_nodejs: pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : tf2_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+tf2_msgs_generate_messages_nodejs/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/build
+.PHONY : tf2_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_cpp.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_cpp.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+tf_generate_messages_cpp: pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_cpp.dir/rule
+
+.PHONY : tf_generate_messages_cpp
+
+# fast build rule for target.
+tf_generate_messages_cpp/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_cpp.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_cpp.dir/build
+.PHONY : tf_generate_messages_cpp/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_nodejs.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_nodejs.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+tf_generate_messages_nodejs: pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_nodejs.dir/rule
+
+.PHONY : tf_generate_messages_nodejs
+
+# fast build rule for target.
+tf_generate_messages_nodejs/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_nodejs.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_nodejs.dir/build
+.PHONY : tf_generate_messages_nodejs/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_lisp.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_lisp.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+actionlib_generate_messages_lisp: pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_lisp.dir/rule
+
+.PHONY : actionlib_generate_messages_lisp
+
+# fast build rule for target.
+actionlib_generate_messages_lisp/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_lisp.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_lisp.dir/build
+.PHONY : actionlib_generate_messages_lisp/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_lisp.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_lisp.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+tf_generate_messages_lisp: pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_lisp.dir/rule
+
+.PHONY : tf_generate_messages_lisp
+
+# fast build rule for target.
+tf_generate_messages_lisp/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_lisp.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_lisp.dir/build
+.PHONY : tf_generate_messages_lisp/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+tf2_msgs_generate_messages_lisp: pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : tf2_msgs_generate_messages_lisp
+
+# fast build rule for target.
+tf2_msgs_generate_messages_lisp/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/build
+.PHONY : tf2_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_occlusion_sensor.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_occlusion_sensor.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_occlusion_sensor.dir/rule
+
+# Convenience name for target.
+pedsim_occlusion_sensor: pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_occlusion_sensor.dir/rule
+
+.PHONY : pedsim_occlusion_sensor
+
+# fast build rule for target.
+pedsim_occlusion_sensor/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_occlusion_sensor.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/pedsim_occlusion_sensor.dir/build
+.PHONY : pedsim_occlusion_sensor/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_eus.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_eus.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+actionlib_generate_messages_eus: pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_eus.dir/rule
+
+.PHONY : actionlib_generate_messages_eus
+
+# fast build rule for target.
+actionlib_generate_messages_eus/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_eus.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_eus.dir/build
+.PHONY : actionlib_generate_messages_eus/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+actionlib_generate_messages_nodejs: pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule
+
+.PHONY : actionlib_generate_messages_nodejs
+
+# fast build rule for target.
+actionlib_generate_messages_nodejs/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_nodejs.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_nodejs.dir/build
+.PHONY : actionlib_generate_messages_nodejs/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_eus.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_eus.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+tf_generate_messages_eus: pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_eus.dir/rule
+
+.PHONY : tf_generate_messages_eus
+
+# fast build rule for target.
+tf_generate_messages_eus/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_eus.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_eus.dir/build
+.PHONY : tf_generate_messages_eus/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_py.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_py.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_py.dir/rule
+
+# Convenience name for target.
+tf_generate_messages_py: pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_py.dir/rule
+
+.PHONY : tf_generate_messages_py
+
+# fast build rule for target.
+tf_generate_messages_py/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_py.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/tf_generate_messages_py.dir/build
+.PHONY : tf_generate_messages_py/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_py.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_py.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_py.dir/rule
+
+# Convenience name for target.
+actionlib_generate_messages_py: pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_py.dir/rule
+
+.PHONY : actionlib_generate_messages_py
+
+# fast build rule for target.
+actionlib_generate_messages_py/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_py.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_py.dir/build
+.PHONY : actionlib_generate_messages_py/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+tf2_msgs_generate_messages_cpp: pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : tf2_msgs_generate_messages_cpp
+
+# fast build rule for target.
+tf2_msgs_generate_messages_cpp/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/build
+.PHONY : tf2_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_cpp.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_cpp.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+actionlib_generate_messages_cpp: pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_cpp.dir/rule
+
+.PHONY : actionlib_generate_messages_cpp
+
+# fast build rule for target.
+actionlib_generate_messages_cpp/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_cpp.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/actionlib_generate_messages_cpp.dir/build
+.PHONY : actionlib_generate_messages_cpp/fast
+
+# Convenience name for target.
+pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_eus.dir/rule:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_eus.dir/rule
+.PHONY : pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+tf2_msgs_generate_messages_eus: pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_eus.dir/rule
+
+.PHONY : tf2_msgs_generate_messages_eus
+
+# fast build rule for target.
+tf2_msgs_generate_messages_eus/fast:
+	cd /home/developer/master_ws/master_robot/mars_ws/build && $(MAKE) -f pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_eus.dir/build.make pedsim_ros/pedsim_sensors/CMakeFiles/tf2_msgs_generate_messages_eus.dir/build
+.PHONY : tf2_msgs_generate_messages_eus/fast
 
 src/pedsim_sensors/obstacle_point_cloud.o: src/pedsim_sensors/obstacle_point_cloud.cpp.o
 
@@ -306,9 +531,24 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... test"
-	@echo "... pedsim_occlusion_sensor"
 	@echo "... pedsim_obstacle_sensor"
 	@echo "... pedsim_people_sensor"
+	@echo "... tf2_msgs_generate_messages_py"
+	@echo "... tf2_msgs_generate_messages_nodejs"
+	@echo "... tf_generate_messages_cpp"
+	@echo "... tf_generate_messages_nodejs"
+	@echo "... actionlib_generate_messages_lisp"
+	@echo "... tf_generate_messages_lisp"
+	@echo "... tf2_msgs_generate_messages_lisp"
+	@echo "... pedsim_occlusion_sensor"
+	@echo "... actionlib_generate_messages_eus"
+	@echo "... actionlib_generate_messages_nodejs"
+	@echo "... tf_generate_messages_eus"
+	@echo "... tf_generate_messages_py"
+	@echo "... actionlib_generate_messages_py"
+	@echo "... tf2_msgs_generate_messages_cpp"
+	@echo "... actionlib_generate_messages_cpp"
+	@echo "... tf2_msgs_generate_messages_eus"
 	@echo "... src/pedsim_sensors/obstacle_point_cloud.o"
 	@echo "... src/pedsim_sensors/obstacle_point_cloud.i"
 	@echo "... src/pedsim_sensors/obstacle_point_cloud.s"

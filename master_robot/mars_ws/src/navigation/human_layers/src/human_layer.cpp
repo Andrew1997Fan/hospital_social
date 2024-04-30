@@ -219,7 +219,7 @@ double HumanLayer::Static_Individual_Gaussian2D(double x, double y, double x0, d
     double d = sqrt(dx * dx + dy * dy);
     double theta = atan2(dy, dx);
     double X = d*cos(theta), Y = d*sin(theta);
-    double scale = 20;//3
+    double scale = 10;//3 //20
     return (10*A/2)/std::max(d,1.0) * Guassian1D(X,0.0,1.0,varx/scale) * Guassian1D(Y,0.0,1.0,vary/scale);
   }
 
@@ -238,13 +238,13 @@ double HumanLayer::Dynamic_Individual_Asymmetrical_Gaussian(double x, double y, 
     // define parameter
     double v = sqrt(vx * vx + vy * vy);
     double theta = atan2(vy, vx);
-    double sigmaHead = fmax(0.8* v, 0.6);//fmax(1.2*v,1.0)
+    double sigmaHead = fmax(1.2* v, 1.0);//fmax(1.2*v,1.0)
     // printf("sigmaHead: %f, human v: %f\n", sigmaHead, v);
     // double sigmaRear = 2.0 / 7.0;
-    double sigmaRear = var / 12.0;//7.0
-    double sigmaLarge = var / 10.0;//5.0
+    double sigmaRear = var / 7.0;//7.0  //12
+    double sigmaLarge = var / 5.0;//5.0 //10
     // double sigmaSmall = 2.0 / 7.0;
-    double sigmaSmall = var / 12.0;//7.0
+    double sigmaSmall = var / 7.0;//7.0 //12
 
     // compute αmain, αside
     double alphaMain = normalize(atan2(y - y0, x - x0) - theta + PI / 2);
@@ -274,7 +274,7 @@ double HumanLayer::Dynamic_Individual_Asymmetrical_Gaussian(double x, double y, 
     double Gc = (sinTheta * sinTheta) / (2 * sigmaMain * sigmaMain) + (cosTheta * cosTheta) / (2 * sigmaSide * sigmaSide);
 
     // compute social cost
-    double result = A*exp(-1.0 * (Ga * (x - x0) * (x - x0) + 2 * Gb * (x - x0) * (y - y0) + Gc * (y - y0) * (y - y0)));
+    double result = 1.5*A*exp(-1.0 * (Ga * (x - x0) * (x - x0) + 2 * Gb * (x - x0) * (y - y0) + Gc * (y - y0) * (y - y0)));
     return result;
 }      
 
@@ -369,7 +369,7 @@ void HumanLayer::cast_to_map_1p( costmap_2d::Costmap2D* costmap, vector<HumanPos
       double v = sqrt(vx * vx + vy * vy);
       double val;
       
-      if(v > 0.75 ){ // ok 
+      if(v > 1.0 ){ // ok  //0.05
         // printf("******** Dynamic_Individual **********\n");
         val = Dynamic_Individual_Asymmetrical_Gaussian(x, y, cx, cy, vx, vy, var, amplitude_);
       }
@@ -380,13 +380,6 @@ void HumanLayer::cast_to_map_1p( costmap_2d::Costmap2D* costmap, vector<HumanPos
       }
 
       unsigned char cvalue = (unsigned char) val;
-      // if(val > 1){
-      //   printf("%f \n",val);
-      // }
-      
-
-      // printf("cost_x_i : %d, cost_y_i : %d\n",i + mx, j + my);
-
       costmap->setCost(i + mx, j + my, std::max(cvalue, old_cost));
     }
   }
@@ -408,7 +401,7 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPose
     cy += member.pose.position.y;
     count++ ;
   }
-  if (count > 0) {
+  if (count > 0) { 
     cx /= count;
     cy /= count;
   } else {
@@ -542,17 +535,10 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPose
       double v = sqrt(vx * vx + vy * vy);
       double val;
       if(v > 0.75 ){ // ok 
-        val = Dynamic_Group_Asymmetrical_Gaussian(x, y, cx, cy, sigma_1,sigma_2);
-          if(val > 2.0){
-        printf("dynamic_val = %f \n",val);
-        printf("****group*****\n");
-
-      }
-        
+        val = Dynamic_Group_Asymmetrical_Gaussian(x, y, cx, cy, sigma_1,sigma_2);     
       }
       else{
         val = Static_Group_Asymmetrical_Gaussian(x, y, cx, cy, sigma_star_eigen);
-        // printf("****static*****\n");
       }
 
 
