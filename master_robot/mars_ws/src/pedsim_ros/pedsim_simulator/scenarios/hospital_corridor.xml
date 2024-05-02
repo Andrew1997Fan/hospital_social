@@ -55,29 +55,29 @@
 	<agent x="5" y="-10" n="0" dx="0.0" dy="0.0" type="0"/> -->
     
     <!--static individual in corridor-->
-		<!--
-    <agent x="5.0" y="-20" n="1" dx="0.1" dy="0.1" type="0">
+		
+    <!-- <agent x="5.0" y="-20" n="1" dx="0.1" dy="0.1" type="0">
         <addwaypoint id="ped_wpt_corridor1_1"/>
         <addwaypoint id="ped_wpt_corridor1_2"/>
         <addwaypoint id="ped_wpt_corridor1_3"/>
         <addwaypoint id="ped_wpt_corridor1_4"/>
         <addwaypoint id="end_point_1"/>
-    </agent>
-    <agent x="5.0" y="-6" n="1" dx="0.1" dy="0.1" type="0">
+    </agent> -->
+    <!-- <agent x="5.0" y="-6" n="1" dx="0.0" dy="0.0" type="0">
         <addwaypoint id="ped_wpt_corridor2_1"/>
         <addwaypoint id="ped_wpt_corridor2_2"/>
         <addwaypoint id="ped_wpt_corridor2_3"/>
         <addwaypoint id="end_point_2"/>
     </agent>
-    <agent x="5.0" y="-2" n="1" dx="0.1" dy="0.1" type="0">
+    <agent x="4.8" y="-2" n="1" dx="0.0" dy="0.0" type="0">
         <addwaypoint id="ped_wpt_corridor1_4"/>
         <addwaypoint id="end_point_1"/>
     </agent>
-		-->
+		 -->
 `	
     <!--static group in open space-->
-    <!--
-    <agent x="2.5" y="10.5" n="1" dx="0.1" dy="0.1" type="0">
+    
+    <!-- <agent x="2.5" y="10.5" n="1" dx="0.1" dy="0.1" type="0">
         <addwaypoint id="ped_wpt_corridor1_4"/>
         <addwaypoint id="end_point_1"/>
     </agent>	
@@ -92,35 +92,65 @@
     <agent x="-2.0" y="12.0" n="1" dx="0.1" dy="0.1" type="0">
         <addwaypoint id="ped_wpt_corridor1_4"/>
         <addwaypoint id="end_point_1"/>
-    </agent>
-	-->
+    </agent> -->
+	
 
     <!--dynamic group in open space-->
-    
+        <!-- no social - larger range-->
     <waypoint id="end_point_1" x="5" y="13" r="0.5"/> 
+    <waypoint id="end_point_2" x="5" y="11.5" r="0.5"/> 
+    <waypoint id="end_point_3" x="7" y="11" r="0.5"/> 
+    <waypoint id="end_point_4" x="7" y="9.5" r="0.5"/> 
+
+    <waypoint id="end_point_1_extend" x="20" y="13" r="0.5"/> 
+    <waypoint id="end_point_2_extend" x="20" y="11.5" r="0.5"/> 
+    <waypoint id="end_point_3_extend" x="20" y="11" r="0.5"/> 
+    <waypoint id="end_point_4_extend" x="20" y="9.5" r="0.5"/> 
+
+    <agent x="-4.0" y="11.5" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_2"/>
+        <addwaypoint id="end_point_2_extend"/>
+    </agent>	
+    <agent x="-4.0" y="13" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_1"/>
+        <addwaypoint id="end_point_1_extend"/>
+    </agent>
+    <agent x="-1.0" y="9.5" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_4"/>
+        <addwaypoint id="end_point_4_extend"/>
+    </agent>
+    <agent x="-1.0" y="11.0" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_3"/>
+        <addwaypoint id="end_point_3_extend"/>
+    </agent>
+	
+    <!--dynamic group in open space-->
+        <!-- social - smaller range-->
+    <!-- <waypoint id="end_point_1" x="5" y="13" r="0.5"/> 
     <waypoint id="end_point_2" x="5" y="12" r="0.5"/> 
     <waypoint id="end_point_3" x="7" y="11" r="0.5"/> 
     <waypoint id="end_point_4" x="7" y="10" r="0.5"/> 
 
-
-    <agent x="-4.0" y="12" n="1" dx="0.1" dy="0.1" type="0">
-        <addwaypoint id="ped_wpt_corridor1_4"/>
-        <addwaypoint id="end_point_1"/>
+    <waypoint id="end_point_1_extend" x="20" y="13" r="0.5"/> 
+    <waypoint id="end_point_2_extend" x="20" y="12" r="0.5"/> 
+    <waypoint id="end_point_3_extend" x="20" y="11" r="0.5"/> 
+    <waypoint id="end_point_4_extend" x="20" y="10" r="0.5"/>  -->
+    <!-- <agent x="-4.0" y="12" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_2"/>
+        <addwaypoint id="end_point_2_extend"/>
     </agent>	
     <agent x="-4.0" y="13" n="1" dx="0.1" dy="0.1" type="0">
-        <addwaypoint id="ped_wpt_corridor1_4"/>
         <addwaypoint id="end_point_1"/>
+        <addwaypoint id="end_point_1_extend"/>
     </agent>
     <agent x="-1.0" y="10.0" n="1" dx="0.1" dy="0.1" type="0">
-        <addwaypoint id="ped_wpt_corridor1_4"/>
-        <addwaypoint id="end_point_1"/>
+        <addwaypoint id="end_point_4"/>
+        <addwaypoint id="end_point_4_extend"/>
     </agent>
     <agent x="-1.0" y="11.0" n="1" dx="0.1" dy="0.1" type="0">
-        <addwaypoint id="ped_wpt_corridor1_4"/>
-        <addwaypoint id="end_point_1"/>
-    </agent>
-	
-
+        <addwaypoint id="end_point_3"/>
+        <addwaypoint id="end_point_3_extend"/>
+    </agent> -->
 	
     <!--Robot-->
     <agent x="-5" y="0" n="1" dx="0" dy="0" type="2">
