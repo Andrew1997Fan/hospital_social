@@ -123,7 +123,7 @@ void modelStateCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
     int robot_idx = robot_y * global_map_ptr->info.width + robot_x; 
     int robot_h_cost = global_map_ptr->data[robot_idx];
     // printf("robot current cost in map = %d \n",robot_h_cost); //checked
-    writeToCSV_robot("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/astar_dynamic_group_test2.csv", robot_pose.position.x, robot_pose.position.y);
+    writeToCSV_robot("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/social_astar_full_scene_test1.csv", robot_pose.position.x, robot_pose.position.y);
 
 
 
@@ -132,7 +132,8 @@ void modelStateCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
     /* static human in corridor */
     // 3 human[x,y] : [5.5,-20.0][5.5,-5.0][4.0,-12.0]
     // 三个静态人体的坐标
-    vector<vector<float>> static_human_poses = {{5.0, -2.0}, {5.0, -6.0}};
+    // vector<vector<float>> static_human_poses = {{5.0, -2.0}, {5.0, -6.0}};
+    // vector<vector<float>> static_human_poses = {{0.0, 11.0}}; //wheelchair
     // 2个静态group的center坐标
     // vector<vector<float>> static_human_poses = {{2.5,10.75}, {-2.0, 11.25}};
     // geometry_msgs::Pose mv_human_pose;
@@ -149,7 +150,7 @@ void modelStateCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
     // }
     /* static group adding human info*/
     // vector<geometry_msgs::Pose> poses_;
-    // // 将静态人体坐标添加到poses中
+    // // // 将静态人体坐标添加到poses中
     // for (const auto& static_pose : static_human_poses) {
     //     geometry_msgs::Pose pose_tmp;
     //     pose_tmp.position.x = static_pose[0]; //static_pose[0]
@@ -157,12 +158,12 @@ void modelStateCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
     //     pose_tmp.position.z = 0.0; // 如果Z坐标也存在，请将其设置为适当的值
     //     poses_.push_back(pose_tmp);
     // }
-    // /* static human in corridor */
-    // // printf("robot_x = %f, robot_y = %f\n",robot_pose.position.x,robot_pose.position.y);
+    // // /* static human in corridor */
+    // // // printf("robot_x = %f, robot_y = %f\n",robot_pose.position.x,robot_pose.position.y);
 
     // vector<geometry_msgs::Pose> sortedPoses; // 复制一份以避免修改原始数据
     // geometry_msgs::Pose pose_diff;
-    // for(int j = 0; j < 3; j++){ //j<agent_size (when human size not declare)
+    // for(int j = 0; j < 1; j++){ //j<agent_size (when human size not declare)
     //     pose_diff.position.x = abs(robot_pose.position.x - poses_[j].position.x);
     //     pose_diff.position.y = abs(robot_pose.position.y - poses_[j].position.y);
     //     sortedPoses.push_back(pose_diff);
@@ -187,7 +188,7 @@ void modelStateCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
 
 
     // // // writeToCSV_human("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/robot_positions_1.csv",distances_below_threshold, distances_between_threshold_and_upper_bound);
-    // writeToCSV_human("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/social_human_collide_index_astar_static_individual_test4.csv",distances_below_threshold);
+    // writeToCSV_human("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/larger_social_human_collide_index_astar_static_wheelchair_test1.csv",distances_below_threshold);
 
 }
 
@@ -216,12 +217,54 @@ void humanStateCallback(const pedsim_msgs::AgentStates::ConstPtr& human_msg){
         twists.push_back(twist);
     }
 
+
+    
+    /*  whole scenario exp  */
+    // store full human info
+    vector<geometry_msgs::Pose> poses_;
+
+    vector<vector<float>> static_human_poses = {{-2, 9}, {2.5, 7.5}}; // wheel chair, static group, static individual
+        // // 将静态人体坐标添加到poses中
+    for (const auto& static_pose : static_human_poses) {
+        geometry_msgs::Pose pose;
+        pose.position.x = static_pose[0];
+        pose.position.y = static_pose[1];
+        pose.position.z = 0.0; // 如果Z坐标也存在，请将其设置为适当的值
+        poses_.push_back(pose);
+    }
+
+    // dynamic group in full scene
+    vector<geometry_msgs::Pose> sortedPoses; // 复制一份以避免修改原始数据    
+    geometry_msgs::Pose pose_diff;
+    geometry_msgs::Pose pose_mid_1;
+    geometry_msgs::Pose pose_indiv_1;
+
+    pose_indiv_1.position.x = poses[0].position.x;
+    pose_indiv_1.position.x = poses[0].position.y;
+    poses_.push_back(pose_indiv_1);
+
+    pose_mid_1.position.x = (poses[1].position.x + poses[2].position.x + poses[3].position.x)/3;
+    pose_mid_1.position.y = (poses[1].position.y + poses[2].position.y + poses[3].position.y)/3;
+    poses_.push_back(pose_mid_1);
+
+    for(int j = 0; j< 4; j++){ //j<agent_size (when human size not declare)
+        pose_diff.position.x = abs(robot_pose.position.x - poses_[j].position.x);
+        pose_diff.position.y = abs(robot_pose.position.y - poses_[j].position.y);
+        sortedPoses.push_back(pose_diff);
+    }
+
+
+
+
+    sort(sortedPoses.begin(), sortedPoses.end(), compareByDistance); //the first state will be the nearest human!! no need to identy every people
+    /*  whole scenario exp  */
+
+
     /* static human in corridor */
     // 3 human[x,y] : [5.5,-20.0][5.5,-5.0][4.0,-12.0]
     // 三个静态人体的坐标
     // vector<vector<float>> static_human_poses = {{5.5, -20.0}, {5.5, -5.0}, {4.0, -12.0}};
 
-    // // 将静态人体坐标添加到poses中
     // for (const auto& static_pose : static_human_poses) {
     //     geometry_msgs::Pose pose;
     //     pose.position.x = static_pose[0];
@@ -249,32 +292,34 @@ void humanStateCallback(const pedsim_msgs::AgentStates::ConstPtr& human_msg){
     // }
     // sort(sortedPoses.begin(), sortedPoses.end(), compareByDistance); //the first state will be the nearest human!! no need to identy every people
 
+
+
     /*dynamic group*/
     /*calculate group center*/
-    vector<geometry_msgs::Pose> sorted_group_cent; 
-    geometry_msgs::Pose pose_diff_gp;
+    // vector<geometry_msgs::Pose> sorted_group_cent; 
+    // geometry_msgs::Pose pose_diff_gp;
 
 
 
-    vector<geometry_msgs::Pose> sortedPoses; // 复制一份以避免修改原始数据
-    vector<geometry_msgs::Pose> sortedPoses_mid;
-    geometry_msgs::Pose pose_diff;
-    geometry_msgs::Pose pose_mid_1, pose_mid_2;
+    // vector<geometry_msgs::Pose> sortedPoses; // 复制一份以避免修改原始数据
+    // vector<geometry_msgs::Pose> sortedPoses_mid;
+    // geometry_msgs::Pose pose_diff;
+    // geometry_msgs::Pose pose_mid_1, pose_mid_2;
 
-    pose_mid_1.position.x = (poses[0].position.x + poses[1].position.x)/2;
-    pose_mid_1.position.y = (poses[0].position.y + poses[1].position.y)/2;
-    sortedPoses_mid.push_back(pose_mid_1);
-    pose_mid_2.position.x = (poses[2].position.x + poses[3].position.x)/2;
-    pose_mid_2.position.y = (poses[2].position.y + poses[3].position.y)/2;
-    sortedPoses_mid.push_back(pose_mid_2);
+    // pose_mid_1.position.x = (poses[0].position.x + poses[1].position.x)/2;
+    // pose_mid_1.position.y = (poses[0].position.y + poses[1].position.y)/2;
+    // sortedPoses_mid.push_back(pose_mid_1);
+    // pose_mid_2.position.x = (poses[2].position.x + poses[3].position.x)/2;
+    // pose_mid_2.position.y = (poses[2].position.y + poses[3].position.y)/2;
+    // sortedPoses_mid.push_back(pose_mid_2);
 
-    for(int j = 0; j< agent_size/2; j++){ //j<agent_size (when human size not declare)
-        pose_diff.position.x = abs(sortedPoses_mid[j].position.x - robot_pose.position.x);
-        pose_diff.position.y = abs(sortedPoses_mid[j].position.y - robot_pose.position.y);
-        sortedPoses.push_back(pose_diff);
-    }
+    // for(int j = 0; j< agent_size/2; j++){ //j<agent_size (when human size not declare)
+    //     pose_diff.position.x = abs(sortedPoses_mid[j].position.x - robot_pose.position.x);
+    //     pose_diff.position.y = abs(sortedPoses_mid[j].position.y - robot_pose.position.y);
+    //     sortedPoses.push_back(pose_diff);
+    // }
 
-    sort(sortedPoses.begin(), sortedPoses.end(), compareByDistance); //the first state will be the nearest human!! no need to identy every people
+    // sort(sortedPoses.begin(), sortedPoses.end(), compareByDistance); //the first state will be the nearest human!! no need to identy every people
 
     // for(int k = 0; k < agent_size/2 ; k += 2){
     //     pose_diff_gp.position.x = abs(sortedPoses[k].position.x  - robot_pose.position.x);
@@ -296,7 +341,7 @@ void humanStateCallback(const pedsim_msgs::AgentStates::ConstPtr& human_msg){
 
 
     // writeToCSV_human("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/robot_positions_1.csv",distances_below_threshold, distances_between_threshold_and_upper_bound);
-    writeToCSV_human("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/human_collide_index_astar_dynamic_group_test2.csv",distances_below_threshold);
+    writeToCSV_human("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/social_human_collide_index_astar_full_scene_test1.csv",distances_below_threshold);
 
 }
 

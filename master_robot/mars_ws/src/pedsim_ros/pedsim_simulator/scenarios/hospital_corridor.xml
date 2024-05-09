@@ -96,18 +96,18 @@
 	
 
     <!--dynamic group in open space-->
-        <!-- no social - larger range-->
-    <waypoint id="end_point_1" x="5" y="13" r="0.5"/> 
-    <waypoint id="end_point_2" x="5" y="11.5" r="0.5"/> 
-    <waypoint id="end_point_3" x="7" y="11" r="0.5"/> 
-    <waypoint id="end_point_4" x="7" y="9.5" r="0.5"/> 
+        <!-- no social - larger range
+    <waypoint id="end_point_1" x="5" y="10.5" r="0.5"/> 
+    <waypoint id="end_point_2" x="5" y="12" r="0.5"/> 
+    <waypoint id="end_point_3" x="7" y="10.5" r="0.5"/> 
+    <waypoint id="end_point_4" x="7" y="12" r="0.5"/> 
 
-    <waypoint id="end_point_1_extend" x="20" y="13" r="0.5"/> 
-    <waypoint id="end_point_2_extend" x="20" y="11.5" r="0.5"/> 
-    <waypoint id="end_point_3_extend" x="20" y="11" r="0.5"/> 
-    <waypoint id="end_point_4_extend" x="20" y="9.5" r="0.5"/> 
+    <waypoint id="end_point_1_extend" x="20" y="10.5" r="0.5"/> 
+    <waypoint id="end_point_2_extend" x="20" y="12" r="0.5"/> 
+    <waypoint id="end_point_3_extend" x="20" y="10.5" r="0.5"/> 
+    <waypoint id="end_point_4_extend" x="20" y="12" r="0.5"/>  -->
 
-    <agent x="-4.0" y="11.5" n="1" dx="0.1" dy="0.1" type="0">
+    <!-- <agent x="-4.0" y="11.5" n="1" dx="0.1" dy="0.1" type="0">
         <addwaypoint id="end_point_2"/>
         <addwaypoint id="end_point_2_extend"/>
     </agent>	
@@ -122,8 +122,30 @@
     <agent x="-1.0" y="11.0" n="1" dx="0.1" dy="0.1" type="0">
         <addwaypoint id="end_point_3"/>
         <addwaypoint id="end_point_3_extend"/>
+    </agent> -->
+    <!-- <agent x="0.0" y="10.5" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_1"/>
+        <addwaypoint id="end_point_1_extend"/>
+    </agent>	
+    <agent x="0.0" y="12" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_2"/>
+        <addwaypoint id="end_point_2_extend"/>
     </agent>
-	
+    <agent x="-4.0" y="10.5" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_3"/>
+        <addwaypoint id="end_point_3_extend"/>
+    </agent>
+    <agent x="-4.0" y="12.0" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_4"/>
+        <addwaypoint id="end_point_4_extend"/>
+    </agent> -->
+
+	<!-- wheelchair fake human
+    <agent x="0.0" y="11.0" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_4"/>
+        <addwaypoint id="end_point_4_extend"/>
+    </agent> -->
+
     <!--dynamic group in open space-->
         <!-- social - smaller range-->
     <!-- <waypoint id="end_point_1" x="5" y="13" r="0.5"/> 
@@ -134,8 +156,8 @@
     <waypoint id="end_point_1_extend" x="20" y="13" r="0.5"/> 
     <waypoint id="end_point_2_extend" x="20" y="12" r="0.5"/> 
     <waypoint id="end_point_3_extend" x="20" y="11" r="0.5"/> 
-    <waypoint id="end_point_4_extend" x="20" y="10" r="0.5"/>  -->
-    <!-- <agent x="-4.0" y="12" n="1" dx="0.1" dy="0.1" type="0">
+    <waypoint id="end_point_4_extend" x="20" y="10" r="0.5"/> 
+    <agent x="-4.0" y="12" n="1" dx="0.1" dy="0.1" type="0">
         <addwaypoint id="end_point_2"/>
         <addwaypoint id="end_point_2_extend"/>
     </agent>	
@@ -151,7 +173,71 @@
         <addwaypoint id="end_point_3"/>
         <addwaypoint id="end_point_3_extend"/>
     </agent> -->
-	
+    
+    <!-- whole scenario  -->
+
+    <waypoint id="end_point_1" x="5" y="20" r="0.5"/> 
+    <waypoint id="end_point_2" x="-10" y="11" r="0.5"/> 
+    <waypoint id="end_point_3" x="-10" y="10" r="0.5"/> 
+    <waypoint id="end_point_4" x="-10" y="10.5" r="0.5"/> 
+
+    <waypoint id="end_point_1_extend" x="5" y="20" r="0.5"/> 
+    <waypoint id="end_point_2_extend" x="-20" y="11" r="0.5"/> 
+    <waypoint id="end_point_3_extend" x="-20" y="10" r="0.5"/> 
+    <waypoint id="end_point_4_extend" x="-20" y="10.5" r="0.5"/> 
+
+    <agent x="5.0" y="-12.0" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_1"/>
+        <addwaypoint id="end_point_1_extend"/>
+    </agent>	
+    <agent x="4.0" y="11.0" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_2"/>
+        <addwaypoint id="end_point_2_extend"/>
+    </agent>
+    <agent x="4.0" y="10.0" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_3"/>
+        <addwaypoint id="end_point_3_extend"/>
+    </agent>
+    <agent x="5.0" y="10.5" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_4"/>
+        <addwaypoint id="end_point_4_extend"/>
+    </agent>
+    <!-- static individual -->
+    <agent x="2.0" y="7.0" n="1" dx="0.1" dy="0.1" type="0">
+    </agent>
+    <agent x="3.0" y="8.0" n="1" dx="0.1" dy="0.1" type="0">
+    </agent>
+    <agent x="5.5" y="-5.0" n="1" dx="0.1" dy="0.1" type="0">
+    </agent>
+
+    <!-- for whole map system, mixed social -->
+    <!-- static person generate -->
+
+    <!-- dynamic person generate -->
+    <!-- <agent x="4.0" y="11.0" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_1"/>
+        <addwaypoint id="end_point_1_extend"/>
+    </agent>
+    <agent x="4.0" y="10.0" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_4"/>
+        <addwaypoint id="end_point_4_extend"/>
+    </agent>
+    <agent x="5.0" y="10.5" n="1" dx="0.1" dy="0.1" type="0">
+        <addwaypoint id="end_point_3"/>
+        <addwaypoint id="end_point_3_extend"/>
+    </agent>  -->
+
+    <!-- dynamic indvidual human -->
+    <!-- <waypoint id="end_point_1_extend " x="5" y="40" r="0.5"/> 
+    <waypoint id="end_point_1 " x="5" y="20" r="0.5"/>  -->
+
+    <!-- static group -->
+    <!-- <agent x="2.0" y="7.0" n="1" dx="0.1" dy="0.1" type="0">
+    </agent>
+    <agent x="3.0" y="8.0" n="1" dx="0.1" dy="0.1" type="0">
+    </agent>
+    <agent x="5.5" y="-5.0" n="1" dx="0.1" dy="0.1" type="0">
+    </agent> -->
     <!--Robot-->
     <agent x="-5" y="0" n="1" dx="0" dy="0" type="2">
     </agent>

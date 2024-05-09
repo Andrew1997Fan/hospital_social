@@ -220,7 +220,8 @@ double HumanLayer::Static_Individual_Gaussian2D(double x, double y, double x0, d
     double theta = atan2(dy, dx);
     double X = d*cos(theta), Y = d*sin(theta);
     double scale = 10;//3 //20
-    return (20*A/2)/std::max(d,1.0) * Guassian1D(X,0.0,1.0,varx/scale) * Guassian1D(Y,0.0,1.0,vary/scale);
+    double wheelchair_gain = 1.5;
+    return (20*A/2)/std::max(d,1.0) * Guassian1D(X,0.0,1.0,varx*wheelchair_gain/scale) * Guassian1D(Y,0.0,1.0,vary*wheelchair_gain/scale);
   }
 
 double HumanLayer::getRadius(double cutoff, double A, double var)
