@@ -3,6 +3,7 @@
 #include <gazebo_msgs/ModelStates.h>
 #include <pedsim_msgs/AgentStates.h>
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
+#include "visualization_msgs/MarkerArray.h"
 #include "geometry_msgs/Pose.h"
 #include "geometry_msgs/Twist.h"
 #include <vector>
@@ -60,6 +61,11 @@ void writeToCSV_human(const char* filename, const std::vector<float>& distances_
     fclose(outputFile); // 关闭文件
     ROS_INFO("Data has been written to %s", filename);
 }
+
+struct HumanPoseVel {
+    geometry_msgs::Pose pose;
+    geometry_msgs::Twist twist;
+};
 
 // 回调函数，处理 global costmap 消息
 void costmapCallback(const nav_msgs::OccupancyGrid::ConstPtr& map_msg)
@@ -346,7 +352,7 @@ void humanStateCallback(const pedsim_msgs::AgentStates::ConstPtr& human_msg){
 
 }
 
-// 回调函数，处理 model state 消息
+// 回调函数，处理 robot state 消息
 void amclPoseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& robot_msg)
 {
     
@@ -361,26 +367,83 @@ void amclPoseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& 
     double robot_x = poses.position.x;
     double robot_y = poses.position.y;
 
-
-
-    // double resolution = global_map_ptr->info.resolution;
-    // double map_origin_x = global_map_ptr->info.origin.position.x;
-    // double map_origin_y = global_map_ptr->info.origin.position.y;
-    // int robot_x = (robot_pose.position.x - map_origin_x) / resolution;
-    // // printf("robot_map_x = %d",robot_x);
-    // int robot_y = (robot_pose.position.y - map_origin_y) / resolution;
-    // // printf("robot_map_y = %d",robot_y);
-
-    // int robot_idx = robot_y * global_map_ptr->info.width + robot_x; 
-    // int robot_h_cost = global_map_ptr->data[robot_idx];
-    // printf("robot current cost in map = %d \n",robot_h_cost); //checked
     writeToCSV_robot("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/robot_position_test1.csv", robot_x, robot_y);
+}
 
+// 回调函数，处理 human_detection state 消息
+void humanDetectionCallback(const visualization_msgs::MarkerArray::ConstPtr& human_det_msg)
+{
+    
 
+    if (!human_det_msg) {
+        ROS_WARN("Received null robot_state message.");
+        return;
+    }
 
-    // writeToCSV_human("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/larger_social_human_collide_index_astar_static_wheelchair_test1.csv",distances_below_threshold);
+			// 创建一个 vector 用于存储不同人的位置
+    std::vector<std::vector<HumanPoseVel>> groups;
+    double group_dis_cost = 1.0; // 群组之间的距离阈值
+
+    // 迭代处理 MarkerArray 中的每一个 Marker
+    for (const auto& marker : human_det_msg->markers)
+    {
+        // 检查 Marker 的命名空间，确保是人的标记
+        if (marker.ns == "object")
+        {
+            // 获取每个 Marker 的位置信息
+            HumanPoseVel human;
+            human.pose = marker.pose;
+
+            // 尝试将行人加入已有的群组
+            bool found_group = false;
+            for (auto& group : groups) {
+                for (const auto& member : group) {
+                    double distance = sqrt(pow(human.pose.position.x - member.pose.position.x, 2) +
+                                           pow(human.pose.position.y - member.pose.position.y, 2));
+                    if (distance < group_dis_cost) {
+                        // 如果距离小于群组距离阈值，将行人加入这个群组
+                        group.push_back(human);
+                        found_group = true;
+                        break;
+                    }
+                }
+                if (found_group) break;
+            }
+
+            // 如果没有找到合适的群组，则创建一个新的群组
+            if (!found_group) {
+                std::vector<HumanPoseVel> new_group;
+                new_group.push_back(human);
+                groups.push_back(new_group);
+            }
+        }
+    }
+
+    // 遍历群组，根据群组大小调用不同的函数
+    for(auto& group : groups){
+        if(group.size() > 1 ){      // 如果群组大小大于1，表示为群组
+            // 计算群组中所有人的平均位置
+            double avg_x = 0.0, avg_y = 0.0;
+            for(const auto& member : group){
+                avg_x += member.pose.position.x;
+                avg_y += member.pose.position.y;
+            }
+            avg_x /= group.size();
+            avg_y /= group.size();
+            // 输出平均位置
+            ROS_INFO("Group - Average Position: (%f, %f)", avg_x, avg_y);
+            writeToCSV_robot("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/human_position_group_test1.csv", avg_x, avg_y);
+
+        }
+        else{ // 如果群组大小等于1，表示为单个人
+            // 输出单个人的位置
+            ROS_INFO("Individual - Position: (%f, %f)", group[0].pose.position.x, group[0].pose.position.y);
+            writeToCSV_robot("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/human_position_individual_test1.csv", group[0].pose.position.x, group[0].pose.position.y);
+        }
+    }
 
 }
+
 
 
 
@@ -396,8 +459,11 @@ int main(int argc, char** argv)
     // ros::Subscriber model_state_sub = nh.subscribe("/gazebo/model_states", 10, modelStateCallback);
     // 订阅 pedsim human 话题
     // ros::Subscriber human_state_sub = nh.subscribe("/pedsim_simulator/simulated_agents" , 10, humanStateCallback);
+    /* for real world exp*/
     // 订阅 amcl_pose 话题
     ros::Subscriber robot_state_sub = nh.subscribe("/amcl_pose" , 10, amclPoseCallback);
+    // 订阅 amcl_pose 话题
+    ros::Subscriber human_detection_sub = nh.subscribe("/trk3d_vis" , 10, humanDetectionCallback);
 
     // 循环等待回调函数
     ros::spin();

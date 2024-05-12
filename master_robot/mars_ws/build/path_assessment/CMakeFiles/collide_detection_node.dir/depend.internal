@@ -72,6 +72,9 @@ path_assessment/CMakeFiles/collide_detection_node.dir/src/collide_detection_node
  /opt/ros/noetic/include/ros/wall_timer.h
  /opt/ros/noetic/include/ros/wall_timer_options.h
  /opt/ros/noetic/include/rosconsole/macros_generated.h
+ /opt/ros/noetic/include/std_msgs/ColorRGBA.h
  /opt/ros/noetic/include/std_msgs/Header.h
+ /opt/ros/noetic/include/visualization_msgs/Marker.h
+ /opt/ros/noetic/include/visualization_msgs/MarkerArray.h
  /opt/ros/noetic/include/xmlrpcpp/XmlRpcDecl.h
  /opt/ros/noetic/include/xmlrpcpp/XmlRpcValue.h

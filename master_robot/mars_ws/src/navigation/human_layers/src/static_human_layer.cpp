@@ -148,6 +148,8 @@ void StaticHumanLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i
       }
   }
 
+  
+
   // scan groups and call relative space
   for(auto& group : groups){
     if(group.size() > 1 ){      // groups
