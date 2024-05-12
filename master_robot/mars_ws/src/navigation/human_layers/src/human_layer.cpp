@@ -326,6 +326,8 @@ void HumanLayer::cast_to_map_1p( costmap_2d::Costmap2D* costmap, vector<HumanPos
   //   double cx = human.pose.position.x, cy = human.pose.position.y;
   // double vx = human.velocity.linear.x, vy = human.velocity.linear.y;
   double cx = human.pose.position.x, cy = human.pose.position.y;
+
+  
   double vx = human.velocity.linear.x, vy = human.velocity.linear.y;
   double ox = cx - radius_new, oy = cy - radius_new;
 
@@ -408,6 +410,7 @@ void HumanLayer::cast_to_map_gp( costmap_2d::Costmap2D* costmap,vector<HumanPose
   } else {
     std::cerr << "Error: No member in the group." << std::endl;
   }
+
 
   unsigned int width = std::max(1, static_cast<int>((2*radius_new) / res)),
                 height = std::max(1, static_cast<int>((2*radius_new) / res));

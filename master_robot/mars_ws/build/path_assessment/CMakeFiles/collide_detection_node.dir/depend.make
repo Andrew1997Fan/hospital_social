@@ -8,6 +8,8 @@ path_assessment/CMakeFiles/collide_detection_node.dir/src/collide_detection_node
 path_assessment/CMakeFiles/collide_detection_node.dir/src/collide_detection_node.cpp.o: /opt/ros/noetic/include/gazebo_msgs/ModelStates.h
 path_assessment/CMakeFiles/collide_detection_node.dir/src/collide_detection_node.cpp.o: /opt/ros/noetic/include/geometry_msgs/Point.h
 path_assessment/CMakeFiles/collide_detection_node.dir/src/collide_detection_node.cpp.o: /opt/ros/noetic/include/geometry_msgs/Pose.h
+path_assessment/CMakeFiles/collide_detection_node.dir/src/collide_detection_node.cpp.o: /opt/ros/noetic/include/geometry_msgs/PoseWithCovariance.h
+path_assessment/CMakeFiles/collide_detection_node.dir/src/collide_detection_node.cpp.o: /opt/ros/noetic/include/geometry_msgs/PoseWithCovarianceStamped.h
 path_assessment/CMakeFiles/collide_detection_node.dir/src/collide_detection_node.cpp.o: /opt/ros/noetic/include/geometry_msgs/Quaternion.h
 path_assessment/CMakeFiles/collide_detection_node.dir/src/collide_detection_node.cpp.o: /opt/ros/noetic/include/geometry_msgs/Twist.h
 path_assessment/CMakeFiles/collide_detection_node.dir/src/collide_detection_node.cpp.o: /opt/ros/noetic/include/geometry_msgs/Vector3.h

@@ -2,6 +2,7 @@
 #include <nav_msgs/OccupancyGrid.h>
 #include <gazebo_msgs/ModelStates.h>
 #include <pedsim_msgs/AgentStates.h>
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "geometry_msgs/Pose.h"
 #include "geometry_msgs/Twist.h"
 #include <vector>
@@ -345,6 +346,43 @@ void humanStateCallback(const pedsim_msgs::AgentStates::ConstPtr& human_msg){
 
 }
 
+// 回调函数，处理 model state 消息
+void amclPoseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& robot_msg)
+{
+    
+    // vector<string> model_names = robot_msg->name;
+    geometry_msgs::Pose poses = robot_msg->pose.pose;
+
+    if (!robot_msg) {
+        ROS_WARN("Received null robot_state message.");
+        return;
+    }
+			
+    double robot_x = poses.position.x;
+    double robot_y = poses.position.y;
+
+
+
+    // double resolution = global_map_ptr->info.resolution;
+    // double map_origin_x = global_map_ptr->info.origin.position.x;
+    // double map_origin_y = global_map_ptr->info.origin.position.y;
+    // int robot_x = (robot_pose.position.x - map_origin_x) / resolution;
+    // // printf("robot_map_x = %d",robot_x);
+    // int robot_y = (robot_pose.position.y - map_origin_y) / resolution;
+    // // printf("robot_map_y = %d",robot_y);
+
+    // int robot_idx = robot_y * global_map_ptr->info.width + robot_x; 
+    // int robot_h_cost = global_map_ptr->data[robot_idx];
+    // printf("robot current cost in map = %d \n",robot_h_cost); //checked
+    writeToCSV_robot("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/robot_position_test1.csv", robot_x, robot_y);
+
+
+
+    // writeToCSV_human("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/larger_social_human_collide_index_astar_static_wheelchair_test1.csv",distances_below_threshold);
+
+}
+
+
 
 int main(int argc, char** argv)
 {
@@ -355,9 +393,12 @@ int main(int argc, char** argv)
     // 订阅 global costmap 话题
     ros::Subscriber costmap_sub = nh.subscribe("/move_base/global_costmap/costmap", 10, costmapCallback);
     // 订阅 model state 话题
-    ros::Subscriber model_state_sub = nh.subscribe("/gazebo/model_states", 10, modelStateCallback);
+    // ros::Subscriber model_state_sub = nh.subscribe("/gazebo/model_states", 10, modelStateCallback);
     // 订阅 pedsim human 话题
-    ros::Subscriber human_state_sub = nh.subscribe("/pedsim_simulator/simulated_agents" , 10, humanStateCallback);
+    // ros::Subscriber human_state_sub = nh.subscribe("/pedsim_simulator/simulated_agents" , 10, humanStateCallback);
+    // 订阅 amcl_pose 话题
+    ros::Subscriber robot_state_sub = nh.subscribe("/amcl_pose" , 10, amclPoseCallback);
+
     // 循环等待回调函数
     ros::spin();
 
