@@ -44,6 +44,21 @@ void writeToCSV_robot(const char* filename, double robotPosX, double robotPosY) 
     fclose(outputFile); // 关闭文件
     ROS_INFO("Data has been written to %s", filename);
 }
+void writeToCSV_human_dis(const char* filename, double robotPosX, double robotPosY, int human_id) {
+    FILE* outputFile = fopen(filename, "a"); // 以附加模式打開檔案
+    if (!outputFile) {
+        ROS_ERROR("Unable to open CSV file for writing.");
+        return;
+    }
+
+    // 將機器人的位置及 ID 寫入 CSV 檔案
+    fprintf(outputFile, "%f,%f,%d,\n", robotPosX, robotPosY, human_id);
+
+    fclose(outputFile); // 关闭文件
+    ROS_INFO("Data has been written to %s", filename);
+}
+
+
 // const std::vector<float>& distances_between_threshold_and_upper_bound
 void writeToCSV_human(const char* filename, const std::vector<float>& distances_below_threshold) {
     FILE* outputFile = fopen(filename, "a"); // 以附加模式打開檔案
@@ -63,6 +78,7 @@ void writeToCSV_human(const char* filename, const std::vector<float>& distances_
 }
 
 struct HumanPoseVel {
+    int id; // 人的編號
     geometry_msgs::Pose pose;
     geometry_msgs::Twist twist;
 };
@@ -382,7 +398,9 @@ void humanDetectionCallback(const visualization_msgs::MarkerArray::ConstPtr& hum
 
 			// 创建一个 vector 用于存储不同人的位置
     std::vector<std::vector<HumanPoseVel>> groups;
-    double group_dis_cost = 1.0; // 群组之间的距离阈值
+    double group_dis_cost = 1.5; // 群组之间的距离阈值
+    double group_id_counter = 0; // 群组的編號計數器
+    double individual_id_counter = 0; // 個體的編號計數器
 
     // 迭代处理 MarkerArray 中的每一个 Marker
     for (const auto& marker : human_det_msg->markers)
@@ -422,6 +440,7 @@ void humanDetectionCallback(const visualization_msgs::MarkerArray::ConstPtr& hum
     // 遍历群组，根据群组大小调用不同的函数
     for(auto& group : groups){
         if(group.size() > 1 ){      // 如果群组大小大于1，表示为群组
+            double group_id = group_id_counter++;
             // 计算群组中所有人的平均位置
             double avg_x = 0.0, avg_y = 0.0;
             for(const auto& member : group){
@@ -431,14 +450,15 @@ void humanDetectionCallback(const visualization_msgs::MarkerArray::ConstPtr& hum
             avg_x /= group.size();
             avg_y /= group.size();
             // 输出平均位置
-            ROS_INFO("Group - Average Position: (%f, %f)", avg_x, avg_y);
-            writeToCSV_robot("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/human_position_group_test1.csv", avg_x, avg_y);
+            ROS_INFO("Group %f - Average Position: (%f, %f)", group_id,avg_x, avg_y);
+            writeToCSV_human_dis("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/human_position_group_test1.csv", avg_x, avg_y, group_id);
 
         }
         else{ // 如果群组大小等于1，表示为单个人
+            int individual_id = individual_id_counter++;
             // 输出单个人的位置
-            ROS_INFO("Individual - Position: (%f, %f)", group[0].pose.position.x, group[0].pose.position.y);
-            writeToCSV_robot("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/human_position_individual_test1.csv", group[0].pose.position.x, group[0].pose.position.y);
+            ROS_INFO("Individual %f - Position: (%f, %f)", individual_id,group[0].pose.position.x, group[0].pose.position.y);
+            writeToCSV_human_dis("/home/developer/master_ws/master_robot/mars_ws/src/path_assessment/src/data/human_position_individual_test1.csv", group[0].pose.position.x, group[0].pose.position.y, individual_id);
         }
     }
 
