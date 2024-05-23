@@ -80,28 +80,6 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
-
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -124,6 +102,17 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -134,6 +123,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -168,19 +168,34 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-scan/CMakeFiles/scan_image_combine_node_test.dir/rule:
-	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 scan/CMakeFiles/scan_image_combine_node_test.dir/rule
-.PHONY : scan/CMakeFiles/scan_image_combine_node_test.dir/rule
+scan/CMakeFiles/human_msgs_generate_messages_cpp.dir/rule:
+	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 scan/CMakeFiles/human_msgs_generate_messages_cpp.dir/rule
+.PHONY : scan/CMakeFiles/human_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
-scan_image_combine_node_test: scan/CMakeFiles/scan_image_combine_node_test.dir/rule
+human_msgs_generate_messages_cpp: scan/CMakeFiles/human_msgs_generate_messages_cpp.dir/rule
 
-.PHONY : scan_image_combine_node_test
+.PHONY : human_msgs_generate_messages_cpp
 
 # fast build rule for target.
-scan_image_combine_node_test/fast:
-	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f scan/CMakeFiles/scan_image_combine_node_test.dir/build.make scan/CMakeFiles/scan_image_combine_node_test.dir/build
-.PHONY : scan_image_combine_node_test/fast
+human_msgs_generate_messages_cpp/fast:
+	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f scan/CMakeFiles/human_msgs_generate_messages_cpp.dir/build.make scan/CMakeFiles/human_msgs_generate_messages_cpp.dir/build
+.PHONY : human_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+scan/CMakeFiles/human_msgs_generate_messages_eus.dir/rule:
+	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 scan/CMakeFiles/human_msgs_generate_messages_eus.dir/rule
+.PHONY : scan/CMakeFiles/human_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+human_msgs_generate_messages_eus: scan/CMakeFiles/human_msgs_generate_messages_eus.dir/rule
+
+.PHONY : human_msgs_generate_messages_eus
+
+# fast build rule for target.
+human_msgs_generate_messages_eus/fast:
+	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f scan/CMakeFiles/human_msgs_generate_messages_eus.dir/build.make scan/CMakeFiles/human_msgs_generate_messages_eus.dir/build
+.PHONY : human_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
 scan/CMakeFiles/path_finding_node_test.dir/rule:
@@ -198,19 +213,49 @@ path_finding_node_test/fast:
 .PHONY : path_finding_node_test/fast
 
 # Convenience name for target.
-scan/CMakeFiles/scan_node_test.dir/rule:
-	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 scan/CMakeFiles/scan_node_test.dir/rule
-.PHONY : scan/CMakeFiles/scan_node_test.dir/rule
+scan/CMakeFiles/scan_image_combine_node_test.dir/rule:
+	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 scan/CMakeFiles/scan_image_combine_node_test.dir/rule
+.PHONY : scan/CMakeFiles/scan_image_combine_node_test.dir/rule
 
 # Convenience name for target.
-scan_node_test: scan/CMakeFiles/scan_node_test.dir/rule
+scan_image_combine_node_test: scan/CMakeFiles/scan_image_combine_node_test.dir/rule
 
-.PHONY : scan_node_test
+.PHONY : scan_image_combine_node_test
 
 # fast build rule for target.
-scan_node_test/fast:
-	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f scan/CMakeFiles/scan_node_test.dir/build.make scan/CMakeFiles/scan_node_test.dir/build
-.PHONY : scan_node_test/fast
+scan_image_combine_node_test/fast:
+	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f scan/CMakeFiles/scan_image_combine_node_test.dir/build.make scan/CMakeFiles/scan_image_combine_node_test.dir/build
+.PHONY : scan_image_combine_node_test/fast
+
+# Convenience name for target.
+scan/CMakeFiles/human_msgs_generate_messages_lisp.dir/rule:
+	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 scan/CMakeFiles/human_msgs_generate_messages_lisp.dir/rule
+.PHONY : scan/CMakeFiles/human_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+human_msgs_generate_messages_lisp: scan/CMakeFiles/human_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : human_msgs_generate_messages_lisp
+
+# fast build rule for target.
+human_msgs_generate_messages_lisp/fast:
+	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f scan/CMakeFiles/human_msgs_generate_messages_lisp.dir/build.make scan/CMakeFiles/human_msgs_generate_messages_lisp.dir/build
+.PHONY : human_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+scan/CMakeFiles/human_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 scan/CMakeFiles/human_msgs_generate_messages_nodejs.dir/rule
+.PHONY : scan/CMakeFiles/human_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+human_msgs_generate_messages_nodejs: scan/CMakeFiles/human_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : human_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+human_msgs_generate_messages_nodejs/fast:
+	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f scan/CMakeFiles/human_msgs_generate_messages_nodejs.dir/build.make scan/CMakeFiles/human_msgs_generate_messages_nodejs.dir/build
+.PHONY : human_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
 scan/CMakeFiles/scan.dir/rule:
@@ -226,6 +271,36 @@ scan: scan/CMakeFiles/scan.dir/rule
 scan/fast:
 	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f scan/CMakeFiles/scan.dir/build.make scan/CMakeFiles/scan.dir/build
 .PHONY : scan/fast
+
+# Convenience name for target.
+scan/CMakeFiles/scan_node_test.dir/rule:
+	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 scan/CMakeFiles/scan_node_test.dir/rule
+.PHONY : scan/CMakeFiles/scan_node_test.dir/rule
+
+# Convenience name for target.
+scan_node_test: scan/CMakeFiles/scan_node_test.dir/rule
+
+.PHONY : scan_node_test
+
+# fast build rule for target.
+scan_node_test/fast:
+	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f scan/CMakeFiles/scan_node_test.dir/build.make scan/CMakeFiles/scan_node_test.dir/build
+.PHONY : scan_node_test/fast
+
+# Convenience name for target.
+scan/CMakeFiles/human_msgs_generate_messages_py.dir/rule:
+	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 scan/CMakeFiles/human_msgs_generate_messages_py.dir/rule
+.PHONY : scan/CMakeFiles/human_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+human_msgs_generate_messages_py: scan/CMakeFiles/human_msgs_generate_messages_py.dir/rule
+
+.PHONY : human_msgs_generate_messages_py
+
+# fast build rule for target.
+human_msgs_generate_messages_py/fast:
+	cd /home/developer/master_ws/master_robot/yolo_ws/build && $(MAKE) -f scan/CMakeFiles/human_msgs_generate_messages_py.dir/build.make scan/CMakeFiles/human_msgs_generate_messages_py.dir/build
+.PHONY : human_msgs_generate_messages_py/fast
 
 src/Astar.o: src/Astar.cpp.o
 
@@ -343,15 +418,20 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... edit_cache"
-	@echo "... test"
-	@echo "... scan_image_combine_node_test"
-	@echo "... path_finding_node_test"
 	@echo "... install"
-	@echo "... list_install_components"
-	@echo "... rebuild_cache"
-	@echo "... scan_node_test"
+	@echo "... human_msgs_generate_messages_cpp"
+	@echo "... human_msgs_generate_messages_eus"
+	@echo "... path_finding_node_test"
+	@echo "... scan_image_combine_node_test"
+	@echo "... human_msgs_generate_messages_lisp"
+	@echo "... human_msgs_generate_messages_nodejs"
 	@echo "... scan"
+	@echo "... scan_node_test"
+	@echo "... list_install_components"
+	@echo "... human_msgs_generate_messages_py"
+	@echo "... test"
+	@echo "... rebuild_cache"
+	@echo "... edit_cache"
 	@echo "... src/Astar.o"
 	@echo "... src/Astar.i"
 	@echo "... src/Astar.s"

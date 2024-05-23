@@ -139,7 +139,8 @@ ScanImageCombineNode::ScanImageCombineNode(ros::NodeHandle nh, ros::NodeHandle p
     string img_topic;
     string caminfo_topic;
     string yolo_srv_name = "yolov4_node/yolo_detect";
-    ros::param::param<string>("~scan_topic", scan_topic, "/scan_pointcloud_filtered");
+    //ros::param::param<string>("~scan_topic", scan_topic, "/scan_pointcloud_filtered"); //original
+    ros::param::param<string>("~scan_topic", scan_topic, "/scan_cloud"); // for real world mars bag
     ros::param::param<string>("~img_topic", img_topic, "/camera1/color/image_raw"); 
     ros::param::param<string>("~caminfo_topic", caminfo_topic, "/camera1/color/camera_info"); 
     ros::param::param<string>("~localmap_frameid", localmap_frameid_, "base_link");

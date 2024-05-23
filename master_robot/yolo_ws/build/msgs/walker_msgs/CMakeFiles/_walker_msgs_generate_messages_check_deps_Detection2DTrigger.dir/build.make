@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/developer/master_ws/master_robot/yolo_ws/build
 include msgs/walker_msgs/CMakeFiles/_walker_msgs_generate_messages_check_deps_Detection2DTrigger.dir/progress.make
 
 msgs/walker_msgs/CMakeFiles/_walker_msgs_generate_messages_check_deps_Detection2DTrigger:
-	cd /home/developer/master_ws/master_robot/yolo_ws/build/msgs/walker_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py walker_msgs /home/developer/master_ws/master_robot/yolo_ws/src/msgs/walker_msgs/srv/Detection2DTrigger.srv std_msgs/Header:geometry_msgs/Pose2D:sensor_msgs/Image:walker_msgs/BBox2D:walker_msgs/Detection2D
+	cd /home/developer/master_ws/master_robot/yolo_ws/build/msgs/walker_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py walker_msgs /home/developer/master_ws/master_robot/yolo_ws/src/msgs/walker_msgs/srv/Detection2DTrigger.srv std_msgs/Header:sensor_msgs/Image:geometry_msgs/Pose2D:walker_msgs/BBox2D:walker_msgs/Detection2D
 
 _walker_msgs_generate_messages_check_deps_Detection2DTrigger: msgs/walker_msgs/CMakeFiles/_walker_msgs_generate_messages_check_deps_Detection2DTrigger
 _walker_msgs_generate_messages_check_deps_Detection2DTrigger: msgs/walker_msgs/CMakeFiles/_walker_msgs_generate_messages_check_deps_Detection2DTrigger.dir/build.make
